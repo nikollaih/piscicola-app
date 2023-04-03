@@ -1,0 +1,6 @@
+module Pods_Piscicola_PiscicolaTests {
+  umbrella header "Pods-Piscicola-PiscicolaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

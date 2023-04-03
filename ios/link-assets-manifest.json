@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/PassionOne-Black.ttf",
+      "sha1": "8b2675552ba5e4af55205116e80909e929a0f12d"
+    },
+    {
+      "path": "src/assets/fonts/PassionOne-Bold.ttf",
+      "sha1": "8529424dcfb3c01d284434f45dc6331e0ef283f1"
+    },
+    {
+      "path": "src/assets/fonts/PassionOne-Regular.ttf",
+      "sha1": "5acf813f59c57f10555e64824fccbf588001b478"
+    },
+    {
+      "path": "src/assets/fonts/RobotoCondensed-Bold.ttf",
+      "sha1": "15e8faa21a00eb5b40d3837e16960a39d78fe45c"
+    },
+    {
+      "path": "src/assets/fonts/RobotoCondensed-Light.ttf",
+      "sha1": "124307ef220bd49e2c5a964b730e6403bf8a31ef"
+    },
+    {
+      "path": "src/assets/fonts/RobotoCondensed-Regular.ttf",
+      "sha1": "e0d7acf2ca3dd0ff68f533797bb94b0580397e95"
+    },
+    {
+      "path": "src/assets/images/avatar.png",
+      "sha1": "1d1c859ceacb49bd115e359669250edeaa6eec28"
+    },
+    {
+      "path": "src/assets/images/fish.png",
+      "sha1": "e0b5bf6b333ab336f358219f62dcba60335c47ae"
+    }
+  ]
+}
