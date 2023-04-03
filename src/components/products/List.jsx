@@ -7,7 +7,7 @@ export const ProductsList = ({navigation, orientation}) => {
   };
 
   const renderRow = (item, index) => {
-    return <ProductItem key={index} navigation={navigation} orientation={orientation} />;
+    return <ProductItem key={item.id} navigation={navigation} orientation={orientation} />;
   };
 
   return (

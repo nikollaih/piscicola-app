@@ -63,6 +63,7 @@ export const SideMenuDom = ({navigation, route, onOpenLink = () => {}}) => {
   const renderRow = ({item}) => {
     return (
       <TouchableOpacity
+        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
         style={[
           Style.item_container,
           {borderLeftColor: getItemColor(item, Constants.COLORS.WHITE)},

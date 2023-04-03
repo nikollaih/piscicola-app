@@ -27,6 +27,17 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Partager avec"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Partager avec <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Réduire"</string>
+    <string name="ampm_description">Sélectionnez AM/PM</string>
+    <string name="date_description">Sélectionnez la date</string>
+    <string name="day_description">Sélectionnez le jour</string>
+    <string name="hour_description">Sélectionnez l\'heure</string>
+    <string name="hour_tag">Heure :</string>
+    <string name="minutes_description">Sélectionnez les minutes</string>
+    <string name="minutes_tag">Minutes </string>
+    <string name="month_description">Sélectionnez le mois</string>
+    <string name="overlay">Date Picker Overlay</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Rechercher"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="time_tag">Le temps est</string>
+    <string name="year_description">Sélectionnez l\'année</string>
 </resources>

@@ -44,6 +44,7 @@ export const CustomSelectInput = ({data, formName}) => {
       </View>
       <Dropdown
         style={[Style.dropdown, {borderColor: getBorderColor()}]}
+        itemTextStyle={Style.dropdown_item_text}
         selectedTextStyle={Style.font_roboto_regular}
         placeholderStyle={Style.font_roboto_regular}
         data={data.items}

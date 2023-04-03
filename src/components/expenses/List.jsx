@@ -7,7 +7,7 @@ export const ExpensesList = ({navigation}) => {
   };
 
   const renderRow = (item, index) => {
-    return <ExpensesItem key={index} navigation={navigation} />;
+    return <ExpensesItem key={item.id} navigation={navigation} />;
   };
 
   return (

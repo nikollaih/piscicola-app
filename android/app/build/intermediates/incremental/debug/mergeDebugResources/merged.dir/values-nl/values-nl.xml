@@ -27,6 +27,17 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Delen met"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Delen met <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Samenvouwen"</string>
+    <string name="ampm_description">Selecteer AM/PM</string>
+    <string name="date_description">Selecteer datum</string>
+    <string name="day_description">Selecteer dag</string>
+    <string name="hour_description">Selecteer uur</string>
+    <string name="hour_tag">Uur :</string>
+    <string name="minutes_description">Selecteer minuten</string>
+    <string name="minutes_tag">Minuten </string>
+    <string name="month_description">Selecteer maand</string>
+    <string name="overlay">Date Picker Overlay</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Zoeken"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="time_tag">Tijd is</string>
+    <string name="year_description">Selecteer jaar</string>
 </resources>

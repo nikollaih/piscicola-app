@@ -59,6 +59,7 @@ export const CustomDateInput = ({data, formName}) => {
         ) : null}
         {open ? (
           <DatePicker
+            style={Style.input}
             modal
             open={open}
             date={dataForm[formName].structure[data.name]}
@@ -95,5 +96,6 @@ const Style = StyleSheet.create({
   text_datetime: {
     color: Constants.COLORS.DARK,
     flex: 1,
+    paddingVertical: 10
   },
 });

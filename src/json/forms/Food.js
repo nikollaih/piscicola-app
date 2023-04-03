@@ -26,6 +26,7 @@ export default
                 }
             },
             cantidad: {
+                icon: "ios-cash",
                 title: "Cantidad",
                 placeholder: "10",
                 type: "input",

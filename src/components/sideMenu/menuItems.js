@@ -10,7 +10,7 @@ export default [
         icon: "ios-people"
     },
     {
-        screen: "Gastos",
+        screen: "Expenses",
         title: "Gastos",
         icon: "ios-trending-down"
     },

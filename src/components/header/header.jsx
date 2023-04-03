@@ -23,7 +23,7 @@ export const Header = ({navigation, onMenu = () => {}}) => {
           onMenu();
         }}>
         <Ionicon
-          name="md-ellipsis-horizontal"
+          name="ios-menu"
           color={Constants.COLORS.DARK}
           size={30}
         />

@@ -3,10 +3,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
   Dimensions,
 } from 'react-native';
-import FishTank from '../../assets/images/fish_tank.png';
 import {PondDetails} from './Details';
 import {useState} from 'react';
 import {Constants} from '../../util';
@@ -26,9 +24,6 @@ export const PondItem = ({navigation}) => {
       }}>
       <View>
         <View style={Style.inside}>
-          <View style={Style.container_image}>
-            <Image source={FishTank} style={Style.fish} />
-          </View>
           <View>
             <Text style={Style.text_name}>Estanque 1</Text>
             <Text style={Style.text_pond}>Tamaño: 2.000L</Text>

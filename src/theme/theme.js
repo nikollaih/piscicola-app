@@ -64,11 +64,13 @@ export default StyleSheet.create({
     },
     font_roboto_regular: {
         fontSize: 15,
-        fontFamily: "RobotoCondensed-Regular"
+        fontFamily: "RobotoCondensed-Regular",
+        color: Constants.COLORS.DARK
     },
     font_roboto_bold: {
         fontSize: 15,
-        fontFamily: "RobotoCondensed-Bold"
+        fontFamily: "RobotoCondensed-Bold",
+        color: Constants.COLORS.DARK
     },
     white_container: {
         backgroundColor: Constants.COLORS.WHITE,
@@ -101,7 +103,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Constants.COLORS.IOS_BACKGROUND_GRAY,
         borderRadius: 10,
-        paddingVertical: 15,
         paddingHorizontal: 15,
         borderWidth: 1,
         borderColor: Constants.COLORS.LIGHT_GRAY
@@ -109,6 +110,7 @@ export default StyleSheet.create({
     input: {
         flex: 1,
         fontFamily: "RobotoCondensed-Regular",
+        height: 40
     },
     buttons_container: {
         flexDirection: "row",
@@ -119,10 +121,16 @@ export default StyleSheet.create({
     },
     dropdown: {
         backgroundColor: Constants.COLORS.IOS_BACKGROUND_GRAY,
-        padding: 10,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: Constants.COLORS.LIGHT_GRAY
+        borderColor: Constants.COLORS.LIGHT_GRAY,
+        height: 40,
+    },
+    dropdown_item_text: {
+        color: Constants.COLORS.DARK,
+        fontFamily: "RobotoCondensed-Regular",
     },
     left_button: {
         marginRight: 5

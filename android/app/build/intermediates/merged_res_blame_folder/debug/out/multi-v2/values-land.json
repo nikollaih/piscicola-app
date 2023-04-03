@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.piscicola.app-mergeDebugResources-27:/values-land/values-land.xml",
+            "outputFile": "com.piscicola.app-mergeDebugResources-28:/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "/Users/usuario/.gradle/caches/transforms-3/390fec0296bc36742fba54a420c04065/transformed/appcompat-1.4.1/res/values-land/values-land.xml",
+                    "source": "/Users/usuario/.gradle/caches/transforms-3/2df373b9327185da857aa9641682c512/transformed/appcompat-1.4.1/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/usuario/.gradle/caches/transforms-3/ff06b511a3b64a9f992a538e90dfb504/transformed/material-1.1.0/res/values-land/values-land.xml",
+                    "source": "/Users/usuario/.gradle/caches/transforms-3/380fe58bf6c527a4ee00ff107d224565/transformed/material-1.1.0/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,24,30",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

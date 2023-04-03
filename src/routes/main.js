@@ -14,6 +14,7 @@ import { Equipment } from '../screens/equipment/Equipment';
 import { AddEquipment } from '../screens/equipment/add/addEquipment';
 import { Users } from '../screens/users/Users';
 import { AddUser } from '../screens/users/add/addUser';
+import {Expenses} from '../screens/expenses/Expenses';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -84,5 +85,9 @@ export default [
     {
         name: "AddUser",
         screen: AddUser,
+    },
+    {
+        name: "Expenses",
+        screen: Expenses,
     },
 ]

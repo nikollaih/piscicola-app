@@ -1,17 +1,41 @@
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import {Layout} from '../Layout';
-import { Breadcrumb } from '../../components/breadcrumb/Breadcrumb';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import Style from './style';
-import {Constants} from '../../util';
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { Layout } from "../Layout";
+import { Breadcrumb } from "../../components/breadcrumb/Breadcrumb";
+import Ionicon from "react-native-vector-icons/Ionicons";
+import Style from "./style";
+import { Constants } from "../../util";
 
-export const ProductiveUnit = props => {
+const RightButtons = (navigation) => {
+  return (
+    <View style={[Style.row_between, {width: 75}]}>
+      <TouchableOpacity
+        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+        onPress={() => {
+          navigation.navigate("Users");
+        }}
+      >
+        <Ionicon name={"ios-people"} size={32} color={Constants.COLORS.DARK} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+        onPress={() => {
+          navigation.navigate("EditProductiveUnit");
+        }}
+      >
+        <Ionicon name={"ios-create"} size={30} color={Constants.COLORS.DARK} />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export const ProductiveUnit = (props) => {
   const breadcrumb = {
     title: "Asorobles",
     subtitle: "Unidad Productiva",
     icon: "ios-create",
-    screen: "EditProductiveUnit"
-  }
+    screen: "EditProductiveUnit",
+    right_content: RightButtons(props.navigation),
+  };
 
   return (
     <Layout navigation={props.navigation} route={props.route}>

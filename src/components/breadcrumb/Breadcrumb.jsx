@@ -1,7 +1,7 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {Constants} from '../../util';
-import Theme from '../../theme/theme';
-import Ionicon from 'react-native-vector-icons/Ionicons';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Constants } from "../../util";
+import Theme from "../../theme/theme";
+import Ionicon from "react-native-vector-icons/Ionicons";
 
 export const Breadcrumb = ({
   navigation,
@@ -14,13 +14,18 @@ export const Breadcrumb = ({
         <Text style={Style.text_user}>{data.subtitle}</Text>
         <Text style={Style.name_user}>{data.title}</Text>
       </View>
-      <TouchableOpacity
-        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {
-          data.screen ? navigation.navigate(data.screen) : onPressRight();
-        }}>
-        <Ionicon name={data.icon} size={30} color={Constants.COLORS.DARK} />
-      </TouchableOpacity>
+      {data.right_content ? (
+        data.right_content
+      ) : (
+        <TouchableOpacity
+          activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+          onPress={() => {
+            data.screen ? navigation.navigate(data.screen) : onPressRight();
+          }}
+        >
+          <Ionicon name={data.icon} size={30} color={Constants.COLORS.DARK} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
