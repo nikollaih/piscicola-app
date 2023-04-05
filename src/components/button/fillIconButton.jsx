@@ -52,6 +52,7 @@ const Style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    maxHeight: 45
   },
   title: {
     color: Constants.COLORS.WHITE,

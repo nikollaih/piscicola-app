@@ -188,5 +188,9 @@ export default StyleSheet.create({
         marginTop: 5,
         textAlign: "center",
         fontFamily: "RobotoCondensed-Bold",
+    },
+    text_datetime: {
+        color: Constants.COLORS.DARK,
+        paddingVertical: 13
     }
 })

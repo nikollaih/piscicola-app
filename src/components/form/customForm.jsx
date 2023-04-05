@@ -11,15 +11,15 @@ export const CustomForm = ({formName}) => {
   useEffect(() => {}, []);
 
   const getCustomDateInput = (field, name) => {
-    return <CustomDateInput formName={formName} data={{...field, name}} />;
+    return <CustomDateInput key={name} formName={formName} data={{...field, name}} />;
   };
 
   const getCustomInput = (field, name) => {
-    return <CustomTextInput formName={formName} data={{...field, name}} />;
+    return <CustomTextInput key={name} formName={formName} data={{...field, name}} />;
   };
 
   const getCustomSelectInput = (field, name) => {
-    return <CustomSelectInput formName={formName} data={{...field, name}} />;
+    return <CustomSelectInput key={name} formName={formName} data={{...field, name}} />;
   };
 
   getFormDom = fields => {

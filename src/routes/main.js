@@ -1,5 +1,5 @@
 import { Home } from '../screens/home/home';
-import { ProductDetail } from '../screens/products/details/productDetails';
+import { ProductDetail } from '../screens/products/productDetails';
 import { ProductiveUnit } from '../screens/productiveUnit/productiveUnit';
 import { EditProductiveUnit } from '../screens/productiveUnit/edit/editProductiveUnit';
 import { Ponds } from '../screens/ponds/Ponds';
@@ -15,6 +15,8 @@ import { AddEquipment } from '../screens/equipment/add/addEquipment';
 import { Users } from '../screens/users/Users';
 import { AddUser } from '../screens/users/add/addUser';
 import {Expenses} from '../screens/expenses/Expenses';
+import { AddExpense } from '../screens/expenses/add/addExpense';
+import { Sales } from '../screens/sales/Sales';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -89,5 +91,13 @@ export default [
     {
         name: "Expenses",
         screen: Expenses,
+    },
+    {
+        name: "AddExpense",
+        screen: AddExpense,
+    },
+    {
+        name: "Sales",
+        screen: Sales,
     },
 ]

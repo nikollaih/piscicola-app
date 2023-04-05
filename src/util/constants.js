@@ -33,6 +33,7 @@ export default {
         SESSION: "session"
     },
     DATETIME_FORMATS: {
-        DATETIME: "Y-MM-DD hh:mm a"
+        DATETIME: "Y-MM-DD hh:mm a",
+        DATE: "Y-MM-DD"
     }
 }

@@ -15,7 +15,7 @@ export default [
         icon: "ios-trending-down"
     },
     {
-        screen: "Ventas",
+        screen: "Sales",
         title: "Ventas",
         icon: "ios-trending-up"
     },

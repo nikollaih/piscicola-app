@@ -8,7 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 import Style from "./style";
 
 export const Home = (props) => {
-  const rol = 1;
+  const rol = 2;
   const { getAuth } = useAuth();
   const [loggedUser, setLoggedUser] = useState({});
 
