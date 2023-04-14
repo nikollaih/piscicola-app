@@ -1,0 +1,6 @@
+module react_native_charts_wrapper {
+  umbrella header "react-native-charts-wrapper-umbrella.h"
+
+  export *
+  module * { export * }
+}

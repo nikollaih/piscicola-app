@@ -1,0 +1,1 @@
+../../../../../node_modules/react-native-charts-wrapper/ios/ReactNativeCharts/RNBarLineChartManagerBridge.h

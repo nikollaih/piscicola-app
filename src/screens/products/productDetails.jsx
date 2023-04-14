@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { View, Text, ScrollView, FlatList, TouchableOpacity } from "react-native";
 import { Layout } from "../Layout";
 import Style from "./style";
 import { CustomSpeedometer } from "../../components/speedometer/Speedometer";
 import { ProductShortCuts } from "../../components/products/Shortcuts";
 import { ProductCompleteDetails } from "../../components/products/Details";
+import { Constants } from "../../util";
 
 const data = [
   {
@@ -59,6 +60,22 @@ export const ProductDetail = (props) => {
           </View>
           <ProductShortCuts />
           <Text style={Style.subtitle}>Mediciones</Text>
+          <View style={Style.refresh_container}>
+            <Text style={Style.last_refresh}>Última medición 10/04/2023 12:04pm</Text>
+            <View style={Style.row_between}>
+              <TouchableOpacity>
+              <Text style={Style.refresh_text_button}>Actualizar</Text>
+              </TouchableOpacity>
+             <TouchableOpacity
+              activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+              onPress={() => {
+                props.navigation.navigate("ProductHistory");
+              }}
+             >
+             <Text style={[Style.refresh_text_button, {color: Constants.COLORS.GREEN}]}>Ver Historico</Text>
+             </TouchableOpacity>
+            </View>
+          </View>
           <FlatList
             columnWrapperStyle={{ justifyContent: "space-between" }}
             keyboardShouldPersistTaps="always"

@@ -20,5 +20,25 @@ export default StyleSheet.create({
     user_container: {
         ...Theme.row_between,
         marginBottom: 20
+    },
+    refresh_container: {
+        alignItems: "center",
+        marginBottom: 15
+    },
+    last_refresh: {
+        color: Constants.COLORS.GRAY,
+        fontFamily: "RobotoCondensed-Regular"
+    },
+    refresh_text_button: {
+        color: Constants.COLORS.BLUE,
+        fontFamily: "RobotoCondensed-Bold",
+        fontSize: 16,
+        textDecorationLine: "underline",
+        marginTop: 5,
+        marginHorizontal: 10
+    },
+    subtitle: {
+        ...Theme.subtitle,
+        textAlign: "center"
     }
 })

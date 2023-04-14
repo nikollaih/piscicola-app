@@ -1,0 +1,1 @@
+../../../Target Support Files/react-native-charts-wrapper/react-native-charts-wrapper-umbrella.h
