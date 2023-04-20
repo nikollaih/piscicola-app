@@ -1,16 +1,17 @@
 import {ScrollView, Text, View, StyleSheet} from 'react-native';
+import { Utilities } from '../../util';
 import Theme from '../../theme/theme';
 
-export const UserDetails = () => {
+export const UserDetails = ({user}) => {
   return (
     <ScrollView>
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Email</Text>
-        <Text style={Style.text}>nikollaihernandez@gmail.com</Text>
+        <Text style={Style.text}>{Utilities.capitalize(user?.email)}</Text>
       </View>
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Rol</Text>
-        <Text style={Style.text}>Productor</Text>
+        <Text style={Style.text}>{Utilities.capitalize(user?.user_type.key)}</Text>
       </View>
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Fecha de registro</Text>

@@ -5,13 +5,15 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import Style from "./style";
 import { Constants } from "../../util";
 
-const RightButtons = (navigation) => {
+const RightButtons = (navigation, productiveUnit = {}) => {
   return (
-    <View style={[Style.row_between, {width: 75}]}>
+    <View style={[Style.row_between, { width: 75 }]}>
       <TouchableOpacity
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
         onPress={() => {
-          navigation.navigate("Users");
+          navigation.navigate("Users", {
+            productive_unit: productiveUnit,
+          });
         }}
       >
         <Ionicon name={"ios-people"} size={32} color={Constants.COLORS.DARK} />
@@ -19,7 +21,9 @@ const RightButtons = (navigation) => {
       <TouchableOpacity
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
         onPress={() => {
-          navigation.navigate("EditProductiveUnit");
+          navigation.replace("EditProductiveUnit", {
+            productive_unit: productiveUnit,
+          });
         }}
       >
         <Ionicon name={"ios-create"} size={30} color={Constants.COLORS.DARK} />
@@ -29,12 +33,13 @@ const RightButtons = (navigation) => {
 };
 
 export const ProductiveUnit = (props) => {
+  const productiveUnit = props.route.params.productive_unit;
   const breadcrumb = {
-    title: "Asorobles",
+    title: productiveUnit.name,
     subtitle: "Unidad Productiva",
     icon: "ios-create",
     screen: "EditProductiveUnit",
-    right_content: RightButtons(props.navigation),
+    right_content: RightButtons(props.navigation, productiveUnit),
   };
 
   return (
@@ -44,22 +49,11 @@ export const ProductiveUnit = (props) => {
         <View style={Style.white_container}>
           <View style={Style.list_container}>
             <Text style={Style.inside_subtitle}>Descripción</Text>
-            <Text style={Style.text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              sollicitudin egestas nisl, vitae feugiat neque auctor at. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              quis ante sit amet dui euismod sodales et vel tortor. Quisque
-              consectetur, odio vel vulputate tincidunt, turpis velit fringilla
-              nibh, in bibendum est mauris in sem. Aliquam gravida neque est.
-              Aenean rutrum augue a tellus dapibus, ullamcorper malesuada risus
-              facilisis.
-            </Text>
+            <Text style={Style.text}>{productiveUnit.description}</Text>
           </View>
           <View style={Style.list_container}>
             <Text style={Style.inside_subtitle}>Ubicación</Text>
-            <Text style={Style.text}>
-              Vereda fulanita finca la pepita, La Tebaida, Quindio
-            </Text>
+            <Text style={Style.text}>{productiveUnit.address}</Text>
           </View>
         </View>
       </ScrollView>

@@ -5,6 +5,7 @@ import Routes from './src/routes/main';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {AuthProvider} from './src/context/AuthContext';
 import {FormProvider} from './src/context/FormContext';
+import FlashMessage from "react-native-flash-message";
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,7 @@ function Router() {
             {getRoutesScreens(concatedScreens)}
           </Stack.Navigator>
         </NavigationContainer>
+        <FlashMessage position="top" />
       </FormProvider>
     </AuthProvider>
   );

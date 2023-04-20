@@ -1,12 +1,11 @@
 import userStructure from "../formsStructure/userStructure";
-import { Constants } from "../../util";
 
 export default
     {
         form_name: "User",
-        structure: { ...userStructure },
+        structure: userStructure,
         fields: {
-            rol: {
+            user_type_id: {
                 icon: "ios-beaker",
                 title: "Rol",
                 placeholder: "- Seleccionar",
@@ -31,7 +30,7 @@ export default
                     required: true,
                 }
             },
-            name: {
+            full_name: {
                 icon: "ios-person",
                 title: "Nombre",
                 placeholder: "Nombre completo",
@@ -59,10 +58,11 @@ export default
                 type: "input",
                 secure_entry_text: true,
                 validate: {
-                    required: true
+                    required: true,
+                    min_length: 8
                 }
             },
-            confirm_password: {
+            password_confirmation: {
                 icon: "ios-lock-open",
                 title: "Confirmar Contraseña",
                 placeholder: "*****",
@@ -70,7 +70,8 @@ export default
                 secure_entry_text: true,
                 validate: {
                     required: true,
-                    is_equal_than: { is_active: true, text: "Las contraseñas no coinciden", field: "password" }
+                    is_equal_than: { is_active: true, text: "Las contraseñas no coinciden", field: "password" },
+                    min_length: 8
                 }
             },
         }

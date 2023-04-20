@@ -1,11 +1,8 @@
+import productiveUnitStructure from '../formsStructure/productiveUnit';
 export default
     {
         form_name: "EditProductiveUnit",
-        structure: {
-            name: "",
-            description: "",
-            location: ""
-        },
+        structure: productiveUnitStructure,
         fields: {
             name: {
                 icon: "ios-business",
@@ -13,17 +10,22 @@ export default
                 placeholder: "Nombre",
                 type: "input",
                 default: "Asorobles",
-                validate: {
+                validate: { 
                     required: true,
+                    min_length: 5
                 }
             },
             description: {
                 title: "Descripción",
                 placeholder: "Escriba una descripción...",
                 is_large: true,
-                type: "input"
+                type: "input",
+                validate: {
+                    required: true,
+                    min_length: 5
+                }
             },
-            location: {
+            address: {
                 icon: "ios-map",
                 title: "Ubicación",
                 placeholder: "Ubicación",
@@ -31,6 +33,7 @@ export default
                 type: "input",
                 validate: {
                     required: true,
+                    min_length: 5
                 }
             }
         }

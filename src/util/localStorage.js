@@ -13,7 +13,8 @@ export default class LocalStorage {
     /* Encrypting the key and then getting the value from the AsyncStorage. */
     static get = async (key) => {
         const cipherkey = encrypt(Constants.CHIPER.KEY, key);
-        return await AsyncStorage.getItem(cipherkey);
+        let response = await AsyncStorage.getItem(cipherkey);
+        return response != null ? decrypt(Constants.CHIPER.KEY, response) : false;
     }
 
     /* Encrypting the key and value using the same key. */

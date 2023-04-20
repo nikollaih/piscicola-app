@@ -1,0 +1,19 @@
+{
+    "error": {
+        "title": "Error!",
+        "network_fetch": "No ha sido posible conectarse al servidor.",
+        "common": "Ha ocurrido un error, por favor intente de nuevo más tarde.",
+        "min_length": "El texto debe contener minimo "
+    },
+    "success": {
+        "title": "Exito!",
+        "porductive_unit": {
+            "create": "Unidad productiva creada exitosamente.",
+            "update": "Unidad productiva modificada exitosamente."
+        },
+        "user": {
+            "create": "Usuario creado exitosamente.",
+            "update": "Usuario modificado exitosamente."
+        }
+    }
+}

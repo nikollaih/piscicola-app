@@ -10,7 +10,7 @@ export const Switch = (props) => {
    */
   const getLoggedUser = async () => {
     const responseUser = await getAuth();
-    (!responseUser) ? props.navigation.replace("Login") : props.navigation.replace("Home");
+    (!responseUser || !responseUser?.profile) ? props.navigation.replace("Login") : props.navigation.replace("Home");
   };
 
   useEffect(() => {

@@ -11,13 +11,15 @@ import { Constants } from "../../util";
 
 const { width } = Dimensions.get("screen");
 
-export const ProductiveUnitItem = ({ navigation, orientation }) => {
+export const ProductiveUnitItem = ({ navigation, productiveUnit }) => {
   return (
     <TouchableOpacity
       activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
       style={Style.container}
       onPress={() => {
-        navigation.navigate("ProductiveUnit");
+        navigation.navigate("ProductiveUnit", {
+          productive_unit: productiveUnit,
+        });
       }}
     >
       <View>
@@ -25,8 +27,8 @@ export const ProductiveUnitItem = ({ navigation, orientation }) => {
           <View style={Style.container_image}>
             <Image source={Farm} style={Style.farm} />
           </View>
-          <Text style={Style.text_name}>Asorobles</Text>
-          <Text style={Style.text_pond}>Quindio, Vereda uno km5</Text>
+          <Text style={Style.text_name}>{productiveUnit.name}</Text>
+          <Text style={Style.text_pond}>{productiveUnit.address}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -35,7 +37,7 @@ export const ProductiveUnitItem = ({ navigation, orientation }) => {
 
 const Style = StyleSheet.create({
   container: {
-    width: (width / 2) - 15,
+    width: width / 2 - 15,
     marginBottom: 10,
   },
   text_pond: {

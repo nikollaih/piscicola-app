@@ -1,6 +1,6 @@
 export default {
     API: {
-        URL: "https://dev.caretree.me/mobile/"
+        URL: "http://3.15.1.206:8080/"
     },
     COLORS: {
         DARK: "#31322d",
@@ -25,15 +25,23 @@ export default {
         JSON: {
             SIMPLE_QUOTE: "'"
         },
+        CONNECTION_ERROR_RESPONSE: "[TypeError: Network request failed]",
+        HEADERS: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     },
     CHIPER: {
         KEY: '(T,kVS{9pRKe?S,R'
     },
     LOCALSTORAGE: {
-        SESSION: "session"
+        SESSION: "session",
+        LOGIN: "login",
+        UPDATED: "updated_screen"
     },
     DATETIME_FORMATS: {
         DATETIME: "Y-MM-DD hh:mm a",
-        DATE: "Y-MM-DD"
+        DATE: "Y-MM-DD",
+        TIMEZONE: "YYYY-MM-DDTHH:mm:ss.SSSZ"
     }
 }

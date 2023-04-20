@@ -1,8 +1,8 @@
 export default {
     id: null,
-    name: "",
+    user_type_id: 1,
     email: "",
-    rol: "",
     password: "",
-    confirm_password: ""
+    password_confirmation: "",
+    full_name: ""
 }

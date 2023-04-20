@@ -8,11 +8,12 @@ import {useForm} from '../../hooks/useForm';
 import Style from '../../theme/theme';
 
 export const Users = props => {
+  const productiveUnit = props.route.params?.productive_unit;
   const {dataForm, setDataForm} = useForm();
 
   const breadcrumb = {
     title: 'Usuarios',
-    subtitle: 'Lista',
+    subtitle: productiveUnit?.name,
     icon: 'ios-add',
   };
 

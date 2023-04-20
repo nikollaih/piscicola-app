@@ -10,22 +10,23 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import {Alert} from '../../../components/alert/alert';
+import { Alert } from '../../../components/alert/alert';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import dataStructure from '../../../json/login.json';
-import {useState} from 'react';
-import {Constants} from '../../../util';
+import Texts from '../../../util/texts.json';
+import { useState } from 'react';
+import { Constants } from '../../../util';
 import Fish from '../../../assets/images/fish.png';
 import Style from '../style';
-import {useAuth} from '../../../hooks/useAuth';
-import {AuthServices} from '../../../services';
+import { useAuth } from '../../../hooks/useAuth';
+import { AuthServices } from '../../../services';
 
-export const Login = ({navigation}) => {
-  const {setAuth} = useAuth();
+export const Login = ({ navigation }) => {
+  const { setAuth } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [data, setData] = useState(dataStructure);
-  const [alert, setAlert] = useState({show: false});
+  const [alert, setAlert] = useState({ show: false });
 
   const getButtonColor = () => {
     return data.email && data.password
@@ -38,20 +39,26 @@ export const Login = ({navigation}) => {
       if (!loading) {
         setLoading(true);
         let response = await AuthServices.login(data.email, data.password);
-
-        if (response.response.type == 0) {
+        let jsonResponse = await response.json();
+        if (response.status != 200) {
           setAlert({
-            text: response.response.msg,
+            text: (jsonResponse?.message) ? jsonResponse.message : Texts.error.common,
             type: 'error',
             show: true,
           });
           setLoading(false);
         } else {
-          setAuth(JSON.parse(response.response.payload));
+          setAuth(jsonResponse, data);
           navigation.replace('Home');
         }
       }
     } catch (error) {
+      if (error == Constants.CONFIG.CONNECTION_ERROR_RESPONSE)
+        setAlert({
+          text: Texts.error.network_fetch,
+          type: 'error',
+          show: true,
+        });
       setLoading(false)
     }
   };
@@ -90,7 +97,7 @@ export const Login = ({navigation}) => {
                     style={Style.text_input}
                     value={data.email}
                     onChangeText={text => {
-                      setData({...data, email: text});
+                      setData({ ...data, email: text });
                     }}
                     placeholder="Correo electrónico"
                     placeholderTextColor={Constants.COLORS.LIGHT_GRAY}
@@ -107,7 +114,7 @@ export const Login = ({navigation}) => {
                     style={Style.text_input}
                     value={data.password}
                     onChangeText={text => {
-                      setData({...data, password: text});
+                      setData({ ...data, password: text });
                     }}
                     placeholder="Password"
                     placeholderTextColor={Constants.COLORS.LIGHT_GRAY}
@@ -128,7 +135,7 @@ export const Login = ({navigation}) => {
                 </View>
                 <TouchableOpacity
                   activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-                  onPress={() => {navigation.navigate("ForgotPassword")}}>
+                  onPress={() => { navigation.navigate("ForgotPassword") }}>
                   <Text style={Style.text_forgot_password}>
                     ¿Olvidó su contraseña?
                   </Text>
@@ -136,7 +143,7 @@ export const Login = ({navigation}) => {
                 <Alert
                   data={alert}
                   onClose={() => {
-                    setAlert({show: false});
+                    setAlert({ show: false });
                   }}
                 />
               </View>
@@ -146,7 +153,7 @@ export const Login = ({navigation}) => {
                   activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
                   style={[
                     Style.button_signin,
-                    {backgroundColor: getButtonColor()},
+                    { backgroundColor: getButtonColor() },
                   ]}
                   onPress={() => {
                     doLogin();
