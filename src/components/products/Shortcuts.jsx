@@ -3,7 +3,7 @@ import { Constants } from "../../util";
 import { RoundIconButton } from "../../components/button/roundIconButton";
 import Theme from '../../theme/theme';
 
-export const ProductShortCuts = ({}) => {
+export const ProductShortCuts = ({navigation}) => {
   return (
     <View style={Style.actions}>
       <RoundIconButton
@@ -15,6 +15,7 @@ export const ProductShortCuts = ({}) => {
         title="Alimento"
         icon="md-fast-food"
         fill={Constants.COLORS.SOFT_YELLOW}
+        onPress={() => {navigation.navigate("FeedHistory")}}
       />
       <RoundIconButton
         title="Medicamento"

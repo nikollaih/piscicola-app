@@ -23,7 +23,7 @@ export const Users = props => {
   const openAddUser = () => {
     FormFields['structure'] = userStructure;
     setDataForm({...dataForm, [FormFields.form_name]: FormFields});
-    props.navigation.navigate('AddUser');
+    props.navigation.navigate('AddUser', {productive_unit: productiveUnit});
   };
 
   return (
@@ -36,7 +36,7 @@ export const Users = props => {
           navigation={props.navigation}
           data={breadcrumb}
         />
-        <UsersList navigation={props.navigation} />
+        <UsersList productiveUnit={productiveUnit} navigation={props.navigation} />
       </View>
     </Layout>
   );

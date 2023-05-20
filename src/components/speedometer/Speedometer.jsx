@@ -27,6 +27,7 @@ export const CustomSpeedometer = ({data}) => {
     let color = randomColor();
   return (
     <View style={[Style.container]}>
+      <View style={Style.indicator} />
       <Text style={Style.title}>Temperatura</Text>
       <Text style={Style.value}>{data.value + "°"}</Text>
       <Speedometer
@@ -71,5 +72,11 @@ const Style = StyleSheet.create({
     ...Theme.font_roboto_bold,
     fontSize: 20,
     marginBottom: 10
+  },
+  indicator: {
+    width: 15,
+    height: 15,
+    borderRadius: 8,
+    backgroundColor: Constants.COLORS.RED
   }
 });

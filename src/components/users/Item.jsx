@@ -12,8 +12,13 @@ import Theme from "../../theme/theme";
 import { Constants, Utilities } from "../../util";
 const { height } = Dimensions.get("window");
 
-export const UserItem = ({ user }) => {
+export const UserItem = ({ user, navigation, onDelete = () => {} }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const onRemove = () => {
+    setShowModal(false);
+    onDelete()
+  }
 
   return (
     <TouchableOpacity
@@ -24,19 +29,28 @@ export const UserItem = ({ user }) => {
       }}
     >
       <View>
-        <Text style={Style.inside_subtitle}>{Utilities.capitalize(user?.full_name)}</Text>
+        <Text style={Style.inside_subtitle}>
+          {Utilities.capitalize(user?.full_name)}
+        </Text>
         <Text style={Style.text}>{user?.email}</Text>
       </View>
-      <Text style={[Style.font_roboto_bold]}>{Utilities.capitalize(user?.user_type.key)}</Text>
+      <Text style={[Style.font_roboto_bold]}>
+        {Utilities.capitalize(user?.user_type.key)}
+      </Text>
       <CustomModal
-        height={height - 280}
+        height={height - 320}
         title={user?.full_name}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);
         }}
       >
-        <UserDetails user={user} />
+        <UserDetails
+          onClose={() => setShowModal(false)}
+          onDelete={() => onRemove() }
+          navigation={navigation}
+          user={user}
+        />
       </CustomModal>
     </TouchableOpacity>
   );

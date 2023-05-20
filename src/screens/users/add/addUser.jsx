@@ -9,18 +9,19 @@ import Style from "../../../theme/theme";
 import { CustomForm } from "../../../components/form/customForm";
 import { useForm } from "../../../hooks/useForm";
 import { useAuth } from "../../../hooks/useAuth";
-import { UsersServices } from "../../../services";
-import { Utilities } from "../../../util";
+import { UsersServices, ProductiveUnitsServices } from "../../../services";
+import { Utilities, LocalStorage, Constants, Texts } from "../../../util";
 
 export const AddUser = (props) => {
   const User = props.route.params?.user;
+  const productiveUnit = props.route.params?.productive_unit;
   const { getAuth } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
 
   const breadcrumb = {
-    title: "Nuevo Usuario",
+    title: User?.id ? "Modificar Usuario" : "Nuevo Usuario",
     subtitle: "Usuarios",
   };
 
@@ -63,17 +64,38 @@ export const AddUser = (props) => {
 
       // Create new productive unit
       let response = await UsersServices.create(loggeduser.token, sendDataForm);
-      let jsonResponse = await response.json();
-      console.log(jsonResponse)
-      console.log(response);
       if (response.status == 200) {
-        console.log("creado");
+        let user = await response.json();
+        if (User.id) onSuccessSave();
+        else assignUserUnit(user);
+      } else {
+        Utilities.showAlert({});
+      }
+    } catch (error) {
+      Utilities.showAlert({});
+    }
+  };
+
+  const assignUserUnit = async (user) => {
+    try {
+      let loggeduser = await getAuth();
+      let assignUserUnitData = {
+        user_id: user.id,
+        productive_unit_id: productiveUnit.id,
+      };
+
+      // Assign the user to the productie unit
+      let response = await ProductiveUnitsServices.assignUser(
+        loggeduser.token,
+        assignUserUnitData
+      );
+      if (response.status == 200) {
+        let user = await response.json();
         onSuccessSave();
       } else {
         Utilities.showAlert({});
       }
     } catch (error) {
-      console.log(error);
       Utilities.showAlert({});
     }
   };

@@ -12,64 +12,27 @@ export default
                 type: "input",
                 validate: {
                     required: true,
+                    min_length: 8
                 }
             },
-            fecha_creacion: {
-                icon: "ios-calendar",
-                title: "Fecha de creación",
-                placeholder: "Fecha",
-                type: "date",
-                format: Constants.DATETIME_FORMATS.DATETIME,
-                validate: {
-                    required: true,
-                }
-            },
-            medidas: {
-                title: "Medidas",
-                placeholder: "",
-                type: "input",
-                validate: {
-                    required: true,
-                }
-            },
-            capacidad: {
+            sensor_id: {
                 icon: "ios-map",
-                title: "Capacidad",
-                placeholder: "Capacidad",
+                title: "Sensor ID",
+                placeholder: "QW6G372",
                 bottom: 0,
                 type: "input",
                 validate: {
                     required: true,
+
                 }
             },
-            estado: {
-                icon: "ios-business",
-                title: "Estado",
-                placeholder: "- Seleccionar",
-                type: "select",
-                item_label: "nombre",
-                item_id: "id",
-                items: [
-                    {
-                        nombre: "Activo",
-                        id: 1
-                    },
-                    {
-                        nombre: "Inactivo",
-                        id: 2
-                    },
-                    {
-                        nombre: "Mantenimiento",
-                        id: 3
-                    },
-                    {
-                        nombre: "Ocupado",
-                        id: 4
-                    },
-                ],
+            description: {
+                title: "Descripcion",
+                placeholder: "",
+                type: "input",
                 validate: {
-                    required: true,
+                    required: true
                 }
-            },
+            }
         }
     }

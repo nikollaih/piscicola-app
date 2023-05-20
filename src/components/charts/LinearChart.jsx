@@ -49,7 +49,6 @@ export const LinearChart = ({ navigation, orientation, data }) => {
       },
     ];
 
-    console.log(dataSet);
     return dataSet;
   };
   return (

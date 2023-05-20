@@ -4,6 +4,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { Layout } from "../../Layout";
 import { useState, useEffect } from "react";
@@ -12,10 +13,10 @@ import FormInputs from "../../../json/forms/editProductiveUnit";
 import productiveUnitStructure from "../../../json/formsStructure/productiveUnit";
 import { useAuth } from "../../../hooks/useAuth";
 import Style from "./style";
-import { Constants, LocalStorage, Texts } from "../../../util";
+import { Constants, LocalStorage, Texts, Utilities } from "../../../util";
 import { CustomForm } from "../../../components/form/customForm";
 import { useForm } from "../../../hooks/useForm";
-import { ProductiveunitsServices } from "../../../services";
+import { ProductiveUnitsServices } from "../../../services";
 import { showMessage } from "react-native-flash-message";
 
 export const EditProductiveUnit = (props) => {
@@ -32,7 +33,10 @@ export const EditProductiveUnit = (props) => {
   /**
    * It sets the initial data for the form.
    */
-  const setInitialData = (productiveUnit) => {
+  const setInitialData = async (productiveUnit) => {
+    let loggeduser = await getAuth();
+    let managers = await Utilities.getUsersByType(loggeduser.token, 2);
+    FormInputs["fields"]["manager_id"]["items"] = managers.data;
     FormInputs["structure"] = productiveUnit
       ? productiveUnit
       : productiveUnitStructure;
@@ -61,12 +65,11 @@ export const EditProductiveUnit = (props) => {
     try {
       let loggeduser = await getAuth();
       let sendDataForm = {
-        ...dataForm[FormInputs.form_name].structure,
-        manager_id: loggeduser?.profile?.id,
+        ...dataForm[FormInputs.form_name].structure
       };
 
       // Create new productive unit
-      let response = await ProductiveunitsServices.create(
+      let response = await ProductiveUnitsServices.create(
         loggeduser.token,
         sendDataForm
       );
@@ -124,29 +127,35 @@ export const EditProductiveUnit = (props) => {
                 </Text>
               </View>
             </View>
-            <View style={Style.white_container}>
-              {!loading ? <CustomForm formName={FormInputs.form_name} /> : null}
-            </View>
-            <View style={Style.buttons_container}>
-              <FillIconButton
-                title="Cancelar"
-                icon="ios-arrow-back"
-                fill={Constants.COLORS.GRAY}
-                style={Style.left_button}
-                onPress={() => {
-                  props.navigation.goBack();
-                }}
-              />
-              <FillIconButton
-                title="Guardar"
-                icon="ios-save"
-                saving={saving}
-                style={Style.right_button}
-                onPress={() => {
-                  checkForm();
-                }}
-              />
-            </View>
+            {loading ? (
+              <ActivityIndicator color={Constants.COLORS.PRIMARY}/>
+            ) : (
+              <View>
+                <View style={Style.white_container}>
+                  <CustomForm formName={FormInputs.form_name} />
+                </View>
+                <View style={Style.buttons_container}>
+                  <FillIconButton
+                    title="Cancelar"
+                    icon="ios-arrow-back"
+                    fill={Constants.COLORS.GRAY}
+                    style={Style.left_button}
+                    onPress={() => {
+                      props.navigation.goBack();
+                    }}
+                  />
+                  <FillIconButton
+                    title="Guardar"
+                    icon="ios-save"
+                    saving={saving}
+                    style={Style.right_button}
+                    onPress={() => {
+                      checkForm();
+                    }}
+                  />
+                </View>
+              </View>
+            )}
           </ScrollView>
         </View>
       </KeyboardAvoidingView>

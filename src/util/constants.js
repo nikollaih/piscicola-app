@@ -29,6 +29,9 @@ export default {
         HEADERS: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
+        },
+        CODES: {
+            INVALID_TOKEN : 1001
         }
     },
     CHIPER: {
@@ -43,5 +46,9 @@ export default {
         DATETIME: "Y-MM-DD hh:mm a",
         DATE: "Y-MM-DD",
         TIMEZONE: "YYYY-MM-DDTHH:mm:ss.SSSZ"
+    },
+    USERS_TYPES: {
+        ADMIN: 1,
+        UNIT_MANAGER: 2
     }
 }

@@ -18,6 +18,15 @@ import { AddUser } from '../screens/users/add/addUser';
 import { Expenses } from '../screens/expenses/Expenses';
 import { AddExpense } from '../screens/expenses/add/addExpense';
 import { Sales } from '../screens/sales/Sales';
+import { Fish } from '../screens/fish/Fish';
+import { AddFish } from '../screens/fish/add/addFish';
+import { Steps } from '../screens/steps/Steps';
+import { AddStep } from '../screens/steps/addStep';
+import { ProductTypes } from '../screens/productTypes/productTypes';
+import { Products } from '../screens/products/Products';
+import { AddProductType } from '../screens/productTypes/addProductType';
+import { FeedHistory } from '../screens/products/feedingHistory';
+import { AddFeed } from '../screens/products/addFeed';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -104,5 +113,41 @@ export default [
     {
         name: "Sales",
         screen: Sales,
+    },
+    {
+        name: "Fish",
+        screen: Fish,
+    },
+    {
+        name: "AddFish",
+        screen: AddFish,
+    },
+    {
+        name: "Steps",
+        screen: Steps,
+    },
+    {
+        name: "AddStep",
+        screen: AddStep,
+    },
+    {
+        name: "ProductTypes",
+        screen: ProductTypes,
+    },
+    {
+        name: "AddProductType",
+        screen: AddProductType,
+    },
+    {
+        name: "Products",
+        screen: Products,
+    },
+    {
+        name: "FeedHistory",
+        screen: FeedHistory,
+    },
+    {
+        name: "AddFeed",
+        screen: AddFeed,
     },
 ]

@@ -40,9 +40,12 @@ export const CustomForm = ({ formName }) => {
     );
   };
 
-  getFormDom = (fields) => {
+  getFormDom = (fields, structure) => {
     return Object.keys(fields).map((key) => {
-      if (fields[key])
+      if (
+        fields[key] &&
+        (!structure?.id || (structure?.id && !fields[key]?.hide_on_edit))
+      )
         switch (fields[key]?.type) {
           case "input":
             return getCustomInput(fields[key], key);
@@ -61,5 +64,9 @@ export const CustomForm = ({ formName }) => {
     });
   };
 
-  return <View>{getFormDom(dataForm[formName].fields)}</View>;
+  return (
+    <View>
+      {getFormDom(dataForm[formName].fields, dataForm[formName].structure)}
+    </View>
+  );
 };

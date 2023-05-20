@@ -9,17 +9,16 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-} from 'react-native';
-import { Alert } from '../../../components/alert/alert';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import dataStructure from '../../../json/login.json';
-import Texts from '../../../util/texts.json';
-import { useState } from 'react';
-import { Constants } from '../../../util';
-import Fish from '../../../assets/images/fish.png';
-import Style from '../style';
-import { useAuth } from '../../../hooks/useAuth';
-import { AuthServices } from '../../../services';
+} from "react-native";
+import { Alert } from "../../../components/alert/alert";
+import Ionicon from "react-native-vector-icons/Ionicons";
+import dataStructure from "../../../json/login.json";
+import { useState } from "react";
+import { Constants, Texts, Utilities } from "../../../util";
+import Fish from "../../../assets/images/fish.png";
+import Style from "../style";
+import { useAuth } from "../../../hooks/useAuth";
+import { AuthServices, ProductiveUnitsServices } from "../../../services";
 
 export const Login = ({ navigation }) => {
   const { setAuth } = useAuth();
@@ -41,37 +40,64 @@ export const Login = ({ navigation }) => {
         let response = await AuthServices.login(data.email, data.password);
         let jsonResponse = await response.json();
         if (response.status != 200) {
-          setAlert({
-            text: (jsonResponse?.message) ? jsonResponse.message : Texts.error.common,
-            type: 'error',
-            show: true,
-          });
+          Utilities.showErrorFecth(jsonResponse);
           setLoading(false);
         } else {
-          setAuth(jsonResponse, data);
-          navigation.replace('Home');
+          onSuccessLogin(jsonResponse);
         }
       }
     } catch (error) {
       if (error == Constants.CONFIG.CONNECTION_ERROR_RESPONSE)
         setAlert({
           text: Texts.error.network_fetch,
-          type: 'error',
+          type: "error",
           show: true,
         });
-      setLoading(false)
+      setLoading(false);
+    }
+  };
+
+  const onSuccessLogin = async (user) => {
+    if (user?.profile?.user_type_id != Constants.USERS_TYPES.ADMIN) {
+      let productiveUnit = await getProductiveUnit(user);
+      if (productiveUnit == false || productiveUnit?.data.length <= 0)
+        setAlert({
+          text: Texts.error.no_productive_unit,
+          type: "error",
+          show: true,
+        });
+      else {
+        user["productive_unit"] = productiveUnit.data[0];
+        setAuth(user, data);
+        navigation.replace("Home");
+      }
+    } else {
+      setAuth(user, data);
+      navigation.replace("Home");
+    }
+  };
+
+  const getProductiveUnit = async (user) => {
+    try {
+      let response = await ProductiveUnitsServices.get(user.token);
+      let jsonResponse = await response.json();
+      return response.status == 200 ? jsonResponse : false;
+    } catch (error) {
+      return false;
     }
   };
 
   return (
     <SafeAreaView style={Style.safe_area_view}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={Style.safe_area_view}>
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={Style.safe_area_view}
+      >
         <View style={Style.main_container}>
           <ScrollView
             style={Style.scrollview}
-            keyboardShouldPersistTaps="handled">
+            keyboardShouldPersistTaps="handled"
+          >
             <View style={Style.padding_container}>
               <Text style={Style.title}>Bienvenido</Text>
               <Text style={Style.subtitle}>
@@ -96,7 +122,7 @@ export const Login = ({ navigation }) => {
                   <TextInput
                     style={Style.text_input}
                     value={data.email}
-                    onChangeText={text => {
+                    onChangeText={(text) => {
                       setData({ ...data, email: text });
                     }}
                     placeholder="Correo electrónico"
@@ -113,7 +139,7 @@ export const Login = ({ navigation }) => {
                   <TextInput
                     style={Style.text_input}
                     value={data.password}
-                    onChangeText={text => {
+                    onChangeText={(text) => {
                       setData({ ...data, password: text });
                     }}
                     placeholder="Password"
@@ -124,9 +150,10 @@ export const Login = ({ navigation }) => {
                     activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
                     onPress={() => {
                       setShowPassword(!showPassword);
-                    }}>
+                    }}
+                  >
                     <Ionicon
-                      name={showPassword ? 'ios-eye-off' : 'ios-eye'}
+                      name={showPassword ? "ios-eye-off" : "ios-eye"}
                       size={20}
                       color={Constants.COLORS.GRAY}
                       style={[Style.icon_input, Style.icon_show_password]}
@@ -135,7 +162,10 @@ export const Login = ({ navigation }) => {
                 </View>
                 <TouchableOpacity
                   activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-                  onPress={() => { navigation.navigate("ForgotPassword") }}>
+                  onPress={() => {
+                    navigation.navigate("ForgotPassword");
+                  }}
+                >
                   <Text style={Style.text_forgot_password}>
                     ¿Olvidó su contraseña?
                   </Text>
@@ -157,7 +187,8 @@ export const Login = ({ navigation }) => {
                   ]}
                   onPress={() => {
                     doLogin();
-                  }}>
+                  }}
+                >
                   {loading ? (
                     <ActivityIndicator color={Constants.COLORS.WHITE} />
                   ) : (

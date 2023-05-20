@@ -1,7 +1,7 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { ProductiveUnitItem } from "./Item";
 import { useEffect, useState } from "react";
-import { ProductiveunitsServices } from "../../services";
+import { ProductiveUnitsServices } from "../../services";
 import { useAuth } from "../../hooks/useAuth";
 import { Constants, LocalStorage } from "../../util";
 
@@ -10,7 +10,7 @@ export const ProductiveUnitsList = ({
   refresh,
   setFinishRefresh = () => {},
 }) => {
-  const { getAuth } = useAuth();
+  const { getAuth, refreshToken } = useAuth();
   const [productiveUnits, setProductiveUnits] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,14 +29,21 @@ export const ProductiveUnitsList = ({
     const loggedUser = await getAuth();
     try {
       setLoading(true);
-      let response = await ProductiveunitsServices.get(loggedUser.token);
+      let response = await ProductiveUnitsServices.get(loggedUser.token);
       let jsonResponse = await response.json();
       if (response.status == 200) {
         setProductiveUnits(jsonResponse.data);
         setLoading(false);
+      } else {
+        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+          refreshToken(true);
+          getProductiveUnits();
+        } else Utilities.showErrorFecth(jsonResponse);
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      Utilities.showAlert({});
+      setLoading(false);
     }
   };
 
@@ -46,7 +53,6 @@ export const ProductiveUnitsList = ({
 
   // Render a PU row
   const renderRow = ({ item }) => {
-    console.log(item.id)
     return (
       <ProductiveUnitItem
         key={item.id}

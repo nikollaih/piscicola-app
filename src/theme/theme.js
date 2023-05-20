@@ -4,6 +4,9 @@ import { Constants } from "../util";
 const { width } = Dimensions.get("window");
 
 export default StyleSheet.create({
+    full_flex: {
+        flex: 1
+    },
     main_page: {
         flex: 1,
         padding: 10,

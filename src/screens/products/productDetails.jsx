@@ -39,7 +39,7 @@ const data = [
   },
 ];
 
-export const ProductDetail = (props) => {
+export const ProductDetail = ({navigation, route}) => {
   const keyExtractor = ({ index }) => {
     return index;
   };
@@ -49,7 +49,7 @@ export const ProductDetail = (props) => {
   };
 
   return (
-    <Layout navigation={props.navigation} route={props.route}>
+    <Layout navigation={navigation} route={route}>
       <ScrollView style={Style.scrollview}>
         <View style={Style.main_page}>
           <View style={Style.user_container}>
@@ -58,7 +58,7 @@ export const ProductDetail = (props) => {
               <Text style={Style.name_user}>Mojarra Roja</Text>
             </View>
           </View>
-          <ProductShortCuts />
+          <ProductShortCuts navigation={navigation} />
           <Text style={Style.subtitle}>Mediciones</Text>
           <View style={Style.refresh_container}>
             <Text style={Style.last_refresh}>Última medición 10/04/2023 12:04pm</Text>
@@ -69,7 +69,7 @@ export const ProductDetail = (props) => {
              <TouchableOpacity
               activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
               onPress={() => {
-                props.navigation.navigate("ProductHistory");
+                navigation.navigate("ProductHistory");
               }}
              >
              <Text style={[Style.refresh_text_button, {color: Constants.COLORS.GREEN}]}>Ver Historico</Text>

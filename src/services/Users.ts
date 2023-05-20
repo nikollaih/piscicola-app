@@ -1,19 +1,33 @@
 import { Constants } from "../util";
 
-export const get = async (token: String) => {
-  let response = await fetch(Constants.API.URL + "users/list", {
+export const get = async (user: any, filter: String) => {
+  let urlFetch =
+    user.profile.user_type_id == 1
+      ? Constants.API.URL + "users/list" + filter
+      : `${Constants.API.URL}productive_units/${user.productive_unit.id}/users`;
+
+  let response = await fetch(urlFetch, {
     headers: {
       ...Constants.CONFIG.HEADERS,
-      Authorization: "Bearer " + token,
+      Authorization: "Bearer " + user.token,
     },
     method: "GET",
   });
   return response;
 };
 
+export const remove = async (token: String, userID: Number) => {
+  let response = await fetch(Constants.API.URL + "users/" + userID, {
+    headers: {
+      ...Constants.CONFIG.HEADERS,
+      Authorization: "Bearer " + token,
+    },
+    method: "DELETE",
+  });
+  return response;
+};
+
 export const create = async (token: String, data: any) => {
-  console.log(Constants.API.URL + "users")
-  console.log(data)
   let response = await fetch(Constants.API.URL + "users", {
     headers: {
       ...Constants.CONFIG.HEADERS,

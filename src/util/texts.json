@@ -3,7 +3,13 @@
         "title": "Error!",
         "network_fetch": "No ha sido posible conectarse al servidor.",
         "common": "Ha ocurrido un error, por favor intente de nuevo más tarde.",
-        "min_length": "El texto debe contener minimo "
+        "min_length": "El texto debe contener minimo ",
+        "no_productive_unit": "No se ha encontrado una unidad productiva asociada al usuario.",
+        "code" : {
+            "1003": "No tiene permisos de administrador",
+            "42703": "Hubo un error en la base de datos",
+            "1005": "Usuario o contraseña incorrecta"
+        }
     },
     "success": {
         "title": "Exito!",
@@ -11,9 +17,29 @@
             "create": "Unidad productiva creada exitosamente.",
             "update": "Unidad productiva modificada exitosamente."
         },
+        "fish": {
+            "create": "Producto creado exitosamente.",
+            "update": "Producto modificado exitosamente.",
+            "delete": "Producto eliminado exitosamente."
+        },
         "user": {
             "create": "Usuario creado exitosamente.",
-            "update": "Usuario modificado exitosamente."
+            "update": "Usuario modificado exitosamente.",
+            "delete": "Usuario eliminado exitosamente."
+        },
+        "pond": {
+            "create": "Estanque creado exitosamente.",
+            "update": "Estanque modificado exitosamente.",
+            "delete": "Estanque eliminado exitosamente."
+        },
+        "step": {
+            "create": "Etapa creada exitosamente.",
+            "update": "Etapa modificada exitosamente."
+        },
+        "productType": {
+            "create": "Tipo de producto creado exitosamente.",
+            "update": "Tipo de producto modificado exitosamente.",
+            "delete": "Tipo de producto eliminado exitosamente."
         }
     }
 }

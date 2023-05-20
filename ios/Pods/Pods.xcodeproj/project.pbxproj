@@ -24927,10 +24927,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/React-Core/React-Core-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FB_SONARKIT_ENABLED=1",
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MODULEMAP_FILE = "Headers/Public/React/React-Core.modulemap";
 				OTHER_LDFLAGS = "";

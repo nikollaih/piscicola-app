@@ -34,7 +34,6 @@ export const Expenses = (props) => {
 
   const onFilter = (filters) => {
     setShowFilter(false);
-    console.log(filters);
   };
 
   /**

@@ -6,21 +6,33 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-} from 'react-native';
-import {FillIconButton} from '../button/fillIconButton';
-import Fish from '../../assets/images/fish.png';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import menuItems from './menuItems';
-import Style from './style';
-import {Constants} from '../../util';
-import {useAuth} from '../../hooks/useAuth';
+} from "react-native";
+import { useEffect, useState } from "react";
+import { FillIconButton } from "../button/fillIconButton";
+import Fish from "../../assets/images/fish.png";
+import Ionicon from "react-native-vector-icons/Ionicons";
+import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import menuItems from "./menuItems";
+import Style from "./style";
+import { Constants } from "../../util";
+import { useAuth } from "../../hooks/useAuth";
 
-export const SideMenuDom = ({navigation, route, onOpenLink = () => {}}) => {
-  const {logout} = useAuth();
+export const SideMenuDom = ({ navigation, route, onOpenLink = () => {} }) => {
+  const { logout, getAuth } = useAuth();
+  const [loggedUser, setLoggedUser] = useState({});
 
-  const openLink = linkData => {
+  useEffect(() => {
+    setInitialData();
+  }, [setLoggedUser]);
+
+  const setInitialData = async () => {
+    let loggedUser = await getAuth();
+    setLoggedUser({ ...loggedUser });
+  };
+
+  const openLink = (linkData) => {
     onOpenLink();
-    navigation.navigate(linkData.screen);
+    navigation.navigate(linkData.screen, {productive_unit: loggedUser?.productive_unit});
   };
 
   /**
@@ -39,49 +51,76 @@ export const SideMenuDom = ({navigation, route, onOpenLink = () => {}}) => {
    */
   const doLogout = () => {
     Alert.alert(
-      '¿Está seguro?',
-      'Desea cerrar la sesión',
+      "¿Está seguro?",
+      "Desea cerrar la sesión",
       [
         {
-          text: 'Cancelar',
+          text: "Cancelar",
           onPress: () => {},
-          style: 'cancel',
+          style: "cancel",
         },
         {
-          text: 'Cerrar Sesión',
+          text: "Cerrar Sesión",
           onPress: () => {
             logout(navigation);
           },
         },
       ],
-      {cancelable: true},
+      { cancelable: true }
     );
   };
 
-  const keyExtractor = item => item.title.toString();
+  const getIcon = (itemMenu) => {
+    switch (itemMenu.iconLibrary) {
+      case "material":
+        return (
+          <MaterialIcon
+            size={24}
+            color={getItemColor(itemMenu)}
+            name={itemMenu.icon}
+            style={Style.item_icon}
+          />
+        );
+        break;
 
-  const renderRow = ({item}) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        style={[
-          Style.item_container,
-          {borderLeftColor: getItemColor(item, Constants.COLORS.WHITE)},
-        ]}
-        onPress={() => {
-          openLink({screen: item.screen});
-        }}>
-        <Ionicon
-          size={24}
-          color={getItemColor(item)}
-          name={item.icon}
-          style={Style.item_icon}
-        />
-        <Text style={[Style.item_text, {color: getItemColor(item)}]}>
-          {item.title}
-        </Text>
-      </TouchableOpacity>
-    );
+      default:
+        return (
+          <Ionicon
+            size={24}
+            color={getItemColor(itemMenu)}
+            name={itemMenu.icon}
+            style={Style.item_icon}
+          />
+        );
+        break;
+    }
+  };
+
+  const keyExtractor = (item) => item.title.toString();
+
+  const renderRow = ({ item }) => {
+    if (
+      !item?.users_type ||
+      item?.users_type.includes(loggedUser?.profile?.user_type_id)
+    )
+      return (
+        <TouchableOpacity
+          activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+          style={[
+            Style.item_container,
+            { borderLeftColor: getItemColor(item, Constants.COLORS.WHITE) },
+          ]}
+          onPress={() => {
+            openLink({ screen: item.screen });
+          }}
+        >
+          {getIcon(item)}
+          <Text style={[Style.item_text, { color: getItemColor(item) }]}>
+            {item.title}
+          </Text>
+        </TouchableOpacity>
+      );
+    else return null;
   };
 
   return (
@@ -91,14 +130,18 @@ export const SideMenuDom = ({navigation, route, onOpenLink = () => {}}) => {
           <Image source={Fish} style={Style.logo} />
         </View>
         <View style={Style.name_container}>
-          <Text style={Style.name}>Asorobles</Text>
-          <TouchableOpacity
-            activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-            onPress={() => {
-              openLink({screen: 'ProductiveUnit'});
-            }}>
-            <Ionicon name="ios-cog" color={Constants.COLORS.DARK} size={22} />
-          </TouchableOpacity>
+          <Text style={Style.name}>{loggedUser?.productive_unit?.name}</Text>
+          {loggedUser?.profile?.user_type_id ==
+          Constants.USERS_TYPES.UNIT_MANAGER ? (
+            <TouchableOpacity
+              activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+              onPress={() => {
+                openLink({ screen: "ProductiveUnit" });
+              }}
+            >
+              <Ionicon name="ios-cog" color={Constants.COLORS.DARK} size={22} />
+            </TouchableOpacity>
+          ) : <Text style={Style.name}>Menú</Text>}
         </View>
       </View>
       <FlatList

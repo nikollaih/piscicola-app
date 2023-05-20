@@ -14,10 +14,6 @@ export default
                 item_id: "id",
                 items: [
                     {
-                        nombre: "Administrador",
-                        id: 1
-                    },
-                    {
                         nombre: "Productor",
                         id: 2
                     },
@@ -37,6 +33,7 @@ export default
                 type: "input",
                 validate: {
                     required: true,
+                    min_length: 10
                 }
             },
             email: {
@@ -57,6 +54,7 @@ export default
                 placeholder: "*****",
                 type: "input",
                 secure_entry_text: true,
+                hide_on_edit: true,
                 validate: {
                     required: true,
                     min_length: 8
@@ -68,6 +66,7 @@ export default
                 placeholder: "*****",
                 type: "input",
                 secure_entry_text: true,
+                hide_on_edit: true,
                 validate: {
                     required: true,
                     is_equal_than: { is_active: true, text: "Las contraseñas no coinciden", field: "password" },

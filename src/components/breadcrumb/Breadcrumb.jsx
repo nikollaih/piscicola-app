@@ -14,7 +14,7 @@ export const Breadcrumb = ({
         <Text style={Style.text_user}>{data.subtitle}</Text>
         <Text style={Style.name_user}>{data.title}</Text>
       </View>
-      {data.right_content ? (
+      {(data.right_content || data.right_content === null) ? (
         data.right_content
       ) : (
         <TouchableOpacity

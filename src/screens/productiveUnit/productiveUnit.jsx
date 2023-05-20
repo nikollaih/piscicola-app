@@ -5,9 +5,9 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import Style from "./style";
 import { Constants } from "../../util";
 
-const RightButtons = (navigation, productiveUnit = {}) => {
+const RightButtons = (navigation, productiveUnit = {}, onDelete = () => {}) => {
   return (
-    <View style={[Style.row_between, { width: 75 }]}>
+    <View style={[Style.row_between, { width: 110 }]}>
       <TouchableOpacity
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
         onPress={() => {
@@ -20,13 +20,21 @@ const RightButtons = (navigation, productiveUnit = {}) => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {
+        onPress={() => { 
           navigation.replace("EditProductiveUnit", {
             productive_unit: productiveUnit,
           });
-        }}
+         }}
       >
         <Ionicon name={"ios-create"} size={30} color={Constants.COLORS.DARK} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+        onPress={() => {
+          onDelete()
+        }}
+      >
+        <Ionicon name={"ios-trash"} size={28} color={Constants.COLORS.RED} />
       </TouchableOpacity>
     </View>
   );
@@ -39,8 +47,12 @@ export const ProductiveUnit = (props) => {
     subtitle: "Unidad Productiva",
     icon: "ios-create",
     screen: "EditProductiveUnit",
-    right_content: RightButtons(props.navigation, productiveUnit),
+    right_content: RightButtons(props.navigation, productiveUnit, () => {onDelete()}),
   };
+
+  const onDelete = () => {
+    alert("si")
+  }
 
   return (
     <Layout navigation={props.navigation} route={props.route}>
