@@ -1,63 +1,91 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Layout } from "../Layout";
 import { Breadcrumb } from "../../components/breadcrumb/Breadcrumb";
-import Ionicon from "react-native-vector-icons/Ionicons";
+import { LabelButton } from "../../components/button/labelButton";
+import { ProductiveUnitsServices } from "../../services";
 import Style from "./style";
-import { Constants } from "../../util";
-
-const RightButtons = (navigation, productiveUnit = {}, onDelete = () => {}) => {
-  return (
-    <View style={[Style.row_between, { width: 110 }]}>
-      <TouchableOpacity
-        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {
-          navigation.navigate("Users", {
-            productive_unit: productiveUnit,
-          });
-        }}
-      >
-        <Ionicon name={"ios-people"} size={32} color={Constants.COLORS.DARK} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => { 
-          navigation.replace("EditProductiveUnit", {
-            productive_unit: productiveUnit,
-          });
-         }}
-      >
-        <Ionicon name={"ios-create"} size={30} color={Constants.COLORS.DARK} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {
-          onDelete()
-        }}
-      >
-        <Ionicon name={"ios-trash"} size={28} color={Constants.COLORS.RED} />
-      </TouchableOpacity>
-    </View>
-  );
-};
+import { Constants, Utilities, LocalStorage, Texts } from "../../util";
+import { showMessage } from "react-native-flash-message";
+import { useAuth } from "../../hooks/useAuth";
 
 export const ProductiveUnit = (props) => {
+  const { getAuth, refreshToken } = useAuth();
   const productiveUnit = props.route.params.productive_unit;
   const breadcrumb = {
     title: productiveUnit.name,
     subtitle: "Unidad Productiva",
     icon: "ios-create",
     screen: "EditProductiveUnit",
-    right_content: RightButtons(props.navigation, productiveUnit, () => {onDelete()}),
+    right_content: null,
   };
 
-  const onDelete = () => {
-    alert("si")
-  }
+  const onDelete = async () => {
+    try {
+      let confirmDelete = await Utilities.confirmDelete("Desea eliminar la unidad productiva");
+      if (confirmDelete.status) {
+        const loggedUser = await getAuth();
+        let response = await ProductiveUnitsServices.remove(
+          loggedUser.token,
+          productiveUnit.id
+        );
+        let jsonResponse = await response.json();
+        if (response.status == 200) {
+          onSuccessDelete();
+        } else {
+          if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+            refreshToken(true);
+            onDelete();
+          } else Utilities.showErrorFecth(jsonResponse);
+        }
+      }
+    } catch (error) {}
+  };
+
+  onSuccessDelete = () => {
+    LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "home");
+    showMessage({
+      message: Texts.success.title,
+      description: Texts.success.porductive_unit.delete,
+      duration: 3000,
+      type: "success",
+    });
+    props.navigation.goBack();
+  };
 
   return (
     <Layout navigation={props.navigation} route={props.route}>
       <ScrollView style={Style.main_page}>
         <Breadcrumb navigation={props.navigation} data={breadcrumb} />
+        <View style={Style.container_buttons}>
+          <LabelButton
+            onPress={() => {
+              props.navigation.navigate("Users", {
+                productive_unit: productiveUnit,
+              });
+            }}
+            fill={Constants.COLORS.SECONDARY}
+            icon="ios-people"
+            title="Usuarios"
+          />
+          <LabelButton
+            onPress={() => {
+              props.navigation.replace("EditProductiveUnit", {
+                productive_unit: productiveUnit,
+              });
+            }}
+            icon="ios-create"
+            style={{ marginHorizontal: 5 }}
+            title="Modificar"
+          />
+          <LabelButton
+            onPress={() => {
+              onDelete();
+            }}
+            fill={Constants.COLORS.RED}
+            icon="ios-trash"
+            title="Eliminar"
+          />
+        </View>
         <View style={Style.white_container}>
           <View style={Style.list_container}>
             <Text style={Style.inside_subtitle}>Descripción</Text>

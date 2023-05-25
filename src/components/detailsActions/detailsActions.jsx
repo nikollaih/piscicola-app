@@ -9,13 +9,20 @@ import theme from "../../theme/theme";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Constants } from "../../util";
 
-export const DetailsActions = ({ onEdit = () => {}, onDelete = () => {} }) => {
+export const DetailsActions = ({
+  onEdit = () => {},
+  onDelete = () => {},
+  buttons = null,
+}) => {
   return (
     <View style={Style.container}>
+      {buttons}
       <TouchableOpacity
         style={Style.button}
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {onEdit()}}
+        onPress={() => {
+          onEdit();
+        }}
       >
         <Ionicon name="ios-create" size={24} color={Constants.COLORS.PRIMARY} />
         <Text style={Style.edit_text}>Modificar</Text>
@@ -23,7 +30,9 @@ export const DetailsActions = ({ onEdit = () => {}, onDelete = () => {} }) => {
       <TouchableOpacity
         style={Style.button}
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {onDelete()}}
+        onPress={() => {
+          onDelete();
+        }}
       >
         <Ionicon name="ios-trash" size={24} color={Constants.COLORS.RED} />
         <Text style={Style.delete_text}>Eliminar</Text>

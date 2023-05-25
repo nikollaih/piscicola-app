@@ -15,7 +15,8 @@
         "title": "Exito!",
         "porductive_unit": {
             "create": "Unidad productiva creada exitosamente.",
-            "update": "Unidad productiva modificada exitosamente."
+            "update": "Unidad productiva modificada exitosamente.",
+            "delete": "Unidad productiva eliminada exitosamente."
         },
         "fish": {
             "create": "Producto creado exitosamente.",
@@ -40,6 +41,11 @@
             "create": "Tipo de producto creado exitosamente.",
             "update": "Tipo de producto modificado exitosamente.",
             "delete": "Tipo de producto eliminado exitosamente."
+        },
+        "fishStats": {
+            "create": "Parametro creado exitosamente.",
+            "update": "Parametro modificado exitosamente.",
+            "delete": "Parametro eliminado exitosamente."
         }
     }
 }

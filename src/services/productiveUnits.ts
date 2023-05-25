@@ -34,3 +34,14 @@ export const assignUser = async (token: String, data: any) => {
   });
   return response;
 };
+
+export const remove = async (token: String, puID: Number) => {
+  let response = await fetch(`${Constants.API.URL}productive_units/${puID}` , {
+    headers: {
+      ...Constants.CONFIG.HEADERS,
+      Authorization: "Bearer " + token,
+    },
+    method: "DELETE",
+  });
+  return response;
+};

@@ -1,10 +1,10 @@
 import { Constants } from "../util";
 
-export const get = async (token: String, puID: String = "") => {
-  let response = await fetch(`${Constants.API.URL}ponds/list_by_productive_unit/${puID}`, {
+export const get = async (loggedUser: any, fishID: String = "") => {
+  let response = await fetch(`${Constants.API.URL}fish_steps/stats/list_by_fish_step/${fishID}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
-      Authorization: "Bearer " + token,
+      Authorization: "Bearer " + loggedUser.token,
     },
     method: "GET",
   });
@@ -12,7 +12,7 @@ export const get = async (token: String, puID: String = "") => {
 };
 
 export const create = async (token: String, data: any) => {
-  let response = await fetch(`${Constants.API.URL}ponds`, {
+  let response = await fetch(`${Constants.API.URL}fish_steps/stats`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
@@ -23,8 +23,8 @@ export const create = async (token: String, data: any) => {
   return response;
 };
 
-export const remove = async (token: String, pondID: Number) => {
-  let response = await fetch(`${Constants.API.URL}ponds/${pondID}` , {
+export const remove = async (token: String, fishStatsID: Number) => {
+  let response = await fetch(`${Constants.API.URL}fish_steps/stats/${fishStatsID}` , {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,

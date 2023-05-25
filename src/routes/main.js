@@ -27,6 +27,8 @@ import { Products } from '../screens/products/Products';
 import { AddProductType } from '../screens/productTypes/addProductType';
 import { FeedHistory } from '../screens/products/feedingHistory';
 import { AddFeed } from '../screens/products/addFeed';
+import { FishStats } from '../screens/fishStats/fishStats';
+import { AddFishStats } from '../screens/fishStats/add/addFishStats';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -121,6 +123,14 @@ export default [
     {
         name: "AddFish",
         screen: AddFish,
+    },
+    {
+        name: "FishStats",
+        screen: FishStats,
+    },
+    {
+        name: "AddFishStats",
+        screen: AddFishStats,
     },
     {
         name: "Steps",

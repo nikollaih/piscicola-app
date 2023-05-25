@@ -1,14 +1,19 @@
-import { ScrollView, Text, View, StyleSheet, Alert, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import Theme from "../../theme/theme";
 import moment from "moment";
 import { Constants, Texts, Utilities } from "../../util";
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import { FishServices } from "../../services";
+import { FishStatsServices } from "../../services";
 import { useAuth } from "../../hooks/useAuth";
 import { DetailsActions } from "../detailsActions/detailsActions";
 
-export const FishDetails = ({
-  fish,
+export const FishStatsDetails = ({
+  fishStats,
   navigation,
   onClose = () => {},
   onDelete = () => {},
@@ -16,35 +21,22 @@ export const FishDetails = ({
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();
-    navigation.navigate("AddFish", { fish: fish });
+    navigation.navigate("AddFishStats", { fishStats: fishStats });
   };
-
-  const getParametersButton = () => {
-    return <View>
-        <TouchableOpacity
-        style={Style.row}
-        activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-        onPress={() => {
-          onClose();
-          navigation.navigate("FishStats", { fish: fish });
-        }}
-      >
-        <Ionicon name="ios-analytics" size={24} color={Constants.COLORS.SECONDARY} />
-        <Text style={Style.edit_text}>Parametros</Text>
-      </TouchableOpacity>
-    </View>;
-  }
 
   const onRemove = async () => {
     try {
       const loggedUser = await getAuth();
-      let response = await FishServices.remove(loggedUser.token, fish.id);
+      let response = await FishStatsServices.remove(
+        loggedUser.token,
+        fishStats.id
+      );
       let jsonResponse = await response.json();
 
       if (response.status == 200) {
         Utilities.showAlert({
           title: Texts.success.title,
-          text: Texts.success.fish.delete,
+          text: Texts.success.fishStats.delete,
           type: "success",
         });
         onDelete();
@@ -54,7 +46,6 @@ export const FishDetails = ({
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
       }
-
     } catch (error) {
       Utilities.showAlert({});
     }
@@ -63,7 +54,7 @@ export const FishDetails = ({
   const confirmDelete = () => {
     Alert.alert(
       "¿Está seguro?",
-      "Desea eliminar el registro",
+      "Desea eliminar el parametro",
       [
         {
           text: "Cancelar",
@@ -86,33 +77,34 @@ export const FishDetails = ({
     <View style={Style.full_flex}>
       <ScrollView style={Style.full_flex}>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Nombre</Text>
-          <Text style={Style.text}>{fish.name} </Text>
+          <Text style={Style.inside_subtitle}>Key</Text>
+          <Text style={Style.text}>{fishStats.key} </Text>
         </View>
-        <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Tipo de producto</Text>
-          <Text style={Style.text}>{fish.fish.name} </Text>
-        </View>
-        {fish?.productive_unit ? (
           <View style={Style.list_container}>
-            <Text style={Style.inside_subtitle}>Unidad productiva</Text>
-            <Text style={Style.text}>{fish.productive_unit.name} </Text>
+            <Text style={Style.inside_subtitle}>Minimo</Text>
+            <Text style={Style.text}>{fishStats.value_minimum} </Text>
           </View>
-        ) : null}
+          <View style={Style.list_container}>
+            <Text style={Style.inside_subtitle}>Maximo</Text>
+            <Text style={Style.text}>{fishStats.value_maximum} </Text>
+          </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Descripción</Text>
-          <Text style={Style.text}>{fish.description} </Text>
+          <Text style={Style.text}>{fishStats.description} </Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Fecha de creación</Text>
           <Text style={Style.text}>
-            {moment(fish.created_at).format(Constants.DATETIME_FORMATS.DATE)}
+            {moment(fishStats.created_at).format(
+              Constants.DATETIME_FORMATS.DATE
+            )}
           </Text>
         </View>
       </ScrollView>
-      <DetailsActions 
-      buttons={getParametersButton()}
-      onDelete={confirmDelete} onEdit={onEdit} />
+      <DetailsActions
+        onDelete={confirmDelete}
+        onEdit={onEdit}
+      />
     </View>
   );
 };
