@@ -24,13 +24,13 @@ export default [
         iconLibrary: "material",
         users_type: [1]
     },
-    // {
-    //     screen: "Products",
-    //     title: "Cosechas",
-    //     icon: "fish",
-    //     iconLibrary: "material",
-    //     users_type: [2]
-    // },
+    {
+        screen: "Products",
+        title: "Cosechas",
+        icon: "fish",
+        iconLibrary: "material",
+        users_type: [2]
+    },
     // {
     //     screen: "Expenses",
     //     title: "Gastos",
@@ -77,6 +77,12 @@ export default [
         screen: "Ponds",
         title: "Estanques",
         icon: "trash-bin-sharp",
+        users_type: [2]
+    },
+    {
+        screen: "Employees",
+        title: "Empleados",
+        icon: "ios-people",
         users_type: [2]
     }
 ]

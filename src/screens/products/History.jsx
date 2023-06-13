@@ -2,63 +2,56 @@ import {
   View,
   Text,
   ScrollView,
-  FlatList,
-  TouchableOpacity,
 } from "react-native";
 import { Layout } from "../Layout";
 import Style from "./style";
-import { CustomSpeedometer } from "../../components/speedometer/Speedometer";
-import { ProductShortCuts } from "../../components/products/Shortcuts";
 import { ProductHistoryList } from "../../components/products/historyList";
-import { Constants } from "../../util";
+import { GeneralDateInput } from "../../components/form/dateInput/generalDateInput";
+import { useState } from "react";
+import { FillIconButton } from "../../components/button/fillIconButton";
 
-const data = [
-  {
-    min: 10,
-    max: 30,
-    value: 15,
-  },
-  {
-    min: 0,
-    max: 100,
-    value: 65,
-  },
-  {
-    min: 40,
-    max: 60,
-    value: 58,
-  },
-  {
-    min: 0,
-    max: 100,
-    value: 65,
-  },
-  {
-    min: 10,
-    max: 80,
-    value: 34,
-  },
-  {
-    min: 35,
-    max: 70,
-    value: 69,
-  },
-];
+export const ProductHistory = ({ navigation, route }) => {
+  const [startDate, setStartDate] = useState(new Date(Date.now() - 604800000));
+  const [endDate, setEndDate] = useState(new Date());
+  const [filter, setFilter] = useState(false)
+  const sowing = route.params?.sowing;
 
-export const ProductHistory = (props) => {
+  const getDateData = (date) => {
+    return {
+      date: date,
+      format: "DD/MM/YYYY",
+    };
+  };
+
+  const getDateFilter = () => {
+    return{
+      start_date: startDate,
+      end_date: endDate
+    }
+  }
+
   return (
-    <Layout navigation={props.navigation} route={props.route}>
+    <Layout navigation={navigation} route={route}>
       <ScrollView style={Style.scrollview}>
         <View style={Style.main_page}>
           <View style={Style.user_container}>
             <View>
-              <Text style={Style.text_user}>Estanque 1</Text>
-              <Text style={Style.name_user}>Mojarra Roja</Text>
+              <Text style={Style.text_user}>{sowing?.pond?.name}</Text>
+              <Text
+                style={Style.name_user}
+              >{`${sowing?.fish_step?.fish?.name} - ${sowing?.fish_step?.name}`}</Text>
             </View>
           </View>
 
           <Text style={Style.subtitle}>Historial de Mediciones</Text>
-          <ProductHistoryList />
+          <View style={Style.full_flex}>
+            <View style={[Style.row, Style.full_flex]}>
+              <GeneralDateInput onDateChange={(date) => {setStartDate(date)}} style={{marginRight: 5}} data={getDateData(startDate)} />
+              <GeneralDateInput onDateChange={(date) => {setEndDate(date)}} style={{marginLeft: 5}} data={getDateData(endDate)} />
+            </View>
+            <FillIconButton onPress={() => {setFilter(!filter)}} style={{marginBottom: 10}} title="Buscar"/>
+          </View>
+          <ProductHistoryList sowing={sowing} filter={getDateFilter()} setFilter={filter} />
         </View>
       </ScrollView>
     </Layout>

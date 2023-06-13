@@ -52,9 +52,7 @@ const AuthProvider = ({ children }) => {
   const onSuccessLogin = async (user, login) => {
     if (user?.profile?.user_type_id != Constants.USERS_TYPES.ADMIN) {
       let productiveUnit = await getProductiveUnit(user);
-      if (productiveUnit == false || productiveUnit?.data.length <= 0)
-        logout();
-      else {
+      if (productiveUnit && productiveUnit?.data.length > 0){
         user["productive_unit"] = productiveUnit.data[0];
         setAuth(user, login);
       }

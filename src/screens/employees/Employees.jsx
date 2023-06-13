@@ -1,28 +1,28 @@
 import {View} from 'react-native';
 import {Layout} from '../Layout';
 import {Breadcrumb} from '../../components/breadcrumb/Breadcrumb';
-import { SowingsList } from '../../components/products/List';
-import FormFields from '../../json/forms/Products';
-import productsStructure from '../../json/formsStructure/productsStructure';
+import { EmployeesList } from '../../components/employees/List';
+import FormFields from '../../json/forms/Employee';
+import employeeStructure from '../../json/formsStructure/employeeStructure';
 import {useForm} from '../../hooks/useForm';
 import Style from './style';
 
-export const Products = props => {
+export const Employees = props => {
   const {dataForm, setDataForm} = useForm();
 
   const breadcrumb = {
-    title: 'Cosechas',
+    title: 'Empleados',
     subtitle: 'Lista',
     icon: 'ios-add'
   };
 
   /**
-   * It opens the AddProducts screen.
+   * It opens the AddEmployee screen.
    */
-  const openAddProducts = () => {
-    FormFields['structure'] = productsStructure;
+  const openAddEmployee = () => {
+    FormFields['structure'] = employeeStructure;
     setDataForm({...dataForm, [FormFields.form_name]: FormFields});
-    props.navigation.navigate('AddSowing');
+    props.navigation.navigate('AddEmployee');
   };
 
   return (
@@ -30,12 +30,12 @@ export const Products = props => {
       <View style={Style.main_page}>
         <Breadcrumb
           onPressRight={() => {
-            openAddProducts();
+            openAddEmployee();
           }}
           navigation={props.navigation}
           data={breadcrumb}
         />
-        <SowingsList navigation={props.navigation} />
+        <EmployeesList navigation={props.navigation} />
       </View>
     </Layout>
   );

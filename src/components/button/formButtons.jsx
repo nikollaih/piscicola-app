@@ -1,9 +1,15 @@
-import {View, StyleSheet} from 'react-native';
-import Theme from '../../theme/theme';
-import {FillIconButton} from './fillIconButton';
-import { Constants } from '../../util';
+import { View, StyleSheet } from "react-native";
+import Theme from "../../theme/theme";
+import { FillIconButton } from "./fillIconButton";
+import { Constants } from "../../util";
 
-export const FormButtons = ({navigation, saving, onSave = () => {}}) => {
+export const FormButtons = ({
+  navigation,
+  saving,
+  onSave = () => {},
+  backTimes = 1,
+}) => {
+  console.log(typeof onCancel)
   return (
     <View style={Style.buttons_container}>
       <FillIconButton
@@ -12,7 +18,7 @@ export const FormButtons = ({navigation, saving, onSave = () => {}}) => {
         fill={Constants.COLORS.GRAY}
         style={Style.left_button}
         onPress={() => {
-          navigation.goBack();
+          navigation.pop(backTimes);
         }}
       />
       <FillIconButton

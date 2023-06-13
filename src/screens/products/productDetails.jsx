@@ -1,94 +1,84 @@
-import { View, Text, ScrollView, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Layout } from "../Layout";
 import Style from "./style";
-import { CustomSpeedometer } from "../../components/speedometer/Speedometer";
+import { useState } from "react";
 import { ProductShortCuts } from "../../components/products/Shortcuts";
 import { ProductCompleteDetails } from "../../components/products/Details";
 import { Constants } from "../../util";
+import { Breadcrumb } from "../../components/breadcrumb/Breadcrumb";
+import { StatsList } from "../../components/products/Stats";
+import moment from "moment";
 
-const data = [
-  {
-    min: 10,
-    max: 30,
-    value: 15,
-  },
-  {
-    min: 0,
-    max: 100,
-    value: 65,
-  },
-  {
-    min: 40,
-    max: 60,
-    value: 58,
-  },
-  {
-    min: 0,
-    max: 100,
-    value: 65,
-  },
-  {
-    min: 10,
-    max: 80,
-    value: 34,
-  },
-  {
-    min: 35,
-    max: 70,
-    value: 69,
-  },
-];
+export const ProductDetail = ({ navigation, route }) => {
+  const currentDateTime = moment().format(Constants.DATETIME_FORMATS.DATETIME);
+  const [lastUpdate, setLastUpdate] = useState(currentDateTime)
+  const [reload, setReload] = useState(false);
+  const sowing = route.params?.sowing;
+  const breadcrumb = {
+    title: `${sowing.fish_step.fish.name} - ${sowing.fish_step.name}`,
+    subtitle: sowing.pond.name,
+    icon: "ios-create",
 
-export const ProductDetail = ({navigation, route}) => {
-  const keyExtractor = ({ index }) => {
-    return index;
   };
 
-  const renderRow = ({ item, index }) => {
-    return <CustomSpeedometer key={index} data={item} />;
+  const openAddSowing = () => {
+    navigation.navigate("AddSowing", {sowing: sowing});
   };
+
+  const refreshData = () => {
+    const currentDateTime = moment().format(Constants.DATETIME_FORMATS.DATETIME);
+    setLastUpdate(currentDateTime)
+    setReload(!reload);
+  }
 
   return (
     <Layout navigation={navigation} route={route}>
       <ScrollView style={Style.scrollview}>
         <View style={Style.main_page}>
-          <View style={Style.user_container}>
-            <View>
-              <Text style={Style.text_user}>Estanque 1</Text>
-              <Text style={Style.name_user}>Mojarra Roja</Text>
-            </View>
-          </View>
+          <Breadcrumb
+            onPressRight={() => {
+              openAddSowing();
+            }}
+            navigation={navigation}
+            data={breadcrumb}
+          />
           <ProductShortCuts navigation={navigation} />
           <Text style={Style.subtitle}>Mediciones</Text>
           <View style={Style.refresh_container}>
-            <Text style={Style.last_refresh}>Última medición 10/04/2023 12:04pm</Text>
+            <Text style={Style.last_refresh}>
+              {`Última actualización ${lastUpdate}`}
+            </Text>
             <View style={Style.row_between}>
-              <TouchableOpacity>
-              <Text style={Style.refresh_text_button}>Actualizar</Text>
+              <TouchableOpacity
+                activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+                onPress={() => {refreshData()}}
+              >
+                <Text style={Style.refresh_text_button}>Actualizar</Text>
               </TouchableOpacity>
-             <TouchableOpacity
-              activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-              onPress={() => {
-                navigation.navigate("ProductHistory");
-              }}
-             >
-             <Text style={[Style.refresh_text_button, {color: Constants.COLORS.GREEN}]}>Ver Historico</Text>
-             </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+                onPress={() => {
+                  navigation.navigate("ProductHistory", {sowing: sowing});
+                }}
+              >
+                <Text
+                  style={[
+                    Style.refresh_text_button,
+                    { color: Constants.COLORS.GREEN },
+                  ]}
+                >
+                  Ver Historico
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
-          <FlatList
-            columnWrapperStyle={{ justifyContent: "space-between" }}
-            keyboardShouldPersistTaps="always"
-            showsHorizontalScrollIndicator={false}
-            data={data}
-            initialNumToRender={5}
-            windowSize={10}
-            removeClippedSubviews={false}
-            numColumns={2}
-            keyExtractor={keyExtractor}
-            renderItem={renderRow}
-          />
-          <ProductCompleteDetails />
+          <StatsList sowing={sowing} reload={reload}/>
+          <ProductCompleteDetails sowing={sowing}/>
         </View>
       </ScrollView>
     </Layout>

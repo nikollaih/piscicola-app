@@ -1,7 +1,12 @@
 import { showMessage } from "react-native-flash-message";
 import { UsersServices } from "../services";
 import * as Texts from "./texts.json";
-import { Alert } from "react-native";
+import { Alert, Linking } from "react-native";
+
+// Open url browser
+export const openUrl = (url) => {
+  Linking.openURL(url);
+};
 
 export const capitalize = (text) => {
   return text.length > 0 ? text.charAt(0).toUpperCase() + text.slice(1) : text;

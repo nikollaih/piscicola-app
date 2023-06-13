@@ -1,6 +1,6 @@
 export default {
     API: {
-        URL: "http://3.15.1.206:8080/"
+        URL: "http://18.223.195.235:8080/"
     },
     COLORS: {
         DARK: "#31322d",
@@ -9,6 +9,7 @@ export default {
         SECONDARY: "#f46321",
         LILA: "#e5e2ff",
         GREEN: "#5eccb4",
+        LIVE_GREEN: "#44ce1b",
         GRAY: "#999999",
         LIGHT_GRAY: "#cacaca",
         IOS_BACKGROUND_GRAY: "#f9f9f9",

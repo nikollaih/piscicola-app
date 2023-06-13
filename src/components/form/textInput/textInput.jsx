@@ -41,6 +41,8 @@ export const CustomTextInput = ({ data, formName }) => {
       : Constants.COLORS.LIGHT_GRAY;
   };
 
+  const input_value = dataForm[formName].structure[data.name] ? dataForm[formName].structure[data.name].toString() : "";
+
   return (
     <View style={[{ marginBottom: data?.bottom ? data.bottom : 20 }]}>
       <View style={Style.row}>
@@ -68,7 +70,7 @@ export const CustomTextInput = ({ data, formName }) => {
           keyboardType={data?.keyboard_type ? data.keyboard_type : "default"}
           placeholder={data.placeholder}
           editable={(data?.is_editable != undefined) ? data.is_editable : true}
-          value={dataForm[formName].structure[data.name]}
+          value={input_value}
           placeholderTextColor={Constants.COLORS.LIGHT_GRAY}
           multiline={data?.is_large}
           secureTextEntry={data?.secure_entry_text}

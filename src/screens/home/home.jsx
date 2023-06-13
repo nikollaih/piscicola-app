@@ -45,7 +45,6 @@ export const Home = (props) => {
                 {loggedUser?.profile?.full_name}
               </Text>
             </View>
-            <Image style={Style.avatar} source={Avatar} />
           </View>
           {loggedUser?.profile?.user_type_id == 1 ? (
             <AdminHome

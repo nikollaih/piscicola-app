@@ -8,26 +8,75 @@ import {
 } from "react-native";
 import { LineChart } from "react-native-charts-wrapper";
 import { Constants } from "../../util";
+import moment from "moment";
+import { useEffect } from "react";
 
 const { width } = Dimensions.get("screen");
 
-export const LinearChart = ({ navigation, orientation, data }) => {
+const generalConfig = {
+  lineWidth: 2,
+  circleRadius: 6,
+  circleColor: processColor(Constants.COLORS.PRIMARY),
+  color: processColor(Constants.COLORS.PRIMARY),
+  drawFilled: true,
+  fillColor: processColor(Constants.COLORS.PRIMARY),
+  fillAlpha: 20,
+  drawHighlightIndicators: true,
+};
+
+export const LinearChart = ({ data }) => {
+  useEffect(() => {
+    data["data"] = data.data.reverse()
+  }, [])
+  
   const getLabels = () => {
-    return ["03/10", "03/10", "03/10", "03/10", "03/10"];
+    let labels = [];
+    data.data.map((reading) => {
+      labels.push(moment(reading.created_at).format("DD/MM/Y H:m a"));
+    });
+    return labels;
+  };
+
+  const getValues = () => {
+    let values = [];
+
+    data.data.map((reading) => {
+      values.push({ y: reading.value });
+    });
+    return values;
+  };
+
+  const getLimit = (type = "fish_step_stat_value_minimum") => {
+    const LINE_COLOR = type == "fish_step_stat_value_minimum" ? Constants.COLORS.GREEN : Constants.COLORS.RED;
+    if (data.data.length > 0) {
+      const FISH_STEP_MINIMUN_VALUE = data.data[0][type];
+      if (FISH_STEP_MINIMUN_VALUE) {
+        let minLimits = [];
+        data.data.map(() => {
+          minLimits.push({ y: FISH_STEP_MINIMUN_VALUE });
+        });
+        return {
+          label: type == "fish_step_stat_value_minimum" ? `Minimo: ${FISH_STEP_MINIMUN_VALUE}` : `Maximo: ${FISH_STEP_MINIMUN_VALUE}`,
+          textColor: processColor(LINE_COLOR),
+          values: minLimits,
+          config: {
+            ...generalConfig,
+            fillAlpha: 0,
+            circleRadius: 1,
+            circleColor: processColor(LINE_COLOR),
+            color: processColor(LINE_COLOR),
+            fillColor: processColor(LINE_COLOR),
+            textColor: processColor(LINE_COLOR),
+            valueTextSize: 1,
+            valueTextColor: processColor(LINE_COLOR),
+          },
+        };
+      }
+    }
+    return {};
   };
 
   const getData = () => {
-    let generalConfig = {
-      lineWidth: 2,
-      circleRadius: 6,
-      circleColor: processColor(Constants.COLORS.PRIMARY),
-      color: processColor(Constants.COLORS.PRIMARY),
-      drawFilled: true,
-      fillColor: processColor(Constants.COLORS.PRIMARY),
-      fillAlpha: 20,
-      drawHighlightIndicators: true,
-    };
-
     let dataSet = {
       dataSets: [],
     };
@@ -35,7 +84,7 @@ export const LinearChart = ({ navigation, orientation, data }) => {
     dataSet["dataSets"] = [
       {
         label: "",
-        values: [{ y: 1 }, { y: 2 }, { y: 5 }, { y: 6 }, { y: 8 }],
+        values: getValues(),
         config: {
           ...generalConfig,
           valueTextSize: 12,
@@ -47,13 +96,20 @@ export const LinearChart = ({ navigation, orientation, data }) => {
           valueTextColor: processColor(Constants.COLORS.DARK),
         },
       },
+      getLimit("fish_step_stat_value_maximum"),
+      getLimit(),
     ];
 
     return dataSet;
   };
+
+  const getTitle = () => {
+    return data.data[0]["fish_step_stat_name"] ? data.data[0]["fish_step_stat_name"] : data.key;
+  }
+
   return (
     <View style={Style.container}>
-      <Text style={Style.title}>{data.name}</Text>
+      <Text style={Style.title}>{getTitle()}</Text>
       <LineChart
         style={Style.chart}
         data={{
@@ -100,6 +156,6 @@ const Style = StyleSheet.create({
   title: {
     textAlign: "center",
     fontFamily: "RobotoCondensed-Bold",
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });

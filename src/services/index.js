@@ -6,6 +6,8 @@ import * as StepsServices from "./Steps";
 import * as ProductTypesServices from "./productTypes";
 import * as PondsServices from "./Ponds";
 import * as FishStatsServices from './fishStats';
+import * as SowingsServices from './Sowings';
+import * as EmployeesServices from './Employee';
 
 export {
   PondsServices,
@@ -15,5 +17,7 @@ export {
   FishServices,
   StepsServices,
   ProductTypesServices,
-  FishStatsServices
+  FishStatsServices,
+  SowingsServices,
+  EmployeesServices
 };

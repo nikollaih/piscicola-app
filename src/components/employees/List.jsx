@@ -1,15 +1,14 @@
-import { FlatList, ActivityIndicator } from "react-native";
+import { FlatList } from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { SowingItem } from "./Item";
-import { SowingsServices } from "../../services";
+import { EmployeeItem } from "./Item";
+import { EmployeesServices } from "../../services";
 import { LocalStorage, Constants, Utilities } from "../../util";
-import { NoDataFound } from "../noDataFound/noDataFound";
 
-export const SowingsList = ({ navigation, orientation = "vertical" }) => {
+export const EmployeesList = ({ navigation }) => {
   const { getAuth, refreshToken } = useAuth();
-  const [sowings, setSowings] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -17,29 +16,30 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
-    getSowings();
+    getEmployees();
     return unsubscribe;
   }, [navigation]);
 
   // Get the fish listing
-  const getSowings = async () => {
+  const getEmployees = async () => {
     const loggedUser = await getAuth();
     const productiveUnitID = loggedUser?.productive_unit?.id;
     try {
       setLoading(true);
-      let response = await SowingsServices.get(loggedUser.token, productiveUnitID);
+      let response = await EmployeesServices.get(loggedUser.token, productiveUnitID);
       let jsonResponse = await response.json();
       if (response.status == 200) {
-        setSowings(jsonResponse.data);
+        setEmployees(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken(true);
-          getSowings();
+          getEmployees();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
+      console.log(error)
       Utilities.showAlert({});
     }
   };
@@ -49,8 +49,8 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "sowings") {
-      getSowings();
+    if (updatedScreen == "employees") {
+      getEmployees();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }
   };
@@ -60,24 +60,20 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
   };
 
   const renderRow = ({ item, index }) => {
-    return <SowingItem onDelete={() => getSowings()} sowing={item} navigation={navigation} orientation={orientation} />;
+    return <EmployeeItem onDelete={() => getEmployees()} employee={item} navigation={navigation} />;
   };
 
-  if(loading)
-    return <ActivityIndicator color={Constants.COLORS.PRIMARY} />
-
-  return (sowings.length > 0) ? (
+  return (
     <FlatList
-      horizontal={orientation == 'horizontal'}
       keyboardShouldPersistTaps="always"
       showsHorizontalScrollIndicator={false}
-      data={sowings}
-      initialNumToRender={5}
+      data={employees}
+      initialNumToRender={10}
       windowSize={10}
       removeClippedSubviews={false}
       keyExtractor={keyExtractor}
       renderItem={renderRow}
+      style={{ borderRadius: 10, overflow: "hidden" }}
     />
-  ) : 
-  <NoDataFound />;
+  );
 };

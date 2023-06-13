@@ -52,8 +52,8 @@ export const AddFishStats = (props) => {
     return {
       ...fishStats,
       id: fishStats?.id,
-      value_minimum: fishStats?.value_minimum.toString(),
-      value_maximum: fishStats?.value_maximum.toString(),
+      value_minimum: fishStats?.value_minimum,
+      value_maximum: fishStats?.value_maximum,
       fish_step_id: fishStats.fish_step_id ? fishStats.fish_step_id : fish.id,
     };
   };

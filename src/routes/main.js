@@ -29,6 +29,9 @@ import { FeedHistory } from '../screens/products/feedingHistory';
 import { AddFeed } from '../screens/products/addFeed';
 import { FishStats } from '../screens/fishStats/fishStats';
 import { AddFishStats } from '../screens/fishStats/add/addFishStats';
+import { AddSowing } from '../screens/products/add/addSowing';
+import { Employees } from '../screens/employees/Employees';
+import { AddEmployee } from '../screens/employees/add/addEmployee';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -159,5 +162,17 @@ export default [
     {
         name: "AddFeed",
         screen: AddFeed,
+    },
+    {
+        name: "AddSowing",
+        screen: AddSowing,
+    },
+    {
+        name: "Employees",
+        screen: Employees,
+    },
+    {
+        name: "AddEmployee",
+        screen: AddEmployee,
     },
 ]

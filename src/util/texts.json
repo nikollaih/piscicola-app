@@ -8,7 +8,8 @@
         "code" : {
             "1003": "No tiene permisos de administrador",
             "42703": "Hubo un error en la base de datos",
-            "1005": "Usuario o contraseña incorrecta"
+            "1005": "Usuario o contraseña incorrecta",
+            "1704": "El estanque ya tiene una cosecha"
         }
     },
     "success": {
@@ -46,6 +47,16 @@
             "create": "Parametro creado exitosamente.",
             "update": "Parametro modificado exitosamente.",
             "delete": "Parametro eliminado exitosamente."
+        },
+        "sowing": {
+            "create": "Cosecha creada exitosamente.",
+            "update": "Cosecha modificada exitosamente.",
+            "delete": "Cosecha eliminada exitosamente."
+        },
+        "employee": {
+            "create": "Empleado creado exitosamente.",
+            "update": "Empleado modificado exitosamente.",
+            "delete": "Empleado eliminado exitosamente."
         }
     }
 }
