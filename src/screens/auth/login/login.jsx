@@ -60,12 +60,14 @@ export const Login = ({ navigation }) => {
   const onSuccessLogin = async (user) => {
     if (user?.profile?.user_type_id != Constants.USERS_TYPES.ADMIN) {
       let productiveUnit = await getProductiveUnit(user);
-      if (productiveUnit == false || productiveUnit?.data.length <= 0)
+      if (productiveUnit == false || productiveUnit?.data.length <= 0){
         setAlert({
           text: Texts.error.no_productive_unit,
           type: "error",
           show: true,
         });
+        setLoading(false);
+      }
       else {
         user["productive_unit"] = productiveUnit.data[0];
         setAuth(user, data);

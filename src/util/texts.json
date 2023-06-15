@@ -5,6 +5,7 @@
         "common": "Ha ocurrido un error, por favor intente de nuevo más tarde.",
         "min_length": "El texto debe contener minimo ",
         "no_productive_unit": "No se ha encontrado una unidad productiva asociada al usuario.",
+        "stats_history_date_mismatch": "La fecha de inicio no puede ser superior a la fecha de finalización",
         "code" : {
             "1003": "No tiene permisos de administrador",
             "42703": "Hubo un error en la base de datos",

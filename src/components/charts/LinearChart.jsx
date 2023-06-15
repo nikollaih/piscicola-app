@@ -26,28 +26,24 @@ const generalConfig = {
 
 export const LinearChart = ({ data }) => {
   useEffect(() => {
-    data["data"] = data.data.reverse()
-  }, [])
-  
+    data["data"] = data.data.reverse();
+  }, []);
+
   const getLabels = () => {
-    let labels = [];
-    data.data.map((reading) => {
-      labels.push(moment(reading.created_at).format("DD/MM/Y H:m a"));
-    });
-    return labels;
+    return data.data.map((reading) =>
+      moment(reading.created_at).format("DD/MM/Y H:m a")
+    );
   };
 
   const getValues = () => {
-    let values = [];
-
-    data.data.map((reading) => {
-      values.push({ y: reading.value });
-    });
-    return values;
+    return data.data.map((reading) => ({ y: reading.value }));
   };
 
   const getLimit = (type = "fish_step_stat_value_minimum") => {
-    const LINE_COLOR = type == "fish_step_stat_value_minimum" ? Constants.COLORS.GREEN : Constants.COLORS.RED;
+    const LINE_COLOR =
+      type == "fish_step_stat_value_minimum"
+        ? Constants.COLORS.GREEN
+        : Constants.COLORS.RED;
     if (data.data.length > 0) {
       const FISH_STEP_MINIMUN_VALUE = data.data[0][type];
       if (FISH_STEP_MINIMUN_VALUE) {
@@ -56,7 +52,10 @@ export const LinearChart = ({ data }) => {
           minLimits.push({ y: FISH_STEP_MINIMUN_VALUE });
         });
         return {
-          label: type == "fish_step_stat_value_minimum" ? `Minimo: ${FISH_STEP_MINIMUN_VALUE}` : `Maximo: ${FISH_STEP_MINIMUN_VALUE}`,
+          label:
+            type == "fish_step_stat_value_minimum"
+              ? `Minimo: ${FISH_STEP_MINIMUN_VALUE}`
+              : `Maximo: ${FISH_STEP_MINIMUN_VALUE}`,
           textColor: processColor(LINE_COLOR),
           values: minLimits,
           config: {
@@ -104,8 +103,10 @@ export const LinearChart = ({ data }) => {
   };
 
   const getTitle = () => {
-    return data.data[0]["fish_step_stat_name"] ? data.data[0]["fish_step_stat_name"] : data.key;
-  }
+    return data.data[0]["fish_step_stat_name"]
+      ? data.data[0]["fish_step_stat_name"]
+      : data.key;
+  };
 
   return (
     <View style={Style.container}>

@@ -45,7 +45,7 @@ export const CustomSpeedometer = ({ stat }) => {
 
   const getMinValue = () => {
     if (stat.value <= stat.fish_step_stat_value_minimum)
-      return stat.fish_step_stat_value_minimum / 1.5;
+      return stat.fish_step_stat_value_minimum - 5;
     if (stat.fish_step_stat_value_minimum)
       return stat.fish_step_stat_value_minimum;
     if (stat.value > 0) return 0;
@@ -54,10 +54,10 @@ export const CustomSpeedometer = ({ stat }) => {
 
   const getMaxValue = () => {
     if (stat.value >= stat.fish_step_stat_value_maximum)
-      return stat.value * 1.5;
+      return stat.value + 5;
     if (stat.fish_step_stat_value_maximum)
       return stat.fish_step_stat_value_maximum;
-    if (stat.value > 0) return stat.value * 2;
+    if (stat.value > 0) return stat.value + 5;
     return stat.value;
   };
 

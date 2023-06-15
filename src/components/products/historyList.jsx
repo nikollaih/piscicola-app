@@ -1,9 +1,9 @@
-import { View, FlatList, ActivityIndicator } from "react-native";
+import { FlatList, ActivityIndicator } from "react-native";
 import { ProductHistoryItem } from "./historyItem";
 import { SowingsServices } from "../../services";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { Constants, Utilities } from "../../util";
+import { Constants, Texts, Utilities } from "../../util";
 import moment from "moment";
 import { NoDataFound } from "../noDataFound/noDataFound";
 
@@ -15,17 +15,13 @@ export const ProductHistoryList = ({
 }) => {
   const { getAuth, refreshToken } = useAuth();
   const [statsHistory, setStatsHistory] = useState({});
-  const [loading, setLoading] = useState(false)
-
-  const keyExtractor = ({ index }) => {
-    return index;
-  };
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getStatsHistory();
   }, [setFilter]);
 
-  const getFilters = (stats) => {
+  const getFilters = (stats = []) => {
     return {
       sowing_id: sowing.id,
       keys: stats,
@@ -36,40 +32,48 @@ export const ProductHistoryList = ({
         `${Constants.DATETIME_FORMATS.DATE} 23:59:59`
       ),
     };
-  }
+  };
+
+  const keyExtractor = ({ index }) => {
+    return index;
+  };
 
   const getStatsHistory = async () => {
     try {
       setLoading(true);
       setStatsHistory([]);
       const loggedUser = await getAuth();
-      const stats = await getStats();
-      const filters = getFilters(stats);
+      const statsKeys = await getStatsKeys();
+      const filters = getFilters(statsKeys);
 
-      if (filters.keys.length > 0 && moment(filter.start_date).isBefore(moment(filter.end_date))) {
+      if (hasValidFilters(filters)) {
         let response = await SowingsServices.getStatsHistory(
           loggedUser.token,
           filters
         );
         let jsonResponse = await response.json();
-        if (response.status == 200) {
-          setStatsHistory(jsonResponse.stats);
-        } else {
-          if (
-            jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN
-          ) {
-            refreshToken(true);
-            getStatsHistory();
-          } else Utilities.showErrorFecth(jsonResponse);
-        }
+        if (response.status == 200) setStatsHistory(jsonResponse.stats);
+        else if (
+          jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN
+        ) {
+          refreshToken(true);
+          getStatsHistory();
+        } else Utilities.showErrorFecth(jsonResponse);
       }
+      else
+        Utilities.showAlert({text: Texts.error.stats_history_date_mismatch, title: "Error"})
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
 
-  const getStats = async () => {
+  const hasValidFilters = (filters) => {
+    const { keys, start_date, end_date } = filters;
+    return keys.length > 0 && moment(start_date).isBefore(moment(end_date));
+  };
+
+  const getStatsKeys = async () => {
     try {
       let statsKeys = [];
       const loggedUser = await getAuth();
@@ -78,24 +82,21 @@ export const ProductHistoryList = ({
         sowing.id
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        jsonResponse.map((stat) => {
-          statsKeys.push(stat.key);
-        });
-        return statsKeys;
-      } else {
+      if (response.status == 200)
+        return (statsKeys = jsonResponse.map((stat) => stat.key));
+      else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken(true);
-          getStats();
+          getStatsKeys();
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       Utilities.showAlert();
     }
   };
 
-  const renderRow = ({ item, index }) => {
+  const renderRow = ({ item }) => {
     return (
       <ProductHistoryItem
         data={{ key: item, data: statsHistory[item] }}
@@ -105,12 +106,8 @@ export const ProductHistoryList = ({
     );
   };
 
-  if(loading)
-    return <ActivityIndicator color={Constants.COLORS.PRIMARY} />
-
-  if(!loading && Object.keys(statsHistory).length <= 0)
-    return <NoDataFound />
-
+  if (loading) return <ActivityIndicator color={Constants.COLORS.PRIMARY} />;
+  if (!loading && Object.keys(statsHistory).length <= 0) return <NoDataFound />;
   return (
     <FlatList
       keyboardShouldPersistTaps="always"
