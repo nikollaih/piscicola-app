@@ -8,6 +8,9 @@ import * as PondsServices from "./Ponds";
 import * as FishStatsServices from './fishStats';
 import * as SowingsServices from './Sowings';
 import * as EmployeesServices from './Employee';
+import * as TasksServices from './Tasks';
+import * as TaskLogsServices from './TaskLogs';
+import * as PaymentTypesServices from './PaymentTypes';
 
 export {
   PondsServices,
@@ -19,5 +22,8 @@ export {
   ProductTypesServices,
   FishStatsServices,
   SowingsServices,
-  EmployeesServices
+  EmployeesServices,
+  TasksServices,
+  TaskLogsServices,
+  PaymentTypesServices
 };

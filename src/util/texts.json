@@ -54,10 +54,25 @@
             "update": "Cosecha modificada exitosamente.",
             "delete": "Cosecha eliminada exitosamente."
         },
+        "task": {
+            "create": "Tarea creada exitosamente.",
+            "update": "Tarea modificada exitosamente.",
+            "delete": "Tarea eliminada exitosamente."
+        },
         "employee": {
             "create": "Empleado creado exitosamente.",
             "update": "Empleado modificado exitosamente.",
             "delete": "Empleado eliminado exitosamente."
+        },
+        "task_log": {
+            "create": "Registro de tarea creado exitosamente.",
+            "update": "Registro de tarea modificado exitosamente.",
+            "delete": "Registro de tarea eliminado exitosamente."
+        },
+        "payment_type": {
+            "create": "Tipo de pago creado exitosamente.",
+            "update": "Tipo de pago modificado exitosamente.",
+            "delete": "Tipo de pago eliminado exitosamente."
         }
     }
 }

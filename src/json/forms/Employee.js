@@ -1,5 +1,4 @@
 import employeeStructure from "../formsStructure/employeeStructure";
-import { Constants } from "../../util";
 
 export default
     {
@@ -37,6 +36,16 @@ export default
                 icon: "ios-person",
                 title: "Nombre completo",
                 placeholder: "Jhon Doe",
+                type: "input",
+                validate: {
+                    required: true,
+                    min_length: 10
+                }
+            },
+            occupation: {
+                icon: "ios-person",
+                title: "Ocupación",
+                placeholder: "Ocupación",
                 type: "input",
                 validate: {
                     required: true,

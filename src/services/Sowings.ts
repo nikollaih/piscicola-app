@@ -35,8 +35,6 @@ export const create = async (token: String, data: any) => {
 };
 
 export const getStatsHistory = async (token: String, filters: {}) => {
-
-  console.log(filters)
   let response = await fetch(Constants.API.URL + "sowings/stats/list_group_by_keys", {
     headers: {
       ...Constants.CONFIG.HEADERS,

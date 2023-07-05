@@ -56,7 +56,7 @@ export const ProductHistoryList = ({
         else if (
           jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN
         ) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: navigation});
           getStatsHistory();
         } else Utilities.showErrorFecth(jsonResponse);
       }
@@ -86,12 +86,11 @@ export const ProductHistoryList = ({
         return (statsKeys = jsonResponse.map((stat) => stat.key));
       else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: navigation});
           getStatsKeys();
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
-      console.log(error);
       Utilities.showAlert();
     }
   };

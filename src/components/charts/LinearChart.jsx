@@ -31,7 +31,7 @@ export const LinearChart = ({ data }) => {
 
   const getLabels = () => {
     return data.data.map((reading) =>
-      moment(reading.created_at).format("DD/MM/Y H:m a")
+      moment(reading.created_at).format("DD/MM/Y hh:mm a")
     );
   };
 
@@ -147,12 +147,12 @@ const Style = StyleSheet.create({
     backgroundColor: Constants.COLORS.WHITE,
     borderRadius: 10,
     padding: 10,
-    height: 200,
+    height: 230,
   },
   chart: {
     flex: 1,
     width: width - 40,
-    height: 300,
+    height: 230,
   },
   title: {
     textAlign: "center",

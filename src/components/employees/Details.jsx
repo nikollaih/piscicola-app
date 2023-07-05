@@ -42,7 +42,7 @@ export const EmployeeDetails = ({
         onDelete();
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: navigation});
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
       }
@@ -87,6 +87,10 @@ export const EmployeeDetails = ({
             onPress={() => {Utilities.openUrl(`tel:${employee.phone}`)}}>
             <Text style={[Style.text, {color: Constants.COLORS.PRIMARY}]}>{employee.phone}</Text>
           </TouchableOpacity>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Ocupación</Text>
+          <Text style={Style.text}>{employee.occupation}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Fecha de creación</Text>

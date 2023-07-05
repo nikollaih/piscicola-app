@@ -10,7 +10,7 @@ import { CustomForm } from "../../../components/form/customForm";
 import { useForm } from "../../../hooks/useForm";
 import { useAuth } from "../../../hooks/useAuth";
 import { UsersServices, ProductiveUnitsServices } from "../../../services";
-import { Utilities, LocalStorage, Constants, Texts } from "../../../util";
+import { Utilities, LocalStorage, Constants, Texts, UtilServices } from "../../../util";
 
 export const AddUser = (props) => {
   const User = props.route.params?.user;
@@ -32,8 +32,12 @@ export const AddUser = (props) => {
   /**
    * It sets the initial data for the form.
    */
-  const setInitialData = (User) => {
+  const setInitialData = async (User) => {
+    let loggeduser = await getAuth();
+    let userTypes = await UtilServices.getUserTypes(loggeduser);
+
     FormInputs["structure"] = User ? User : userStructure;
+    FormInputs["fields"]["user_type_id"]["items"] = userTypes;
     setSaving(false);
     setCheckrequired({ [FormInputs.form_name]: false });
     setDataForm({ ...dataForm, [FormInputs.form_name]: FormInputs });

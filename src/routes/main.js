@@ -32,6 +32,12 @@ import { AddFishStats } from '../screens/fishStats/add/addFishStats';
 import { AddSowing } from '../screens/products/add/addSowing';
 import { Employees } from '../screens/employees/Employees';
 import { AddEmployee } from '../screens/employees/add/addEmployee';
+import { Tasks } from '../screens/tasks/Tasks';
+import { AddTask } from '../screens/tasks/add/addTask';
+import { TaskLogs } from '../screens/taskLogs/TaskLogs';
+import { AddTaskLog } from '../screens/taskLogs/add/addTaskLog';
+import { PaymentTypes } from '../screens/paymentTypes/paymentTypes';
+import { AddPaymentType } from '../screens/paymentTypes/add/addPaymentType';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -174,5 +180,29 @@ export default [
     {
         name: "AddEmployee",
         screen: AddEmployee,
+    },
+    {
+        name: "Tasks",
+        screen: Tasks,
+    },
+    {
+        name: "AddTask",
+        screen: AddTask,
+    },
+    {
+        name: "TaskLogs",
+        screen: TaskLogs,
+    },
+    {
+        name: "AddTaskLog",
+        screen: AddTaskLog,
+    },
+    {
+        name: "PaymentTypes",
+        screen: PaymentTypes,
+    },
+    {
+        name: "AddPaymentType",
+        screen: AddPaymentType,
     },
 ]

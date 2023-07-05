@@ -77,7 +77,7 @@ export const ProductDetail = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
           </View>
-          <StatsList sowing={sowing} reload={reload}/>
+          <StatsList navigation={navigation} sowing={sowing} reload={reload}/>
           <ProductCompleteDetails sowing={sowing}/>
         </View>
       </ScrollView>

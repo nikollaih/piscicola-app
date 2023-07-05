@@ -80,8 +80,6 @@ export const AddFishStats = (props) => {
         ...dataForm[FormInputs.form_name].structure,
       };
 
-      console.log(sendDataForm);
-
       // Create new productive unit
       let response = await FishStatsServices.create(
         loggeduser.token,

@@ -27,15 +27,20 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
     const productiveUnitID = loggedUser?.productive_unit?.id;
     try {
       setLoading(true);
-      let response = await SowingsServices.get(loggedUser.token, productiveUnitID);
+      let response = await SowingsServices.get(
+        loggedUser.token,
+        productiveUnitID
+      );
       let jsonResponse = await response.json();
+      console.log("Token", loggedUser.token);
+      console.log("Response Json", jsonResponse);
       if (response.status == 200) {
         setSowings(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
-          getSowings();
+          await refreshToken({ force: true, navigation: navigation });
+          //getSowings();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
@@ -60,15 +65,21 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
   };
 
   const renderRow = ({ item, index }) => {
-    return <SowingItem onDelete={() => getSowings()} sowing={item} navigation={navigation} orientation={orientation} />;
+    return (
+      <SowingItem
+        onDelete={() => getSowings()}
+        sowing={item}
+        navigation={navigation}
+        orientation={orientation}
+      />
+    );
   };
 
-  if(loading)
-    return <ActivityIndicator color={Constants.COLORS.PRIMARY} />
+  if (loading) return <ActivityIndicator color={Constants.COLORS.PRIMARY} />;
 
-  return (sowings.length > 0) ? (
+  return sowings.length > 0 ? (
     <FlatList
-      horizontal={orientation == 'horizontal'}
+      horizontal={orientation == "horizontal"}
       keyboardShouldPersistTaps="always"
       showsHorizontalScrollIndicator={false}
       data={sowings}
@@ -78,6 +89,7 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
       keyExtractor={keyExtractor}
       renderItem={renderRow}
     />
-  ) : 
-  <NoDataFound />;
+  ) : (
+    <NoDataFound />
+  );
 };

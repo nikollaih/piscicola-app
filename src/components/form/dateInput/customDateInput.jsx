@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import Theme from '../../../theme/theme';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import {Constants} from '../../../util';
+import {Constants, Validations} from '../../../util';
 import {useForm} from '../../../hooks/useForm';
 import DatePicker from 'react-native-date-picker';
 
@@ -84,8 +84,20 @@ export const CustomDateInput = ({data, formName}) => {
           {moment(dataForm[formName].structure[data.name]).format(data.format)}
         </Text>
       </View>
-      {checkRequiredField() ? (
-        <Text style={Style.text_red}>Por favor complete este campo</Text>
+      {!Validations.checkRequiredField(
+        data,
+        dataForm[formName],
+        checkRequired[formName]
+      ).status ? (
+        <Text style={Style.text_red}>
+          {
+            Validations.checkRequiredField(
+              data,
+              dataForm[formName],
+              checkRequired[formName]
+            ).text
+          }
+        </Text>
       ) : null}
     </TouchableOpacity>
   );

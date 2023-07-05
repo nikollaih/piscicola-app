@@ -37,7 +37,7 @@ export const EmployeeItem = ({ navigation, employee, onDelete = () => {} }) => {
         </View>
       </View>
       <CustomModal
-        height={height - 320}
+        height={height - 400}
         title={employee.full_name}
         showModal={showModal}
         onClose={() => {

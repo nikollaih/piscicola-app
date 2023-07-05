@@ -3,6 +3,9 @@ import {
   ProductiveUnitsServices,
   PondsServices,
   FishServices,
+  TasksServices,
+  EmployeesServices,
+  UsersServices
 } from "../services";
 
 export const getProductType = async (token) => {
@@ -31,7 +34,7 @@ export const getPonds = async (user) => {
       ? await response.json()
       : { data: [] };
   } catch (error) {
-    return [];
+    return { data: [] };
   }
 };
 
@@ -42,6 +45,42 @@ export const getFish = async (user) => {
     return response.status == 200
       ? await response.json()
       : { data: [] };
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
+export const getTasks = async (user) => {
+  try {
+    let response = await TasksServices.get(user);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : { data: [] };
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
+export const getEmployees = async (user) => {
+  try {
+    let response = await EmployeesServices.get(user);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : { data: [] };
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
+export const getUserTypes = async (user) => {
+  try {
+    let response = await UsersServices.getUserTypes(user.token);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : [];
   } catch (error) {
     return [];
   }

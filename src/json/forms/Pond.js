@@ -23,12 +23,12 @@ export default
                 type: "input",
                 validate: {
                     required: true,
-
                 }
             },
             description: {
                 title: "Descripcion",
                 placeholder: "",
+                is_large: true,
                 type: "input",
                 validate: {
                     required: true

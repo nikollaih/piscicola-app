@@ -2,6 +2,7 @@ import { showMessage } from "react-native-flash-message";
 import { UsersServices } from "../services";
 import * as Texts from "./texts.json";
 import { Alert, Linking } from "react-native";
+import moment from "moment";
 
 // Open url browser
 export const openUrl = (url) => {
@@ -77,3 +78,19 @@ export const confirmDelete = async (message = "") =>
       { cancelable: true }
     );
   });
+
+export const changeDateFormatForAPI = (params) => {
+  if (moment(params.date, "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid() === true)
+    return moment(params.date, "YYYY-MM-DDTHH:mm:ss.SSSZ").format("YYYY-MM-DD HH:mm:ss");
+
+  return params.date;
+};
+
+export const dataToFormDataAPI = (data) => {
+  for (let key in data) {
+    if (moment(data[key], "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid() === true)
+      data[key] = changeDateFormatForAPI({ date: data[key] });
+  }
+
+  return data;
+};

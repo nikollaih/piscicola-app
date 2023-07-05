@@ -38,3 +38,14 @@ export const create = async (token: String, data: any) => {
   });
   return response;
 };
+
+export const getUserTypes = async (token: String) => {
+  let response = await fetch(Constants.API.URL + "user_types/list", {
+    headers: {
+      ...Constants.CONFIG.HEADERS,
+      Authorization: "Bearer " + token,
+    },
+    method: "GET",
+  });
+  return response;
+};

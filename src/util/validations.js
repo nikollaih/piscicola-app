@@ -1,4 +1,6 @@
+import { Constants } from ".";
 import Texts from "../util/texts.json";
+import moment from "moment";
 /**
  * It returns true if the email is valid, and false if it's not
  * @returns A boolean value.
@@ -43,8 +45,16 @@ export const checkRequiredField = (data, dataForm, check) => {
     )
       return {
         status: false,
-        text: Texts.error.min_length + data?.validate?.min_length + " caracteres",
+        text:
+          Texts.error.min_length + data?.validate?.min_length + " caracteres",
       };
+
+    /* It checks if a date if greater than another */
+    if (
+      data?.validate?.is_greater_than &&
+      (moment(dataForm.structure[data?.validate?.is_greater_than]).format(Constants.DATETIME_FORMATS.DATETIME) == moment(dataForm.structure[data.name]).format(Constants.DATETIME_FORMATS.DATETIME) || moment(dataForm.structure[data?.validate?.is_greater_than]).isAfter(moment(dataForm.structure[data.name])))
+    )
+      return { status: false, text: Texts.error.stats_history_date_mismatch };
 
     return { status: true };
   }

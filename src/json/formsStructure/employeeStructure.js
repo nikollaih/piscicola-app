@@ -3,5 +3,6 @@ export default {
     identifier_type: "cc",
     identifier: "",
     full_name: "",
-    phone: ""
+    phone: "",
+    occupation: ""
 }

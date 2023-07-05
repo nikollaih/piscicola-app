@@ -52,7 +52,7 @@ export const AddSowing = (props) => {
       const fishStep = await UtilServices.getFish(loggedUser);
 
       if (ponds?.is_logged === false || fishStep?.is_logged === false) {
-        refreshToken(true);
+        refreshToken({force:true, navigation: props.navigation});
         setInitialData();
       } else {
         fishStep.data.map((fish) => {
@@ -69,7 +69,7 @@ export const AddSowing = (props) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+
     }
   };
 
@@ -101,7 +101,7 @@ export const AddSowing = (props) => {
         onSuccessSave();
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: props.navigation});
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);
         setSaving(false);

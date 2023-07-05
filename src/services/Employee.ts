@@ -1,10 +1,14 @@
 import { Constants } from "../util";
 
-export const get = async (token: String, puID: String = "") => {
-  let response = await fetch(`${Constants.API.URL}employees/list_by_productive_unit/${puID}`, {
+export const get = async (user: any, filter: String = "") => {
+  let urlFetch = (user?.profile?.user_type_id == 1) ? 
+  Constants.API.URL + "employees/list/all" + filter :
+  Constants.API.URL + "employees/list_by_productive_unit/" + user.productive_unit.id + filter;
+
+  let response = await fetch(urlFetch, {
     headers: {
       ...Constants.CONFIG.HEADERS,
-      Authorization: "Bearer " + token,
+      Authorization: "Bearer " + user.token,
     },
     method: "GET",
   });

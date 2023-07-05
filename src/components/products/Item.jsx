@@ -19,7 +19,6 @@ export const SowingItem = ({
   onDelete = () => {},
   orientation,
 }) => {
-  console.log(sowing);
   const [showModal, setShowModal] = useState(false);
 
   const getCustomStyle = () => {

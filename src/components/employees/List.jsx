@@ -23,23 +23,21 @@ export const EmployeesList = ({ navigation }) => {
   // Get the fish listing
   const getEmployees = async () => {
     const loggedUser = await getAuth();
-    const productiveUnitID = loggedUser?.productive_unit?.id;
     try {
       setLoading(true);
-      let response = await EmployeesServices.get(loggedUser.token, productiveUnitID);
+      let response = await EmployeesServices.get(loggedUser);
       let jsonResponse = await response.json();
       if (response.status == 200) {
         setEmployees(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: navigation});
           getEmployees();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };

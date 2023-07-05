@@ -76,7 +76,7 @@ export const AddPond = (props) => {
         onSuccessSave();
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: props.navigation});
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);
         setSaving(false);

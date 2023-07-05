@@ -6,7 +6,7 @@ import { SowingsServices } from "../../services";
 import { LocalStorage, Constants, Utilities } from "../../util";
 import { NoDataFound } from "../noDataFound/noDataFound";
 
-export const StatsList = ({ sowing, reload = false }) => {
+export const StatsList = ({ sowing, reload = false, navigation }) => {
   const { getAuth, refreshToken } = useAuth();
   const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,13 +32,12 @@ export const StatsList = ({ sowing, reload = false }) => {
       } else {
         setLoading(false);
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken(true);
+          refreshToken({force:true, navigation: navigation});
           getStats();
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
       Utilities.showAlert({});
     }
   };

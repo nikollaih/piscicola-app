@@ -10,18 +10,9 @@ export default
                 title: "Rol",
                 placeholder: "- Seleccionar",
                 type: "select",
-                item_label: "nombre",
+                item_label: "key",
                 item_id: "id",
-                items: [
-                    {
-                        nombre: "Productor",
-                        id: 2
-                    },
-                    {
-                        nombre: "Investigador",
-                        id: 3
-                    },
-                ],
+                items: [],
                 validate: {
                     required: true,
                 }

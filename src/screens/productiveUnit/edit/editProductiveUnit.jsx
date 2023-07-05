@@ -3,7 +3,6 @@ import {
   Text,
   ScrollView,
   KeyboardAvoidingView,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import { Layout } from "../../Layout";
@@ -36,6 +35,11 @@ export const EditProductiveUnit = (props) => {
   const setInitialData = async (productiveUnit) => {
     let loggeduser = await getAuth();
     let managers = await Utilities.getUsersByType(loggeduser, 2);
+
+    managers.data.map((manager) => {
+      manager["full_name"] = manager?.user?.full_name;
+    })
+
     FormInputs["fields"]["manager_id"]["items"] = managers.data;
     FormInputs["structure"] = productiveUnit
       ? productiveUnit

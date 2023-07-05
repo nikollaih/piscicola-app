@@ -84,5 +84,23 @@ export default [
         title: "Empleados",
         icon: "ios-people",
         users_type: [2]
+    },
+    {
+        screen: "Tasks",
+        title: "Tareas",
+        icon: "ios-list-outline",
+        users_type: [2]
+    },
+    {
+        screen: "TaskLogs",
+        title: "Registro de tareas",
+        icon: "ios-file-tray-full",
+        users_type: [2]
+    },
+    {
+        screen: "PaymentTypes",
+        title: "Tipos de pagos",
+        icon: "ios-cash",
+        users_type: [2]
     }
 ]

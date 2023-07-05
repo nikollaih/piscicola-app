@@ -9,7 +9,6 @@ export const FormButtons = ({
   onSave = () => {},
   backTimes = 1,
 }) => {
-  console.log(typeof onCancel)
   return (
     <View style={Style.buttons_container}>
       <FillIconButton
