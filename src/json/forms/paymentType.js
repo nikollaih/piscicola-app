@@ -1,9 +1,9 @@
-import paymentTypes from "../formsStructure/paymentTypeStructure";
+import paymentTypesStructure from "../formsStructure/paymentTypeStructure";
 
 export default
     {
-        form_name: "Employee",
-        structure: paymentTypes,
+        form_name: "paymentTypes",
+        structure: paymentTypesStructure,
         fields: {
             name: {
                 icon: "ios-person",
@@ -24,9 +24,9 @@ export default
                     required: true
                 }
             },
-            required_time: {
+            required_tasks: {
                 icon: "ios-calendar",
-                title: "Requiere horario",
+                title: "Requiere tareas",
                 placeholder: "- Seleccionar",
                 type: "select",
                 item_label: "name",

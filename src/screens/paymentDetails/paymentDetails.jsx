@@ -1,28 +1,28 @@
 import {View} from 'react-native';
 import {Layout} from '../Layout';
 import {Breadcrumb} from '../../components/breadcrumb/Breadcrumb';
-import { PaymentTypesList } from '../../components/paymentTypes/List';
-import FormFields from '../../json/forms/paymentType';
-import paymentTypeStructure from '../../json/formsStructure/paymentTypeStructure';
+import { PaymentDetailsList } from '../../components/paymentDetails/List';
+import FormFields from '../../json/forms/paymentDetails';
+import paymentDetailsStructure from '../../json/formsStructure/paymentDetailsStructure';
 import {useForm} from '../../hooks/useForm';
 import Style from './style';
 
-export const PaymentTypes = props => {
+export const PaymentDetails = props => {
   const {dataForm, setDataForm} = useForm();
 
   const breadcrumb = {
-    title: 'Conceptos de pago',
+    title: 'Pagos',
     subtitle: 'Lista',
     icon: 'ios-add'
   };
 
   /**
-   * It opens the AddPaymentType screen.
+   * It opens the AddPaymentDetail screen.
    */
-  const openAddPaymentType = () => {
-    FormFields['structure'] = paymentTypeStructure;
+  const openAddPaymentDetail = () => {
+    FormFields['structure'] = paymentDetailsStructure;
     setDataForm({...dataForm, [FormFields.form_name]: FormFields});
-    props.navigation.navigate('AddPaymentType');
+    props.navigation.navigate('AddPaymentDetail');
   };
 
   return (
@@ -30,12 +30,12 @@ export const PaymentTypes = props => {
       <View style={Style.main_page}>
         <Breadcrumb
           onPressRight={() => {
-            openAddPaymentType();
+            openAddPaymentDetail();
           }}
           navigation={props.navigation}
           data={breadcrumb}
         />
-        <PaymentTypesList navigation={props.navigation} />
+        <PaymentDetailsList navigation={props.navigation} />
       </View>
     </Layout>
   );

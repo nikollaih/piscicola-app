@@ -28,6 +28,7 @@ export const PaymentTypesList = ({ navigation }) => {
       setLoading(true);
       let response = await PaymentTypesServices.get(loggedUser.token, productiveUnitID);
       let jsonResponse = await response.json();
+      console.log(jsonResponse)
       if (response.status == 200) {
         setPaymentTypes(jsonResponse.data);
         setLoading(false);
@@ -39,6 +40,7 @@ export const PaymentTypesList = ({ navigation }) => {
         setLoading(false);
       }
     } catch (error) {
+      console.log(error)
       Utilities.showAlert({});
     }
   };

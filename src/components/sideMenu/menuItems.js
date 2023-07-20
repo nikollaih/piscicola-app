@@ -31,12 +31,12 @@ export default [
         iconLibrary: "material",
         users_type: [2]
     },
-    // {
-    //     screen: "Expenses",
-    //     title: "Gastos",
-    //     icon: "ios-trending-down",
-    //     users_type: [2]
-    // },
+    {
+        screen: "Expenses",
+        title: "Gastos",
+        icon: "ios-trending-down",
+        users_type: [2]
+    },
     // {
     //     screen: "Sales",
     //     title: "Ventas",
@@ -99,7 +99,13 @@ export default [
     },
     {
         screen: "PaymentTypes",
-        title: "Tipos de pagos",
+        title: "Conceptos de pagos",
+        icon: "ios-cash",
+        users_type: [2]
+    },
+    {
+        screen: "PaymentDetails",
+        title: "Pagos",
         icon: "ios-cash",
         users_type: [2]
     }

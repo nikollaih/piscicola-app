@@ -1,17 +1,15 @@
-import {View, Text, StyleSheet} from 'react-native';
-import {useEffect} from 'react';
-import Theme from '../../../theme/theme';
-import {Constants} from '../../../util';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import {Dropdown} from 'react-native-element-dropdown';
-import {useForm} from '../../../hooks/useForm';
+import { View, Text, StyleSheet } from "react-native";
+import { useEffect } from "react";
+import Theme from "../../../theme/theme";
+import { Constants } from "../../../util";
+import Ionicon from "react-native-vector-icons/Ionicons";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
+import { useForm } from "../../../hooks/useForm";
 
-export const CustomSelectInput = ({data, formName}) => {
-  const {dataForm, setDataForm, checkRequired} = useForm();
+export const CustomSelectInput = ({ data, formName }) => {
+  const { dataForm, setDataForm, checkRequired } = useForm();
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   /**
    * If the required field is not filled out, return a red border color. Otherwise, return a light gray
@@ -30,20 +28,16 @@ export const CustomSelectInput = ({data, formName}) => {
   const checkRequiredField = () => {
     return (
       data?.validate?.required &&
-      (dataForm[formName].structure[data.name] == '' ||
+      (dataForm[formName].structure[data.name] == "" ||
         dataForm[formName].structure[data.name] == null) &&
       checkRequired[formName]
     );
   };
 
-  return (
-    <View style={[{marginBottom: data?.bottom ? data.bottom : 20}]}>
-      <View style={Style.row}>
-        <Text style={Style.input_label}>{data.title}</Text>
-        {data?.validate?.required ? <Text style={Style.text_red}> *</Text> : null}
-      </View>
+  const getDropDown = () => {
+    return (
       <Dropdown
-        style={[Style.dropdown, {borderColor: getBorderColor()}]}
+        style={[Style.dropdown, { borderColor: getBorderColor() }]}
         itemTextStyle={Style.dropdown_item_text}
         selectedTextStyle={Style.font_roboto_regular}
         placeholderStyle={Style.font_roboto_regular}
@@ -64,7 +58,7 @@ export const CustomSelectInput = ({data, formName}) => {
             />
           ) : null;
         }}
-        onChange={item => {
+        onChange={(item) => {
           setDataForm({
             [formName]: {
               ...dataForm[formName],
@@ -76,6 +70,58 @@ export const CustomSelectInput = ({data, formName}) => {
           });
         }}
       />
+    );
+  };
+
+  const getMultiSelect = () => {
+    return (
+      <MultiSelect
+        style={[Style.dropdown, { borderColor: getBorderColor() }]}
+        itemTextStyle={Style.dropdown_item_text}
+        selectedTextStyle={Style.font_roboto_regular}
+        placeholderStyle={Style.font_roboto_regular}
+        data={data.items}
+        search
+        value={dataForm[formName].structure[data.name]}
+        labelField={data.item_label}
+        valueField={data.item_id}
+        placeholder={data.placeholder}
+        searchPlaceholder="Buscar..."
+        renderLeftIcon={() => {
+          return data?.icon ? (
+            <Ionicon
+              name={data.icon}
+              size={17}
+              style={Style.icon_input}
+              color={Constants.COLORS.GRAY}
+            />
+          ) : null;
+        }}
+        onChange={(item) => {
+          console.log(dataForm[formName].structure)
+          setDataForm({
+            [formName]: {
+              ...dataForm[formName],
+              structure: {
+                ...dataForm[formName].structure,
+                [data.name]: item,
+              },
+            },
+          });
+        }}
+      />
+    );
+  };
+
+  return (
+    <View style={[{ marginBottom: data?.bottom ? data.bottom : 20 }]}>
+      <View style={Style.row}>
+        <Text style={Style.input_label}>{data.title}</Text>
+        {data?.validate?.required ? (
+          <Text style={Style.text_red}> *</Text>
+        ) : null}
+      </View>
+      {data?.is_multiple ? getMultiSelect() : getDropDown()}
       {checkRequiredField() ? (
         <Text style={Style.text_red}>Por favor complete este campo</Text>
       ) : null}

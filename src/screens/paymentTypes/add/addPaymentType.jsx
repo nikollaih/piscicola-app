@@ -32,7 +32,7 @@ import {
     const paymentType = props.route.params?.paymentType;
   
     const breadcrumb = {
-      title: "Tipo de pago",
+      title: "Concepto de pago",
       subtitle: paymentType?.id ? "Modificar" : "Agregar",
       right_content: null,
     };
@@ -72,6 +72,11 @@ import {
       }
     };
   
+    /**
+     * Saves the form data by sending it to the server.
+     * @returns None
+     * @throws {Error} If there is an error while saving the form data.
+     */
     const saveForm = async () => {
       try {
         let loggeduser = await getAuth();
@@ -81,7 +86,6 @@ import {
           sendDataForm
         );
         let jsonResponse = await response.json();
-        console.log("response", jsonResponse)
         if (response.status == 200) {
           onSuccessSave();
         } else {
@@ -97,6 +101,12 @@ import {
       }
     };
   
+    /**
+     * Callback function called when saving is successful.
+     * Updates the payment type ID in local storage and displays a success message.
+     * If a new payment type was created, resets the data form.
+     * @returns None
+     */
     const onSuccessSave = () => {
       try {
         let paymentTypeID = dataForm[FormInputs.form_name]?.structure?.id;

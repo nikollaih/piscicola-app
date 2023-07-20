@@ -1,13 +1,13 @@
 import { FlatList, ActivityIndicator } from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { PaymentTypeItem } from "./Item";
-import { GeneralExpensesServices } from "../../services";
+import { PaymentDetailItem } from "./Item";
+import { PaymentDetailsServices } from "../../services";
 import { LocalStorage, Constants, Utilities } from "../../util";
 
-export const GeneralExpensesList = ({ navigation }) => {
+export const PaymentDetailsList = ({ navigation }) => {
   const { getAuth, refreshToken } = useAuth();
-  const [generalExpenses, setGeneralExpenses] = useState([]);
+  const [paymentDetails, setPaymentDetails] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,31 +16,29 @@ export const GeneralExpensesList = ({ navigation }) => {
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
-    getGeneralExpenses();
+    getPaymentDetails();
     return unsubscribe;
   }, [navigation]);
 
   // Get the fish listing
-  const getGeneralExpenses = async () => {
+  const getPaymentDetails = async () => {
     const loggedUser = await getAuth();
     const productiveUnitID = loggedUser?.productive_unit?.id;
     try {
       setLoading(true);
-      let response = await GeneralExpensesServices.get(loggedUser.token, productiveUnitID);
+      let response = await PaymentDetailsServices.get(loggedUser.token, productiveUnitID);
       let jsonResponse = await response.json();
-      console.log(jsonResponse)
       if (response.status == 200) {
-        setGeneralExpenses(jsonResponse.data);
+        setPaymentDetails(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
-          getGeneralExpenses();
+          getPaymentDetails();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };
@@ -50,8 +48,8 @@ export const GeneralExpensesList = ({ navigation }) => {
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "generalExpenses") {
-      getGeneralExpenses();
+    if (updatedScreen == "paymentDetails") {
+      getPaymentDetails();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }
   };
@@ -61,7 +59,7 @@ export const GeneralExpensesList = ({ navigation }) => {
   };
 
   const renderRow = ({ item, index }) => {
-    return <PaymentTypeItem onDelete={() => getGeneralExpenses()} paymentType={item} navigation={navigation} />;
+    return <PaymentDetailItem onDelete={() => getPaymentDetails()} paymentDetail={item} navigation={navigation} />;
   };
 
   if(loading)
@@ -71,7 +69,7 @@ export const GeneralExpensesList = ({ navigation }) => {
     <FlatList
       keyboardShouldPersistTaps="always"
       showsHorizontalScrollIndicator={false}
-      data={generalExpenses}
+      data={paymentDetails}
       initialNumToRender={10}
       windowSize={10}
       removeClippedSubviews={false}

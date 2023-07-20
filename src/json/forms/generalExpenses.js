@@ -1,10 +1,10 @@
-import expensesStructure from "../formsStructure/expenses";
+import generalExpenseStructure from "../formsStructure/generalExpenseStructure";
 import { Constants } from "../../util";
 
 export default
     {
-        form_name: "Espense",
-        structure: {...expensesStructure},
+        form_name: "GeneralExpense",
+        structure: generalExpenseStructure,
         fields: {
             name: {
                 icon: "ios-trending-down",
@@ -15,7 +15,7 @@ export default
                     required: true,
                 }
             },
-            cost: {
+            value: {
                 icon: "ios-cash",
                 title: "Precio",
                 placeholder: "$0",
@@ -24,7 +24,7 @@ export default
                     required: true,
                 }
             },
-            description: {
+            note: {
                 icon: "ios-list",
                 title: "Descripción",
                 placeholder: "Ingrese una descripción para el gasto realizado",

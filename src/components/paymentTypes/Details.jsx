@@ -81,8 +81,8 @@ import {
             <Text style={Style.text}>{paymentType.description}</Text>
           </View>
           <View style={Style.list_container}>
-            <Text style={Style.inside_subtitle}>Requiere fechas</Text>
-            <Text style={Style.text}>{paymentType.required_time ? "Si" : "No"}</Text>
+            <Text style={Style.inside_subtitle}>Requiere tareas</Text>
+            <Text style={Style.text}>{paymentType.required_tasks ? "Si" : "No"}</Text>
           </View>
         </ScrollView>
         <DetailsActions onDelete={confirmDelete} onEdit={onEdit} />

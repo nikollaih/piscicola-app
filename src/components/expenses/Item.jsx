@@ -1,19 +1,24 @@
-import { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
-import Theme from "../../theme/theme";
+import { GeneralExpenseDetails } from "./Details";
+import { useState } from "react";
 import { Constants } from "../../util";
 import { CustomModal } from "../customModal/customModal";
-import { ExpenseDetails } from "./Details";
+import Theme from "../../theme/theme";
 const { height } = Dimensions.get("window");
 
-export const ExpensesItem = (props) => {
+export const GeneralExpenseItem = ({ navigation, generalExpense, onDelete = () => {} }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const onRemove = () => {
+    setShowModal(false);
+    onDelete()
+  }
 
   return (
     <TouchableOpacity
@@ -21,21 +26,30 @@ export const ExpensesItem = (props) => {
       style={Style.container}
       onPress={() => {
         setShowModal(true);
-      }}>
+      }}
+    >
       <View>
-        <Text style={Style.font_roboto_bold}>Servicio de luz</Text>
-        <Text style={Style.font_roboto_regular}>2023/03/21</Text>
+        <View style={Style.inside}>
+          <View>
+            <Text style={Style.text_name}>{generalExpense.name}</Text>
+            <Text style={Style.text_generalExpense}>{generalExpense.description}</Text>
+          </View>
+        </View>
       </View>
-      <Text style={[Style.text_red, Style.font_roboto_bold]}>$200.000</Text>
       <CustomModal
-        height={height - 400}
-        title="Servicio de luz"
+        height={height - 350}
+        title={generalExpense.name}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);
         }}
       >
-        <ExpenseDetails />
+        <GeneralExpenseDetails
+          onClose={() => setShowModal(false)}
+          onDelete={() => onRemove()}
+          navigation={navigation}
+          generalExpense={generalExpense}
+        />
       </CustomModal>
     </TouchableOpacity>
   );
@@ -44,12 +58,40 @@ export const ExpensesItem = (props) => {
 const Style = StyleSheet.create({
   ...Theme,
   container: {
-    ...Theme.row_between,
-    ...Theme.list_container,
+    marginBottom: 10,
+  },
+  text_generalExpense: {
+    color: Constants.COLORS.DARK,
+    fontSize: 14,
+    fontFamily: "RobotoCondensed-Regular",
+  },
+  text_name: {
+    color: Constants.COLORS.DARK,
+    fontFamily: "RobotoCondensed-Bold",
+    fontSize: 17,
+  },
+  inside: {
+    ...Theme.row,
     backgroundColor: Constants.COLORS.WHITE,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderColor: Constants.COLORS.IOS_BACKGROUND_GRAY,
+    borderRadius: 20,
+    padding: 15,
+  },
+  product_title: {
+    color: Constants.COLORS.DARK,
+    marginTop: 5,
+    fontFamily: "RobotoCondensed-Regular",
+  },
+  fish: {
+    width: 70,
+    height: 70,
+  },
+  container_image: {
+    backgroundColor: Constants.COLORS.WHITE,
+    width: 80,
+    height: 80,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 25,
+    marginRight: 20,
   },
 });

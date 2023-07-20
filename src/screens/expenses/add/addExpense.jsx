@@ -3,7 +3,7 @@ import {Layout} from '../../Layout';
 import {useState, useEffect} from 'react';
 import { FormButtons } from '../../../components/button/formButtons';
 import {Breadcrumb} from '../../../components/breadcrumb/Breadcrumb';
-import FormInputs from '../../../json/forms/Expenses';
+import FormInputs from '../../../json/forms/generalExpenses';
 import Style from '../style';
 import {Constants} from '../../../util';
 import {CustomForm} from '../../../components/form/customForm';

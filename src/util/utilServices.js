@@ -5,7 +5,9 @@ import {
   FishServices,
   TasksServices,
   EmployeesServices,
-  UsersServices
+  UsersServices,
+  PaymentTypesServices,
+  TaskLogsServices
 } from "../services";
 
 export const getProductType = async (token) => {
@@ -62,6 +64,19 @@ export const getTasks = async (user) => {
   }
 };
 
+export const getTasksLogs = async (user) => {
+  console.log(user.token)
+  try {
+    let response = await TaskLogsServices.get(user.token, user.productive_unit.id);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : { data: [] };
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
 export const getEmployees = async (user) => {
   try {
     let response = await EmployeesServices.get(user);
@@ -83,5 +98,17 @@ export const getUserTypes = async (user) => {
       : [];
   } catch (error) {
     return [];
+  }
+};
+
+export const getPaymentTypes = async (user) => {
+  try {
+    let response = await PaymentTypesServices.get(user.token, user.productive_unit.id);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : { data: [] };
+  } catch (error) {
+    return { data: [] };
   }
 };

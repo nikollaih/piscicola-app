@@ -38,6 +38,8 @@ import { TaskLogs } from '../screens/taskLogs/TaskLogs';
 import { AddTaskLog } from '../screens/taskLogs/add/addTaskLog';
 import { PaymentTypes } from '../screens/paymentTypes/paymentTypes';
 import { AddPaymentType } from '../screens/paymentTypes/add/addPaymentType';
+import { PaymentDetails } from '../screens/paymentDetails/paymentDetails';
+import { AddPaymentDetail } from '../screens/paymentDetails/add/addPaymentDetails';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -204,5 +206,13 @@ export default [
     {
         name: "AddPaymentType",
         screen: AddPaymentType,
+    },
+    {
+        name: "PaymentDetails",
+        screen: PaymentDetails,
+    },
+    {
+        name: "AddPaymentDetail",
+        screen: AddPaymentDetail,
     },
 ]

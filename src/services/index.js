@@ -11,6 +11,8 @@ import * as EmployeesServices from './Employee';
 import * as TasksServices from './Tasks';
 import * as TaskLogsServices from './TaskLogs';
 import * as PaymentTypesServices from './PaymentTypes';
+import * as PaymentDetailsServices from './PaymentDetails';
+import * as GeneralExpensesServices from './Expenses';
 
 export {
   PondsServices,
@@ -25,5 +27,7 @@ export {
   EmployeesServices,
   TasksServices,
   TaskLogsServices,
-  PaymentTypesServices
+  PaymentTypesServices,
+  PaymentDetailsServices,
+  GeneralExpensesServices
 };
