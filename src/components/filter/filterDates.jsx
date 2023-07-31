@@ -11,7 +11,7 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import { FillIconButton } from "../button/fillIconButton";
 import moment from "moment";
 import Theme from "../../theme/theme";
-import { Constants } from "../../util";
+import { Constants, Utilities } from "../../util";
 import { CustomModal } from "../customModal/customModal";
 const { height } = Dimensions.get("window");
 
@@ -95,7 +95,16 @@ export const FilterDates = ({ onCancel = () => {}, onFilter = () => {} }) => {
               Constants.DATETIME_FORMATS.DATE
             ),
           };
-          onFilter(selectedFilters);
+
+          if (
+            moment(selectedFilters.start_date).isAfter(
+              moment(selectedFilters.end_date)
+            )
+          )
+            Utilities.showAlert({
+              text: "La fecha inicial no puede ser mayor",
+            });
+          else onFilter(selectedFilters);
         }}
       />
       {open ? (

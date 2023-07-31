@@ -10,29 +10,42 @@ import { useState } from "react";
 import { Constants } from "../../util";
 import { CustomModal } from "../customModal/customModal";
 import Theme from "../../theme/theme";
+import moment from "moment";
 const { height } = Dimensions.get("window");
 
-export const GeneralExpenseItem = ({ navigation, generalExpense, onDelete = () => {} }) => {
+export const GeneralExpenseItem = ({
+  navigation,
+  generalExpense,
+  allowEdit = true,
+  onDelete = () => {},
+}) => {
   const [showModal, setShowModal] = useState(false);
 
-  const onRemove = () => {
+  const onRemove = () => {
     setShowModal(false);
-    onDelete()
-  }
+    onDelete();
+  };
 
   return (
     <TouchableOpacity
       activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
       style={Style.container}
       onPress={() => {
-        setShowModal(true);
+        if (allowEdit) setShowModal(true);
       }}
     >
       <View>
         <View style={Style.inside}>
           <View>
             <Text style={Style.text_name}>{generalExpense.name}</Text>
-            <Text style={Style.text_generalExpense}>{generalExpense.description}</Text>
+            <Text style={Style.text_generalExpense}>
+              {moment(generalExpense.manual_created_at).format(Constants.DATETIME_FORMATS.DATETIME)}
+            </Text>
+          </View>
+          <View>
+            <Text style={[Style.text_generalExpense, Style.value]}>
+              ${generalExpense.value.toLocaleString("Es-es")}
+            </Text>
           </View>
         </View>
       </View>
@@ -71,7 +84,7 @@ const Style = StyleSheet.create({
     fontSize: 17,
   },
   inside: {
-    ...Theme.row,
+    ...Theme.row_between,
     backgroundColor: Constants.COLORS.WHITE,
     borderRadius: 20,
     padding: 15,
@@ -94,4 +107,8 @@ const Style = StyleSheet.create({
     borderRadius: 25,
     marginRight: 20,
   },
+  value: {
+    color: Constants.COLORS.RED,
+    fontSize: 16
+  }
 });

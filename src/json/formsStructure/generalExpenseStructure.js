@@ -3,5 +3,5 @@ export default {
     name: "",
     value: 0,
     note: "",
-    manual_created_at: ""
+    manual_created_at: new Date()
 }

@@ -83,6 +83,14 @@ export const AddPaymentDetail = ({ route, navigation }) => {
 
     console.log(employeeTasksLogs);
     FormInputs["fields"]["task_logs_id"]["items"] = employeeTasksLogs;
+    setDataForm({
+      [FormInputs.form_name]: {
+        ...dataForm[FormInputs.form_name],
+        structure: {
+          ...dataForm[FormInputs.form_name].structure
+        },
+      },
+    });
     console.log(FormInputs.fields.task_logs_id.items)
   };
 

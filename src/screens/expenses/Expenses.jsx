@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Layout } from "../Layout";
 import { Breadcrumb } from "../../components/breadcrumb/Breadcrumb";
-import { ExpensesList } from "../../components/expenses/List";
+import { GeneralExpensesList } from "../../components/expenses/List";
 import FormFields from "../../json/forms/Pond";
 import pondStructure from "../../json/formsStructure/pondStructure";
 import { useForm } from "../../hooks/useForm";
@@ -17,6 +17,7 @@ export const Expenses = (props) => {
   `dataForm`. */
   const [showFilter, setShowFilter] = useState(false);
   const { dataForm, setDataForm } = useForm();
+  const [dateFilters, setDateFilters] = useState(false);
 
   const breadcrumb = {
     title: "Gastos",
@@ -33,7 +34,14 @@ export const Expenses = (props) => {
   };
 
   const onFilter = (filters) => {
+    const EXPENSES_FILTERS = {
+      manualCreatedAtStart: filters.start_date + " 00:00:00",
+      manualCreatedAtEnd: filters.end_date + " 23:59:59",
+    }
+    console.log(filters)
+    console.log(EXPENSES_FILTERS)
     setShowFilter(false);
+    setDateFilters(EXPENSES_FILTERS);
   };
 
   /**
@@ -55,7 +63,7 @@ export const Expenses = (props) => {
           navigation={props.navigation}
           data={breadcrumb}
         />
-        <ExpensesList navigation={props.navigation} />
+        <GeneralExpensesList filters={dateFilters} navigation={props.navigation} />
       </View>
       {showFilter ? (
         <FilterDates

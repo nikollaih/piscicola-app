@@ -2,9 +2,8 @@ import { View, TextInput, Text, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import Theme from "../../../theme/theme";
 import Ionicon from "react-native-vector-icons/Ionicons";
-import { Constants } from "../../../util";
 import { useForm } from "../../../hooks/useForm";
-import { Validations } from "../../../util";
+import { Validations, Constants, Utilities} from "../../../util";
 
 /**
  * If the data object has a property called is_large, return an object with a height of 100, a
@@ -75,12 +74,13 @@ export const CustomTextInput = ({ data, formName }) => {
           multiline={data?.is_large}
           secureTextEntry={data?.secure_entry_text}
           onChangeText={(text) => {
+            let value = data?.only_numbers ? Utilities.removeNonNumericCharacters(text) : text;
             setDataForm({
               [formName]: {
                 ...dataForm[formName],
                 structure: {
                   ...dataForm[formName].structure,
-                  [data.name]: text,
+                  [data.name]: value,
                 },
               },
             });

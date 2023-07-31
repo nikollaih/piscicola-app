@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { SowingsList } from "../../components/products/List";
-import { ExpensesList } from "../../components/expenses/List";
+import { GeneralExpensesList } from "../../components/expenses/List";
 import Theme from "../../theme/theme";
 
 export const UserHome = ( props ) => {
@@ -14,7 +14,7 @@ export const UserHome = ( props ) => {
         />
       </View>
       <Text style={Theme.subtitle}>Últimos gastos</Text>
-      <ExpensesList navigation={props.navigation} />
+      <GeneralExpensesList allowEdit={false} navigation={props.navigation} />
     </View>
   );
 };

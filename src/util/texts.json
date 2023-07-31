@@ -73,6 +73,11 @@
             "create": "Tipo de pago creado exitosamente.",
             "update": "Tipo de pago modificado exitosamente.",
             "delete": "Tipo de pago eliminado exitosamente."
+        },
+        "general_expenses": {
+            "create": "Gasto creado exitosamente.",
+            "update": "Gasto modificado exitosamente.",
+            "delete": "Gasto eliminado exitosamente."
         }
     }
 }

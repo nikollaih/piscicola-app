@@ -1,7 +1,8 @@
-import { Constants } from "../util";
+import { Constants, Utilities } from "../util";
 
-export const get = async (token: String, puID: String = "") => {
-  let response = await fetch(`${Constants.API.URL}general_expenses/list_by_productive_unit/${puID}`, {
+export const get = async (token: String, puID: String = "", filter: any) => {
+  console.log(`${Constants.API.URL}general_expenses/list_by_productive_unit/${puID}?manualCreatedAtStart=${filter.manualCreatedAtStart}&manualCreatedAtEnd=${filter.manualCreatedAtEnd}`)
+  let response = await fetch(`${Constants.API.URL}general_expenses/list_by_productive_unit/${puID}?manualCreatedAtStart=${filter.manualCreatedAtStart}&manualCreatedAtEnd=${filter.manualCreatedAtEnd}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
@@ -12,13 +13,14 @@ export const get = async (token: String, puID: String = "") => {
 };
 
 export const create = async (token: String, data: any) => {
+  const postData = JSON.stringify(Utilities.dataToFormDataAPI(data));
   let response = await fetch(`${Constants.API.URL}general_expenses`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: data?.id ? "PUT" : "POST",
-    body: JSON.stringify(data), //* <-- Post parameters
+    body: postData, //* <-- Post parameters
   });
   return response;
 };

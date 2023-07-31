@@ -22,7 +22,7 @@ export const GeneralExpenseDetails = ({
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();
-    navigation.navigate("AddGeneralExpense", { generalExpense: generalExpense });
+    navigation.navigate("AddExpense", { generalExpense: generalExpense });
   };
 
   const onRemove = async () => {
@@ -54,7 +54,7 @@ export const GeneralExpenseDetails = ({
   const confirmDelete = () => {
     Alert.alert(
       "¿Está seguro?",
-      "Desea eliminar el registro de tarea",
+      "Desea eliminar el gasto",
       [
         {
           text: "Cancelar",
@@ -77,12 +77,16 @@ export const GeneralExpenseDetails = ({
     <View style={Style.full_flex}>
       <ScrollView style={Style.full_flex}>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Descripción</Text>
-          <Text style={Style.text}>{generalExpense.description}</Text>
+          <Text style={Style.inside_subtitle}>Valor</Text>
+          <Text style={Style.text}>${generalExpense.value.toLocaleString("Es-es")}</Text>
         </View>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Requiere tareas</Text>
-          <Text style={Style.text}>{generalExpense.required_tasks ? "Si" : "No"}</Text>
+          <Text style={Style.inside_subtitle}>Fecha</Text>
+          <Text style={Style.text}>{moment(generalExpense.manual_created_at).format(Constants.DATETIME_FORMATS.DATE)}</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Notas</Text>
+          <Text style={Style.text}>{generalExpense.note}</Text>
         </View>
       </ScrollView>
       <DetailsActions onDelete={confirmDelete} onEdit={onEdit} />

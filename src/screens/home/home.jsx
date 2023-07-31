@@ -1,7 +1,6 @@
-import { View, Text, Image, ScrollView, RefreshControl } from "react-native";
+import { View, Text, ScrollView, RefreshControl } from "react-native";
 import { Layout } from "../Layout";
 import { useEffect, useState } from "react";
-import Avatar from "../../assets/images/avatar.png";
 import { UserHome } from "./userHome";
 import { AdminHome } from "./adminHome";
 import { useAuth } from "../../hooks/useAuth";
@@ -17,8 +16,13 @@ export const Home = (props) => {
    * loggedUser
    */
   const getLoggedUser = async () => {
-    const responseUser = await getAuth();
-    setLoggedUser(responseUser);
+    try {
+      const responseUser = await getAuth();
+      console.log("response user", responseUser);
+      setLoggedUser(responseUser);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onRefresh = () => {
