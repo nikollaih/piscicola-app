@@ -47,7 +47,7 @@ export const ProductDetail = ({ navigation, route }) => {
             navigation={navigation}
             data={breadcrumb}
           />
-          <ProductShortCuts navigation={navigation} />
+          <ProductShortCuts navigation={navigation} sowing={sowing} />
           <Text style={Style.subtitle}>Mediciones</Text>
           <View style={Style.refresh_container}>
             <Text style={Style.last_refresh}>

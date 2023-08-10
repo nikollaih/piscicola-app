@@ -7,7 +7,8 @@ import {
   EmployeesServices,
   UsersServices,
   PaymentTypesServices,
-  TaskLogsServices
+  TaskLogsServices,
+  UnitTypesServices
 } from "../services";
 
 export const getProductType = async (token) => {
@@ -110,5 +111,17 @@ export const getPaymentTypes = async (user) => {
       : { data: [] };
   } catch (error) {
     return { data: [] };
+  }
+};
+
+export const getUnitTypes = async (user, filter = {}) => {
+  try {
+    let response = await UnitTypesServices.get(user, filter);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : [];
+  } catch (error) {
+    return [];
   }
 };

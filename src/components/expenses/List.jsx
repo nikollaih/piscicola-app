@@ -12,6 +12,7 @@ export const GeneralExpensesList = ({
   allowEdit = true,
   filters = false,
 }) => {
+  let countAPICalls = 0;
   const { getAuth, refreshToken } = useAuth();
   const [generalExpenses, setGeneralExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,12 +66,20 @@ export const GeneralExpensesList = ({
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken({ force: true, navigation: navigation });
-          getGeneralExpenses();
+          console.log("numero: ", countAPICalls)
+          if(countAPICalls < 3){
+            countAPICalls++;
+            await refreshToken({ force: true, navigation: navigation });
+            getGeneralExpenses();
+          }
+          else {
+            console.log("Usuario inválido: ", loggedUser);
+          }
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
+      console.log(error)
       Utilities.showAlert({});
     }
   };

@@ -1,7 +1,6 @@
 import { Constants, Utilities } from "../util";
 
 export const get = async (token: String, puID: String = "", filter: any) => {
-  console.log(`${Constants.API.URL}general_expenses/list_by_productive_unit/${puID}?manualCreatedAtStart=${filter.manualCreatedAtStart}&manualCreatedAtEnd=${filter.manualCreatedAtEnd}`)
   let response = await fetch(`${Constants.API.URL}general_expenses/list_by_productive_unit/${puID}?manualCreatedAtStart=${filter.manualCreatedAtStart}&manualCreatedAtEnd=${filter.manualCreatedAtEnd}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,

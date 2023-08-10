@@ -1,36 +1,43 @@
-import { ScrollView, Text, View, StyleSheet, Alert } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { Constants, Utilities, Texts } from "../../util";
 import Theme from "../../theme/theme";
 import moment from "moment";
 import { DetailsActions } from "../detailsActions/detailsActions";
-import { PaymentDetailsServices } from "../../services";
+import { BiomassesServices } from "../../services";
 import { useAuth } from "../../hooks/useAuth";
 
-export const PaymentDetailDetails = ({
-  paymentDetail,
+export const BiomasseDetails = ({
+  biomasse,
   navigation,
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  console.log(paymentDetail);
+  console.log(biomasse);
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();
-    navigation.navigate("AddPaymentDetail", { paymentDetail: paymentDetail });
+    navigation.navigate("AddBiomasse", { biomasse: biomasse });
   };
 
   const onRemove = async () => {
     try {
       const loggedUser = await getAuth();
-      let response = await PaymentDetailsServices.remove(
+      let response = await BiomassesServices.remove(
         loggedUser.token,
-        paymentDetail.id
+        biomasse.id
       );
       let jsonResponse = await response.json();
       if (response.status == 200) {
         Utilities.showAlert({
           title: Texts.success.title,
-          text: Texts.success.task_log.delete,
+          text: Texts.success.biomasse.delete,
           type: "success",
         });
         onDelete();
@@ -41,6 +48,7 @@ export const PaymentDetailDetails = ({
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
+      console.log(error)
       Utilities.showAlert({});
     }
   };
@@ -48,7 +56,7 @@ export const PaymentDetailDetails = ({
   const confirmDelete = () => {
     Alert.alert(
       "¿Está seguro?",
-      "Desea eliminar el registro de tarea",
+      "Desea eliminar la biomasa",
       [
         {
           text: "Cancelar",
@@ -70,45 +78,37 @@ export const PaymentDetailDetails = ({
   return (
     <View style={Style.full_flex}>
       <ScrollView style={Style.full_flex}>
-        <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Concepto</Text>
-          <Text style={Style.text}>{paymentDetail.payment_concept.name}</Text>
+      <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Estanque</Text>
+          <Text style={Style.text}>{biomasse.sowing.pond.name}</Text>
         </View>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Valor</Text>
-          <Text style={Style.text}>{`$${paymentDetail.value.toLocaleString("es-CO")}`}</Text>
+          <Text style={Style.inside_subtitle}>Pez</Text>
+          <Text style={Style.text}>{biomasse.fish_step.fish.name}</Text>
         </View>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Fecha de registro</Text>
+          <Text style={Style.inside_subtitle}>Etapa</Text>
+          <Text style={Style.text}>{biomasse.fish_step.name}</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Peso aproximado</Text>
+          <Text style={Style.text}>{biomasse.approximate_weight}</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Unidad de medida</Text>
+          <Text style={Style.text}>{biomasse.unit_type.name}</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Cantidad de muestra</Text>
+          <Text style={Style.text}>{biomasse.quantity_of_fish}</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Fecha de creación</Text>
           <Text style={Style.text}>
-            {moment(paymentDetail.manual_created_at).format(
-              Constants.DATETIME_FORMATS.DATETIME
+            {moment(biomasse.manual_created_at).format(
+              Constants.DATETIME_FORMATS.DATE
             )}
           </Text>
-        </View>
-        {paymentDetail.started_at ? (
-          <View style={Style.list_container}>
-            <Text style={Style.inside_subtitle}>Fecha de inicio</Text>
-            <Text style={Style.text}>
-              {moment(paymentDetail.started_at).format(
-                Constants.DATETIME_FORMATS.DATETIME
-              )}
-            </Text>
-          </View>
-        ) : null}
-        {paymentDetail.started_at ? (
-          <View style={Style.list_container}>
-            <Text style={Style.inside_subtitle}>Fecha de finalización</Text>
-            <Text style={Style.text}>
-              {moment(paymentDetail.finished_at).format(
-                Constants.DATETIME_FORMATS.DATETIME
-              )}
-            </Text>
-          </View>
-        ) : null}
-        <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Notas</Text>
-          <Text style={Style.text}>{paymentDetail?.note}</Text>
         </View>
       </ScrollView>
       <DetailsActions onDelete={confirmDelete} onEdit={onEdit} />

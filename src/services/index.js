@@ -13,6 +13,8 @@ import * as TaskLogsServices from './TaskLogs';
 import * as PaymentTypesServices from './PaymentTypes';
 import * as PaymentDetailsServices from './PaymentDetails';
 import * as GeneralExpensesServices from './Expenses';
+import * as BiomassesServices from './Biomasses';
+import * as UnitTypesServices from './unitTypes';
 
 export {
   PondsServices,
@@ -29,5 +31,7 @@ export {
   TaskLogsServices,
   PaymentTypesServices,
   PaymentDetailsServices,
-  GeneralExpensesServices
+  GeneralExpensesServices,
+  BiomassesServices,
+  UnitTypesServices
 };

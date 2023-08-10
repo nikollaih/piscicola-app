@@ -39,6 +39,10 @@
             "create": "Etapa creada exitosamente.",
             "update": "Etapa modificada exitosamente."
         },
+        "biomasse": {
+            "create": "Biomasa creada exitosamente.",
+            "update": "Biomasa modificada exitosamente."
+        },
         "productType": {
             "create": "Tipo de producto creado exitosamente.",
             "update": "Tipo de producto modificado exitosamente.",
@@ -73,6 +77,11 @@
             "create": "Tipo de pago creado exitosamente.",
             "update": "Tipo de pago modificado exitosamente.",
             "delete": "Tipo de pago eliminado exitosamente."
+        },
+        "payment_details": {
+            "create": "Pago creado exitosamente.",
+            "update": "Pago modificado exitosamente.",
+            "delete": "Pago eliminado exitosamente."
         },
         "general_expenses": {
             "create": "Gasto creado exitosamente.",

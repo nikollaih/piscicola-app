@@ -40,6 +40,8 @@ import { PaymentTypes } from '../screens/paymentTypes/paymentTypes';
 import { AddPaymentType } from '../screens/paymentTypes/add/addPaymentType';
 import { PaymentDetails } from '../screens/paymentDetails/paymentDetails';
 import { AddPaymentDetail } from '../screens/paymentDetails/add/addPaymentDetails';
+import { AddBiomasse } from '../screens/biomasses/add/addBiomasse';
+import { Biomasses } from '../screens/biomasses/Biomasses';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -214,5 +216,13 @@ export default [
     {
         name: "AddPaymentDetail",
         screen: AddPaymentDetail,
+    },
+    {
+        name: "Biomasses",
+        screen: Biomasses,
+    },
+    {
+        name: "AddBiomasse",
+        screen: AddBiomasse,
     },
 ]

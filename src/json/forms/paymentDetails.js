@@ -16,7 +16,7 @@ export default
                 items: [],
                 validate: {required: true}
             },
-            payment_type_id: {
+            payment_concept_id: {
                 icon: "ios-list",
                 title: "Concepto de pago",
                 placeholder: "- Seleccionar",

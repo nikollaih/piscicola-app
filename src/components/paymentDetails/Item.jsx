@@ -32,7 +32,7 @@ import {
           <View style={Style.inside}>
             <View>
               <Text style={Style.text_name}>{`${paymentDetail.employee.full_name} - ${paymentDetail.payment_concept.name}`}</Text>
-              <Text style={Style.text_paymentDetail}>{`$${paymentDetail.value}`}</Text>
+              <Text style={Style.text_paymentDetail}>{`$${paymentDetail.value.toLocaleString("es-CO")}`}</Text>
             </View>
           </View>
         </View>

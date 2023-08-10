@@ -59,7 +59,7 @@ export const AddPaymentDetail = ({ route, navigation }) => {
       : paymentDetailsStructure;
     FormInputs["structure"]["productive_unit_id"] =
       loggedUser.productive_unit.id;
-    FormInputs["fields"]["payment_type_id"]["items"] = PAYMENT_TYPES.data;
+    FormInputs["fields"]["payment_concept_id"]["items"] = PAYMENT_TYPES.data;
     FormInputs["fields"]["employee_id"]["items"] = EMPLOYEES.data;
     FormInputs["fields"]["task_logs_id"]["items"] = TASKS.data;
 
@@ -148,8 +148,8 @@ export const AddPaymentDetail = ({ route, navigation }) => {
       showMessage({
         message: Texts.success.title,
         description: paymentDetailID
-          ? Texts.success.payment_type.update
-          : Texts.success.payment_type.create,
+          ? Texts.success.payment_details.update
+          : Texts.success.payment_details.create,
         duration: 3000,
         type: "success",
       });

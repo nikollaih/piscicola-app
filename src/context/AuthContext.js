@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
    * @param user - The user object that you want to store in the local storage.
    * @returns The user object is being returned.
    */
-  const setAuth = (user, login) => {
+  const setAuth = async (user, login) => {
     LocalStorage.setObject(Constants.LOCALSTORAGE.LOGIN, login);
     LocalStorage.setObject(Constants.LOCALSTORAGE.SESSION, user);
     return true;
@@ -44,14 +44,14 @@ const AuthProvider = ({ children }) => {
       if (currentTime > loggedUser.expires_at || params?.force) {
         let response = await AuthServices.login(login.email, login.password);
         let jsonResponse = await response.json();
-        console.log("Context: ", jsonResponse)
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN || jsonResponse?.error_code == 1001) logout(params.navigation);
         else if (response.status == 200) {
-          let jsonResponse = await response.json();
           await onSuccessLogin(jsonResponse, login);
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const onSuccessLogin = async (user, login) => {
