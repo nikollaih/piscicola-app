@@ -1,8 +1,6 @@
 export default {
-    id: null,
-    name: "",
-    cantidad: "",
-    unidad: "",
-    precio: null,
-    fecha_creacion: new Date()
+    sowing_id: null,
+    supply_id: null,
+    quantity: "",
+    apply_at: new Date()
 }

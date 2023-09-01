@@ -37,12 +37,13 @@ export const CustomSelectInput = ({ data, formName }) => {
   const getDropDown = () => {
     return (
       <Dropdown
-        style={[Style.dropdown, { borderColor: getBorderColor() }]}
+        style={[Style.dropdown, { borderColor: getBorderColor(), opacity: (data?.is_editable == false) ? 0.5 : 1 }]}
         itemTextStyle={Style.dropdown_item_text}
         selectedTextStyle={Style.font_roboto_regular}
         placeholderStyle={Style.font_roboto_regular}
         data={data.items}
         search
+        disable={(data?.is_editable == false) ? true : false}
         value={dataForm[formName].structure[data.name]}
         labelField={data.item_label}
         valueField={data.item_id}

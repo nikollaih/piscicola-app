@@ -1,8 +1,9 @@
 export default {
-    id: null,
+    productive_unit_id: null,
+    unit_type_id: null,
+    use_type: null,
     name: "",
-    cantidad: "",
-    unidad: "",
-    precio: null,
-    fecha_creacion: new Date()
+    description: "",
+    quantity: 0,
+    cost_unity: 0
 }

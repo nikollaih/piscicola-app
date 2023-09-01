@@ -53,7 +53,8 @@ export const CustomTextInput = ({ data, formName }) => {
       <View
         style={[
           Style.input_inside_container,
-          { borderColor: getBorderColor() },
+          { borderColor: getBorderColor(),
+            opacity: (data?.is_editable == false) ? 0.5 : 1 }
         ]}
       >
         {data?.icon ? (

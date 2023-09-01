@@ -118,3 +118,14 @@ export const dataToFormDataAPI = (data) => {
 export const removeNonNumericCharacters = (inputString) => {
   return inputString.replace(/[^0-9]/g, '');
 }
+
+export const getSupplyName = (key = "ALIMENT") => {
+  switch (key) {
+    case "ALIMENT":
+      return {name: "Alimento"}
+      break;
+  
+    default:
+      break;
+  }
+}

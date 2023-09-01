@@ -66,7 +66,6 @@ export const GeneralExpensesList = ({
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          console.log("numero: ", countAPICalls)
           if(countAPICalls < 3){
             countAPICalls++;
             await refreshToken({ force: true, navigation: navigation });

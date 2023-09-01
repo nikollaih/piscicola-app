@@ -15,6 +15,10 @@ import * as PaymentDetailsServices from './PaymentDetails';
 import * as GeneralExpensesServices from './Expenses';
 import * as BiomassesServices from './Biomasses';
 import * as UnitTypesServices from './unitTypes';
+import * as SuppliesServices from './Supplies';
+import * as SuppliesStockServices from './suppliesStock';
+import * as FoodServices from './Food';
+import * as MortalitiesServices from './Mortalities';
 
 export {
   PondsServices,
@@ -33,5 +37,9 @@ export {
   PaymentDetailsServices,
   GeneralExpensesServices,
   BiomassesServices,
-  UnitTypesServices
+  UnitTypesServices,
+  SuppliesServices,
+  SuppliesStockServices,
+  FoodServices,
+  MortalitiesServices
 };

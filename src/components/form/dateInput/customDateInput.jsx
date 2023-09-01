@@ -48,7 +48,7 @@ export const CustomDateInput = ({data, formName}) => {
         {data?.validate?.required ? <Text style={Style.text_red}> *</Text> : null}
       </View>
       <View
-        style={[Style.input_inside_container, {borderColor: getBorderColor()}]}>
+        style={[Style.input_inside_container, {borderColor: getBorderColor(), opacity: (data?.is_editable == false) ? 0.5 : 1}]}>
         {data?.icon ? (
           <Ionicon
             name={data.icon}

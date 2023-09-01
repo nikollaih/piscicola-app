@@ -28,13 +28,12 @@ export const BiomassesList = ({ navigation, sowing }) => {
       let filters = { sowing };
       let response = await BiomassesServices.get(loggedUser, filters);
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
       if (response.status == 200) {
         setBiomasses(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken({ force: true, navigation: navigation });
+          await refreshToken({ force: true, navigation: navigation });
           getBiomasses();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);

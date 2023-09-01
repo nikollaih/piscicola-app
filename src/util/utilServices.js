@@ -8,7 +8,8 @@ import {
   UsersServices,
   PaymentTypesServices,
   TaskLogsServices,
-  UnitTypesServices
+  UnitTypesServices,
+  SuppliesServices
 } from "../services";
 
 export const getProductType = async (token) => {
@@ -117,6 +118,18 @@ export const getPaymentTypes = async (user) => {
 export const getUnitTypes = async (user, filter = {}) => {
   try {
     let response = await UnitTypesServices.get(user, filter);
+    if (response.status == 401) return { is_logged: false };
+    return response.status == 200
+      ? await response.json()
+      : [];
+  } catch (error) {
+    return [];
+  }
+};
+
+export const getSupplies = async (user, filter = {}) => {
+  try {
+    let response = await SuppliesServices.get(user.token, user.productive_unit.id, filter);
     if (response.status == 401) return { is_logged: false };
     return response.status == 200
       ? await response.json()

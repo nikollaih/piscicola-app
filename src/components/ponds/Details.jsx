@@ -12,7 +12,7 @@ export const PondDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  const { getAuth } = useAuth();
+  const { getAuth, refreshToken } = useAuth();
   const onEdit = () => {
     onClose();
     navigation.navigate("AddPond", { pond: pond });

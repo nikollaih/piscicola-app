@@ -12,6 +12,7 @@ import { ProductCompleteDetails } from "../../components/products/Details";
 import { Constants } from "../../util";
 import { Breadcrumb } from "../../components/breadcrumb/Breadcrumb";
 import { StatsList } from "../../components/products/Stats";
+import { FillIconButton } from "../../components/button/fillIconButton";
 import moment from "moment";
 
 export const ProductDetail = ({ navigation, route }) => {
@@ -79,6 +80,7 @@ export const ProductDetail = ({ navigation, route }) => {
           </View>
           <StatsList navigation={navigation} sowing={sowing} reload={reload}/>
           <ProductCompleteDetails sowing={sowing}/>
+          <FillIconButton style={Style.sell_button} title="Vender" icon="ios-cart" />
         </View>
       </ScrollView>
     </Layout>

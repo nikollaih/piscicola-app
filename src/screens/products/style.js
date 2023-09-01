@@ -40,5 +40,8 @@ export default StyleSheet.create({
     subtitle: {
         ...Theme.subtitle,
         textAlign: "center"
+    },
+    sell_button: {
+        marginTop: 10
     }
 })

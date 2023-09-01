@@ -108,5 +108,11 @@ export default [
         title: "Pagos",
         icon: "ios-cash",
         users_type: [2]
+    },
+    {
+        screen: "Supplies",
+        title: "Suministros",
+        icon: "ios-cash",
+        users_type: [2]
     }
 ]

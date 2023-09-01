@@ -7,26 +7,27 @@ export const ProductShortCuts = ({navigation, sowing = {}}) => {
   return (
     <View style={Style.actions}>
       <RoundIconButton
-        title="Vender"
-        icon="ios-cart"
+        title="Biomasas"
+        icon="barbell"
         fill={Constants.COLORS.PRIMARY}
         onPress={() => {navigation.navigate("Biomasses", {sowing})}}
+      />
+      <RoundIconButton
+        title="Mortalidad"
+        icon="heart-dislike"
+        fill={Constants.COLORS.BLUE}
+        onPress={() => {navigation.navigate("Mortalities", {sowing})}}
       />
       <RoundIconButton
         title="Alimento"
         icon="md-fast-food"
         fill={Constants.COLORS.SOFT_YELLOW}
-        onPress={() => {navigation.navigate("FeedHistory")}}
+        onPress={() => {navigation.navigate("Food", {sowing})}}
       />
       <RoundIconButton
         title="Medicamento"
         icon="ios-medkit"
         fill={Constants.COLORS.RED}
-      />
-      <RoundIconButton
-        title="Insumo"
-        icon="ios-flask"
-        fill={Constants.COLORS.BLUE}
       />
     </View>
   );

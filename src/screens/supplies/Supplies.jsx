@@ -2,8 +2,8 @@ import {View} from 'react-native';
 import {Layout} from '../Layout';
 import {Breadcrumb} from '../../components/breadcrumb/Breadcrumb';
 import {SuppliesList} from '../../components/supplies/List';
-import FormFields from '../../json/forms/Pond';
-import pondStructure from '../../json/formsStructure/pondStructure';
+import FormFields from '../../json/forms/Supply';
+import supplyStructure from '../../json/formsStructure/supplyStructure';
 import {useForm} from '../../hooks/useForm';
 import Style from './style';
 
@@ -20,7 +20,7 @@ export const Supplies = props => {
    * It opens the AddTank screen.
    */
   const openAddSupply = () => {
-    FormFields['structure'] = pondStructure;
+    FormFields['structure'] = supplyStructure;
     setDataForm({...dataForm, [FormFields.form_name]: FormFields});
     props.navigation.navigate('AddSupply');
   };

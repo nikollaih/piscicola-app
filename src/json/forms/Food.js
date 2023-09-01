@@ -4,69 +4,37 @@ import { Constants } from "../../util";
 export default
     {
         form_name: "Food",
-        structure: {...foodStructure},
+        structure: foodStructure,
         fields: {
-            name: {
-                icon: "md-fast-food",
-                title: "Nombre",
-                placeholder: "Nombre",
-                type: "input",
-                validate: {
-                    required: true,
-                }
-            },
-            precio: {
-                icon: "ios-cash",
-                title: "Precio",
-                placeholder: "$0",
-                bottom: 0,
-                type: "input",
-                validate: {
-                    required: true,
-                }
-            },
-            cantidad: {
-                icon: "ios-cash",
-                title: "Cantidad",
-                placeholder: "10",
-                type: "input",
-                validate: {
-                    required: true,
-                }
-            },
-            unidad: {
-                icon: "ios-business",
-                title: "Unidad de medida",
+            supply_id: {
+                icon: "ios-beaker",
+                title: "Alimento",
                 placeholder: "- Seleccionar",
                 type: "select",
-                item_label: "nombre",
+                item_label: "name",
                 item_id: "id",
-                items: [
-                    {
-                        nombre: "Kg",
-                        id: 1
-                    },
-                    {
-                        nombre: "L",
-                        id: 2
-                    },
-                    {
-                        nombre: "Unidades",
-                        id: 3
-                    },
-                ],
+                items: [],
                 validate: {
                     required: true,
                 }
             },
-            fecha_creacion: {
+            quantity: {
+                title: "Cantidad",
+                placeholder: "5Kg",
+                type: "input",
+                keyboard_type: "numeric",
+                validate: {
+                    required: true
+                }
+            },
+            apply_at: {
                 icon: "ios-calendar",
-                title: "Fecha de compra",
+                title: "Fecha de alimentación",
                 placeholder: "Fecha",
                 type: "date",
                 format: Constants.DATETIME_FORMATS.DATETIME,
                 validate: {
-                    required: true,
+                    required: true
                 }
             },
         }

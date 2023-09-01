@@ -42,6 +42,11 @@ target 'Piscicola' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreDiagnostics', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  
   target 'PiscicolaTests' do
     inherit! :complete
     # Pods for testing

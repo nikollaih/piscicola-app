@@ -4,13 +4,15 @@
         "network_fetch": "No ha sido posible conectarse al servidor.",
         "common": "Ha ocurrido un error, por favor intente de nuevo más tarde.",
         "min_length": "El texto debe contener minimo ",
+        "max": "La cantidad maxima permitida es ",
         "no_productive_unit": "No se ha encontrado una unidad productiva asociada al usuario.",
         "stats_history_date_mismatch": "La fecha de inicio no puede ser superior a la fecha de finalización",
         "code" : {
             "1003": "No tiene permisos de administrador",
             "42703": "Hubo un error en la base de datos",
             "1005": "Usuario o contraseña incorrecta",
-            "1704": "El estanque ya tiene una cosecha"
+            "1704": "El estanque ya tiene una cosecha",
+            "2806": "La cantidad seleccionada no es válida"
         }
     },
     "success": {
@@ -41,7 +43,13 @@
         },
         "biomasse": {
             "create": "Biomasa creada exitosamente.",
-            "update": "Biomasa modificada exitosamente."
+            "update": "Biomasa modificada exitosamente.",
+            "delete": "Biomasa eliminada exitosamente."
+        },
+        "mortality": {
+            "create": "Mortalidad creada exitosamente.",
+            "update": "Mortalidad modificada exitosamente.",
+            "delete": "Mortalidad eliminada exitosamente."
         },
         "productType": {
             "create": "Tipo de producto creado exitosamente.",
@@ -87,6 +95,21 @@
             "create": "Gasto creado exitosamente.",
             "update": "Gasto modificado exitosamente.",
             "delete": "Gasto eliminado exitosamente."
+        },
+        "supply": {
+            "create": "Suministro creado exitosamente.",
+            "update": "Suministro modificado exitosamente.",
+            "delete": "Suministro eliminado exitosamente."
+        },
+        "supplyStock": {
+            "create": "Stock creado exitosamente.",
+            "update": "Stock modificado exitosamente.",
+            "delete": "Stock eliminado exitosamente."
+        },
+        "food": {
+            "create": "Alimento registrado exitosamente.",
+            "update": "Alimento modificado exitosamente.",
+            "delete": "Alimento eliminado exitosamente."
         }
     }
 }

@@ -56,6 +56,13 @@ export const checkRequiredField = (data, dataForm, check) => {
     )
       return { status: false, text: Texts.error.stats_history_date_mismatch };
 
+    /* It checks if value is greater than allowed */
+    if (
+      data?.validate?.max != undefined &&
+      dataForm.structure[data.name] > data?.validate?.max
+    )
+      return { status: false, text: Texts.error.max + data?.validate?.max };
+
     return { status: true };
   }
 

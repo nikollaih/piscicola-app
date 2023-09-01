@@ -7,7 +7,6 @@ export default
         structure: {...medicationStructure},
         fields: {
             name: {
-                icon: "ios-flask",
                 title: "Nombre",
                 placeholder: "Nombre",
                 type: "input",
@@ -15,58 +14,53 @@ export default
                     required: true,
                 }
             },
-            precio: {
-                icon: "ios-map",
+            cost_unity: {
                 title: "Precio",
                 placeholder: "$0",
-                bottom: 0,
+                keyboard:"number",
                 type: "input",
                 validate: {
                     required: true,
                 }
             },
-            cantidad: {
+            quantity: {
                 title: "Cantidad",
                 placeholder: "10",
+                keyboard:"number",
                 type: "input",
                 validate: {
                     required: true,
                 }
             },
-            unidad: {
-                icon: "ios-beaker",
+            unit_type_id: {
                 title: "Unidad de medida",
                 placeholder: "- Seleccionar",
                 type: "select",
-                item_label: "nombre",
+                item_label: "name",
                 item_id: "id",
-                items: [
-                    {
-                        nombre: "Kg",
-                        id: 1
-                    },
-                    {
-                        nombre: "L",
-                        id: 2
-                    },
-                    {
-                        nombre: "Unidades",
-                        id: 3
-                    },
-                ],
+                items: [],
                 validate: {
                     required: true,
                 }
             },
-            fecha_creacion: {
-                icon: "ios-calendar",
-                title: "Fecha de compra",
-                placeholder: "Fecha",
-                type: "date",
-                format: Constants.DATETIME_FORMATS.DATETIME,
+            use_type: {
+                title: "Uso",
+                placeholder: "- Seleccionar",
+                type: "select",
+                item_label: "name",
+                item_id: "id",
+                items: Constants.USE_TYPES,
                 validate: {
                     required: true,
                 }
+            },
+            description: {
+                title: "Descripción",
+                placeholder: "Escriba una descripción...",
+                is_large: true,
+                type: "input",
+                bottom: 0,
+                validate: {}
             },
         }
     }

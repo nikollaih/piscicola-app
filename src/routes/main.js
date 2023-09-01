@@ -25,8 +25,6 @@ import { AddStep } from '../screens/steps/addStep';
 import { ProductTypes } from '../screens/productTypes/productTypes';
 import { Products } from '../screens/products/Products';
 import { AddProductType } from '../screens/productTypes/addProductType';
-import { FeedHistory } from '../screens/products/feedingHistory';
-import { AddFeed } from '../screens/products/addFeed';
 import { FishStats } from '../screens/fishStats/fishStats';
 import { AddFishStats } from '../screens/fishStats/add/addFishStats';
 import { AddSowing } from '../screens/products/add/addSowing';
@@ -42,6 +40,10 @@ import { PaymentDetails } from '../screens/paymentDetails/paymentDetails';
 import { AddPaymentDetail } from '../screens/paymentDetails/add/addPaymentDetails';
 import { AddBiomasse } from '../screens/biomasses/add/addBiomasse';
 import { Biomasses } from '../screens/biomasses/Biomasses';
+import { SuppliesStock } from '../screens/supplies/stock/suppliesStock';
+import { AddSupplyStock } from '../screens/supplies/stock/addSupplyStock';
+import { Mortalities } from '../screens/mortalities/Mortalities';
+import { AddMortality } from '../screens/mortalities/add/addMortality';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -100,6 +102,14 @@ export default [
     {
         name: "AddSupply",
         screen: AddSupply,
+    },
+    {
+        name: "SuppliesStock",
+        screen: SuppliesStock,
+    },
+    {
+        name: "AddSupplyStock",
+        screen: AddSupplyStock,
     },
     {
         name: "Equipment",
@@ -166,14 +176,6 @@ export default [
         screen: Products,
     },
     {
-        name: "FeedHistory",
-        screen: FeedHistory,
-    },
-    {
-        name: "AddFeed",
-        screen: AddFeed,
-    },
-    {
         name: "AddSowing",
         screen: AddSowing,
     },
@@ -224,5 +226,13 @@ export default [
     {
         name: "AddBiomasse",
         screen: AddBiomasse,
+    },
+    {
+        name: "Mortalities",
+        screen: Mortalities,
+    },
+    {
+        name: "AddMortality",
+        screen: AddMortality,
     },
 ]
