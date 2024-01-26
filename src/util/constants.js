@@ -1,6 +1,6 @@
 export default {
   API: {
-    URL: "http://3.144.25.191:8080/",
+    URL: "http://3.144.25.191:808/",
   },
   COLORS: {
     DARK: "#31322d",
