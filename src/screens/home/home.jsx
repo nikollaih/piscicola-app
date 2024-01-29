@@ -18,7 +18,6 @@ export const Home = (props) => {
   const getLoggedUser = async () => {
     try {
       const responseUser = await getAuth();
-      console.log("response user", responseUser);
       setLoggedUser(responseUser);
     } catch (error) {
       console.log(error);
@@ -60,7 +59,12 @@ export const Home = (props) => {
             />
           ) : null}
           {loggedUser?.profile?.user_type_id == 2 ? (
-            <UserHome navigation={props.navigation} />
+            <UserHome
+                setFinishRefresh={() => {
+                  setRefresh(false);
+                }}
+                refresh={refresh}
+                navigation={props.navigation} />
           ) : null}
         </View>
       </ScrollView>

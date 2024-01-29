@@ -45,8 +45,9 @@ export const ProductHistoryList = ({
       const loggedUser = await getAuth();
       const statsKeys = await getStatsKeys();
       const filters = getFilters(statsKeys);
+      const HAS_VALID_FILTERS = hasValidFilters(filters);
 
-      if (hasValidFilters(filters)) {
+      if (HAS_VALID_FILTERS.status) {
         let response = await SowingsServices.getStatsHistory(
           loggedUser.token,
           filters
@@ -56,12 +57,12 @@ export const ProductHistoryList = ({
         else if (
           jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN
         ) {
-          refreshToken({force:true, navigation: navigation});
+          refreshToken({ force: true, navigation: navigation });
           getStatsHistory();
         } else Utilities.showErrorFecth(jsonResponse);
       }
       else
-        Utilities.showAlert({text: Texts.error.stats_history_date_mismatch, title: "Error"})
+        Utilities.showAlert({ text: HAS_VALID_FILTERS.text, title: "Error" })
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -70,7 +71,9 @@ export const ProductHistoryList = ({
 
   const hasValidFilters = (filters) => {
     const { keys, start_date, end_date } = filters;
-    return keys.length > 0 && moment(start_date).isBefore(moment(end_date));
+    if (keys.length <= 0) return { status: false, text: Texts.error.stats_history_no_keys };
+    if (moment(end_date).isBefore(moment(start_date))) return { status: false, text: Texts.error.stats_history_date_mismatch };
+    return { status: true };
   };
 
   const getStatsKeys = async () => {
@@ -86,7 +89,7 @@ export const ProductHistoryList = ({
         return (statsKeys = jsonResponse.map((stat) => stat.key));
       else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          refreshToken({force:true, navigation: navigation});
+          refreshToken({ force: true, navigation: navigation });
           getStatsKeys();
         } else Utilities.showErrorFecth(jsonResponse);
       }

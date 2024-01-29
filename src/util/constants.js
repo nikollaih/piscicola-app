@@ -1,6 +1,6 @@
 export default {
   API: {
-    URL: "http://3.144.25.191:808/",
+    URL: "http://cryzat.xyz/",
   },
   COLORS: {
     DARK: "#31322d",

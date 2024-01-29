@@ -3,8 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
-  Alert,
-  TouchableOpacity,
+  Alert
 } from "react-native";
 import { Constants, Utilities, Texts } from "../../util";
 import Theme from "../../theme/theme";
@@ -20,7 +19,6 @@ export const FoodDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  console.log("Food details: ", food);
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();

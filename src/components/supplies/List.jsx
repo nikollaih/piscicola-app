@@ -27,25 +27,9 @@ export const SuppliesList = ({
   }, [navigation, filters]);
 
   const getDefaultDateFilter = () => {
-    return filters?.manualCreatedAtStart
+    return filters
       ? filters
-      : {
-          manualCreatedAtStart:
-            moment(
-              Utilities.changeDateFormatForAPI({
-                date: new Date(),
-                format: Constants.DATETIME_FORMATS.DATE,
-              }),
-              Constants.DATETIME_FORMATS.DATETIME
-            )
-              .subtract(1, "month")
-              .format(Constants.DATETIME_FORMATS.DATE) + " 00:00:00",
-          manualCreatedAtEnd:
-            Utilities.changeDateFormatForAPI({
-              date: new Date(),
-              format: Constants.DATETIME_FORMATS.DATE,
-            }) + " 23:59:59",
-        };
+      : "?page=1&perPage=100&includeDeletes=false";
   };
 
   // Get the fish listing
@@ -60,28 +44,22 @@ export const SuppliesList = ({
         getDefaultDateFilter()
       );
 
-      console.log("Supplies: ", response)
-
       let jsonResponse = await response.json();
       if (response.status == 200) {
         setSupplies(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          console.log("numero: ", countAPICalls)
           if(countAPICalls < 3){
             countAPICalls++;
             await refreshToken({ force: true, navigation: navigation });
             getSupplies();
           }
-          else {
-            console.log("Usuario inválido: ", loggedUser);
-          }
+          else {}
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };

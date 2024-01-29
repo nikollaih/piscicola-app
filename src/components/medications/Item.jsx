@@ -4,37 +4,56 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-} from 'react-native';
-import {CustomModal} from '../customModal/customModal';
-import {MedicationDetails} from './Details';
-import {useState} from 'react';
-import Theme from '../../theme/theme';
-import {Constants} from '../../util';
-const {height} = Dimensions.get('window');
+} from "react-native";
+import { CustomModal } from "../customModal/customModal";
+import { useState } from "react";
+import { MedicationDetails } from "./Details";
+import Theme from "../../theme/theme";
+import { Constants } from "../../util";
+import moment from "moment";
+const { height } = Dimensions.get("window");
 
-export const MedicationItem = props => {
+export const MedicationItem = ({ navigation, medication, sowing, onDelete = () => {} }) => {
   const [showModal, setShowModal] = useState(false);
 
+  const onRemove = () => {
+    setShowModal(false);
+    onDelete()
+  }
   return (
     <TouchableOpacity
       activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
       style={Style.container}
       onPress={() => {
         setShowModal(true);
-      }}>
+      }}
+    >
       <View>
-        <Text style={Style.inside_subtitle}>Paraguard</Text>
-        <Text style={Style.text}>2023/03/21</Text>
+        <Text
+          style={Style.inside_subtitle}
+        >{`${medication.supply.name} (${medication.quantity} ${medication.supply.unit_type.name})`}</Text>
+        <Text style={Style.text}>
+          {moment(medication.apply_at).format(Constants.DATETIME_FORMATS.DATETIME)}
+        </Text>
       </View>
-      <Text style={[Style.text_red, Style.font_roboto_bold]}>$35.000</Text>
+      <Text
+        style={[Style.text_red, Style.font_roboto_bold]}
+      >{`$${medication.supply.total_cost.toLocaleString("es-CO")}`}</Text>
       <CustomModal
         height={height - 400}
-        title="Paraguard"
+        title={medication.supply.name}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);
-        }}>
-        <MedicationDetails />
+        }}
+      >
+        <MedicationDetails
+          onClose={() => setShowModal(false)}
+          onDelete={() => onRemove()}
+          navigation={navigation}
+          medication={medication}
+          sowing={sowing}
+        />
       </CustomModal>
     </TouchableOpacity>
   );

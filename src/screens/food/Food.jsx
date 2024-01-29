@@ -18,7 +18,7 @@ export const Food = (props) => {
   };
 
   /**
-   * It opens the AddTank screen.
+   * It opens the AddFood screen.
    */
   const openAddFood = () => {
     FormFields["structure"] = foodStructure;

@@ -7,6 +7,7 @@
         "max": "La cantidad maxima permitida es ",
         "no_productive_unit": "No se ha encontrado una unidad productiva asociada al usuario.",
         "stats_history_date_mismatch": "La fecha de inicio no puede ser superior a la fecha de finalización",
+        "stats_history_no_keys": "No se ha  encontrado datos para la consulta",
         "code" : {
             "1003": "No tiene permisos de administrador",
             "42703": "Hubo un error en la base de datos",
@@ -110,6 +111,11 @@
             "create": "Alimento registrado exitosamente.",
             "update": "Alimento modificado exitosamente.",
             "delete": "Alimento eliminado exitosamente."
+        },
+        "medication": {
+            "create": "Medicamento registrado exitosamente.",
+            "update": "Medicamento modificado exitosamente.",
+            "delete": "Medicamento eliminado exitosamente."
         }
     }
 }

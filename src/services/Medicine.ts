@@ -1,7 +1,8 @@
 import { Constants, Utilities } from "../util";
 
 export const get = async (token: String, sowingID: String = "") => {
-  let response = await fetch(`${Constants.API.URL}supplies_used/aliments/list_by_sowing_id/${sowingID}`, {
+  console.log(`${Constants.API.URL}supplies_used/medicines/list_by_sowing_id/${sowingID}`)
+  let response = await fetch(`${Constants.API.URL}supplies_used/medicines/list_by_sowing_id/${sowingID}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
@@ -13,7 +14,7 @@ export const get = async (token: String, sowingID: String = "") => {
 
 export const create = async (token: String, data: any) => {
   const postData = JSON.stringify(Utilities.dataToFormDataAPI(data));
-  let response = await fetch(`${Constants.API.URL}supplies_used/aliments`, {
+  let response = await fetch(`${Constants.API.URL}supplies_used/medicines`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
@@ -25,7 +26,7 @@ export const create = async (token: String, data: any) => {
 };
 
 export const remove = async (token: String, stockID: Number) => {
-  let response = await fetch(`${Constants.API.URL}supplies_used/aliments/${stockID}` , {
+  let response = await fetch(`${Constants.API.URL}supplies_used/medicines/${stockID}` , {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,

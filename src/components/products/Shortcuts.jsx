@@ -28,6 +28,7 @@ export const ProductShortCuts = ({navigation, sowing = {}}) => {
         title="Medicamento"
         icon="ios-medkit"
         fill={Constants.COLORS.RED}
+        onPress={() => {navigation.navigate("Medications", {sowing})}}
       />
     </View>
   );

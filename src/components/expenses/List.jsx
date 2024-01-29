@@ -11,6 +11,8 @@ export const GeneralExpensesList = ({
   navigation,
   allowEdit = true,
   filters = false,
+  refresh,
+  setFinishRefresh = () => {}
 }) => {
   let countAPICalls = 0;
   const { getAuth, refreshToken } = useAuth();
@@ -108,6 +110,12 @@ export const GeneralExpensesList = ({
       />
     );
   };
+
+  // Refresh the listing
+  if (refresh) {
+    setFinishRefresh();
+    getGeneralExpenses();
+  }
 
   if (loading) return <ActivityIndicator color={Constants.COLORS.PRIMARY} />;
 
