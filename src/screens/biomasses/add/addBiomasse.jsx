@@ -51,7 +51,6 @@ export const AddBiomasse = (props) => {
       const UNIT_TYPES = await UtilServices.getUnitTypes(loggedUser, {
         type: "peso",
       });
-      console.log(UNIT_TYPES);
       FormInputs["structure"] = biomasse ? biomasse : biomasseStructure;
       FormInputs["structure"]["productive_unit_id"] =
         loggedUser.productive_unit.id;
@@ -64,7 +63,7 @@ export const AddBiomasse = (props) => {
       setDataForm({ [FormInputs.form_name]: FormInputs });
       setLoading(false);
     } catch (error) {
-      console.log(error);
+
     }
   };
 
@@ -92,7 +91,6 @@ export const AddBiomasse = (props) => {
         sendDataForm
       );
       let jsonResponse = await response.json();
-        console.log(jsonResponse)
       if (response.status == 200) {
         onSuccessSave();
       } else {

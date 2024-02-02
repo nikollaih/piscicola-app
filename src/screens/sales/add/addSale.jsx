@@ -7,8 +7,8 @@ import {
   import { Layout } from "../../Layout";
   import { useState, useEffect } from "react";
   import { FormButtons } from "../../../components/button/formButtons";
-  import FormInputs from "../../../json/forms/Mortality";
-  import mortalityStructure from "../../../json/formsStructure/mortalityStructure";
+  import FormInputs from "../../../json/forms/Sale";
+  import saleStructure from "../../../json/formsStructure/saleStructure";
   import { useAuth } from "../../../hooks/useAuth";
   import Style from "../style";
   import {
@@ -20,24 +20,24 @@ import {
   } from "../../../util";
   import { CustomForm } from "../../../components/form/customForm";
   import { useForm } from "../../../hooks/useForm";
-  import { MortalitiesServices } from "../../../services";
+  import { SaleServices } from "../../../services";
   import { showMessage } from "react-native-flash-message";
   import { Breadcrumb } from "../../../components/breadcrumb/Breadcrumb";
   
-  export const AddMortality = (props) => {
+  export const AddSale = (props) => {
     const { getAuth, refreshToken } = useAuth();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
-    const mortality = props.route.params?.mortality;
+    const sale = props.route.params?.sale;
     const sowing = props.route.params?.sowing;
   
     const breadcrumb = {
-      title: "Mortalidad",
-      subtitle: mortality?.id ? "Modificar" : "Agregar",
+      title: "Venta",
+      subtitle: sale?.id ? "Modificar" : "Agregar",
       right_content: null,
     };
-  
+
     useEffect(() => {
       setInitialData();
     }, []);
@@ -51,12 +51,13 @@ import {
         const UNIT_TYPES = await UtilServices.getUnitTypes(loggedUser, {
           type: "peso",
         });
-        FormInputs["structure"] = mortality ? mortality : mortalityStructure;
+
+        FormInputs["structure"] = sale ? sale : saleStructure;
         FormInputs["structure"]["productive_unit_id"] =
           loggedUser.productive_unit.id;
           FormInputs["structure"]["sowing_id"] =
           sowing.id;
-        FormInputs["fields"]["unit_type_id"]["items"] = UNIT_TYPES;
+       // FormInputs["fields"]["unit_type_id"]["items"] = UNIT_TYPES;
   
         setSaving(false);
         setCheckrequired({ [FormInputs.form_name]: false });
@@ -86,7 +87,7 @@ import {
       try {
         let loggeduser = await getAuth();
         let sendDataForm = dataForm[FormInputs.form_name].structure;
-        let response = await MortalitiesServices.create(
+        let response = await SaleServices.create(
           loggeduser.token,
           sendDataForm
         );
@@ -107,19 +108,19 @@ import {
     };
   
     const onSuccessSave = () => {
-      let mortalityID = dataForm[FormInputs.form_name]?.structure?.id;
+      let saleID = dataForm[FormInputs.form_name]?.structure?.id;
       setSaving(false);
-      LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "mortalities");
+      LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "sale");
       showMessage({
         message: Texts.success.title,
-        description: mortalityID
-          ? Texts.success.mortality.update
-          : Texts.success.mortality.create,
+        description: saleID
+          ? Texts.success.sale.update
+          : Texts.success.sale.create,
         duration: 3000,
         type: "success",
       });
   
-      if (!mortalityID) setDataForm({ [FormInputs.form_name]: FormInputs });
+      if (!saleID) setDataForm({ [FormInputs.form_name]: FormInputs });
     };
   
     return (

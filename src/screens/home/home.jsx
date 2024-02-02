@@ -20,7 +20,7 @@ export const Home = (props) => {
       const responseUser = await getAuth();
       setLoggedUser(responseUser);
     } catch (error) {
-      console.log(error);
+
     }
   };
 

@@ -47,7 +47,6 @@ export const MedicationDetails = ({
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };

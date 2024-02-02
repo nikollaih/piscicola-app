@@ -1,7 +1,6 @@
 import { Constants, Utilities } from "../util";
 
 export const get = async (token: String, sowingID: String = "") => {
-  console.log(`${Constants.API.URL}supplies_used/medicines/list_by_sowing_id/${sowingID}`)
   let response = await fetch(`${Constants.API.URL}supplies_used/medicines/list_by_sowing_id/${sowingID}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,

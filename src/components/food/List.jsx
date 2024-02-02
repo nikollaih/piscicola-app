@@ -27,7 +27,7 @@ export const FoodList = ({ navigation, sowing }) => {
       setLoading(true);
       let response = await FoodServices.get(loggedUser.token, sowing.id);
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
+
       if (response.status == 200) {
         setFood(jsonResponse.data);
         setLoading(false);

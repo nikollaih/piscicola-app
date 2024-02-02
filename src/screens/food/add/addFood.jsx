@@ -35,7 +35,6 @@ export const AddFood = (props) => {
   };
 
   useEffect(() => {
-    console.log("Loaded: ", loadedData);
     if (!loadedData) setInitialData(food);
     else setMaxQuantity();
   }, [dataForm[FormInputs.form_name]?.structure?.supply_id]);
@@ -46,12 +45,11 @@ export const AddFood = (props) => {
   const setInitialData = async (food) => {
     const loggedUser = await getAuth();
     const ALIMENTS = await UtilServices.getSupplies(loggedUser, "/aliments");
-    console.log("Aliments: ", ALIMENTS);
     FormInputs["structure"]["sowing_id"] = sowing.id;
+
     if (!food) FormInputs["structure"]["supply_id"] = null;
     FormInputs["fields"]["quantity"]["title"] = `Cantidad`;
     FormInputs["fields"]["supply_id"]["items"] = ALIMENTS.data;
-    console.log("Food: ", food);
     FormInputs["structure"] = food ? food : foodStructure;
     if (food)
       FormInputs["fields"]["quantity"]["validate"]["max"] =
@@ -79,7 +77,6 @@ export const AddFood = (props) => {
       if (food && food.supply.id == SUPPLY_ID)
         max_stock = food.quantity + food.supply.stock;
 
-      console.log("Max stock: ", max_stock);
       FormInputs["fields"]["quantity"]["validate"]["max"] = max_stock;
       setDataForm({ [FormInputs.form_name]: FormInputs });
     }
@@ -105,7 +102,7 @@ export const AddFood = (props) => {
       let sendDataForm = dataForm[FormInputs.form_name].structure;
       let response = await FoodServices.create(loggeduser.token, sendDataForm);
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
+
       if (response.status == 200) {
         onSuccessSave();
       } else {
@@ -116,7 +113,6 @@ export const AddFood = (props) => {
         setSaving(false);
       }
     } catch (error) {
-      console.log(error);
       Utilities.showAlert({});
       setSaving(false);
     }

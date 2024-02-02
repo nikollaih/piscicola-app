@@ -116,6 +116,11 @@
             "create": "Medicamento registrado exitosamente.",
             "update": "Medicamento modificado exitosamente.",
             "delete": "Medicamento eliminado exitosamente."
+        },
+        "sale": {
+            "create": "Venta registrada exitosamente.",
+            "update": "Venta modificada exitosamente.",
+            "delete": "Venta eliminada exitosamente."
         }
     }
 }

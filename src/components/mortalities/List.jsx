@@ -39,7 +39,6 @@ export const MortalitiesList = ({ navigation, sowing }) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
       Utilities.showAlert({});
     }
   };

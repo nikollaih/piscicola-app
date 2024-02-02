@@ -14,10 +14,10 @@ export default
                     required: true,
                 }
             },
-            cost_unity: {
+            total_cost: {
                 title: "Precio",
                 placeholder: "$0",
-                keyboard:"number",
+                keyboard_type:"numeric",
                 type: "input",
                 validate: {
                     required: true,
@@ -26,7 +26,7 @@ export default
             quantity: {
                 title: "Cantidad",
                 placeholder: "10",
-                keyboard:"number",
+                keyboard_type:"numeric",
                 type: "input",
                 validate: {
                     required: true,
@@ -60,7 +60,9 @@ export default
                 is_large: true,
                 type: "input",
                 bottom: 0,
-                validate: {}
+                validate: {
+                    required: true,
+                }
             },
         }
     }

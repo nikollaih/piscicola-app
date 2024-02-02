@@ -9,7 +9,7 @@ import Style from "./style";
 import { useState } from "react";
 import { ProductShortCuts } from "../../components/products/Shortcuts";
 import { ProductCompleteDetails } from "../../components/products/Details";
-import { Constants } from "../../util";
+import { Constants, Utilities } from "../../util";
 import { Breadcrumb } from "../../components/breadcrumb/Breadcrumb";
 import { StatsList } from "../../components/products/Stats";
 import { FillIconButton } from "../../components/button/fillIconButton";
@@ -23,7 +23,7 @@ export const ProductDetail = ({ navigation, route }) => {
   const breadcrumb = {
     title: `${sowing.fish_step.fish.name} - ${sowing.fish_step.name}`,
     subtitle: sowing.pond.name,
-    icon: "ios-create",
+    icon: sowing.closed_at != "" ? null : "ios-create",
 
   };
 
@@ -31,10 +31,23 @@ export const ProductDetail = ({ navigation, route }) => {
     navigation.navigate("AddSowing", {sowing: sowing});
   };
 
-  const refreshData = () => {
+  const refreshData = () => {
     const currentDateTime = moment().format(Constants.DATETIME_FORMATS.DATETIME);
     setLastUpdate(currentDateTime)
     setReload(!reload);
+  }
+
+  const openSale = () => {
+    navigation.navigate("AddSale", {sowing: sowing});
+  }
+
+  const getSold = () => {
+    return (sowing.closed_at != "") ? 
+    <View style={[Style.white_container, {marginTop: 10}]}>
+      <Text style={Style.font_roboto_bold}>Vendido:</Text>
+      <Text>{Utilities.changeDateFormatForAPI({date: sowing.closed_at})}</Text>
+    </View> 
+    : <FillIconButton onPress={() => {openSale()}} style={Style.sell_button} title="Vender" icon="ios-cart" />
   }
 
   return (
@@ -80,7 +93,7 @@ export const ProductDetail = ({ navigation, route }) => {
           </View>
           <StatsList navigation={navigation} sowing={sowing} reload={reload}/>
           <ProductCompleteDetails sowing={sowing}/>
-          <FillIconButton style={Style.sell_button} title="Vender" icon="ios-cart" />
+          {getSold()}
         </View>
       </ScrollView>
     </Layout>

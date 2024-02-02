@@ -67,7 +67,6 @@ export const getTasks = async (user) => {
 };
 
 export const getTasksLogs = async (user) => {
-  console.log(user.token)
   try {
     let response = await TaskLogsServices.get(user.token, user.productive_unit.id);
     if (response.status == 401) return { is_logged: false };

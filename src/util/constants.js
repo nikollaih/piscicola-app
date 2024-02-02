@@ -52,5 +52,5 @@ export default {
     ADMIN: 1,
     UNIT_MANAGER: 2,
   },
-  USE_TYPES: [{ id: "ALIMENT", name: "Alimento" }, { id: "MEDICINE", name: "Medicina" }, { id: "OTHER", name: "Otro" }],
+  USE_TYPES: [{ id: "ALIMENT", name: "Alimento" }, { id: "MEDICINE", name: "Medicina" }],
 };

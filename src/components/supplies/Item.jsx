@@ -9,7 +9,7 @@ import { CustomModal } from "../customModal/customModal";
 import { SupplyDetails } from "./Details";
 import { useState } from "react";
 import Theme from "../../theme/theme";
-import { Constants } from "../../util";
+import { Constants, Utilities } from "../../util";
 const { height } = Dimensions.get("window");
 
 export const SupplyItem = ({ supply, navigation, onDelete = () => {} }) => {
@@ -19,6 +19,14 @@ export const SupplyItem = ({ supply, navigation, onDelete = () => {} }) => {
     setShowModal(false);
     onDelete();
   };
+
+  const getUseType = (use_type) => {
+    return (use_type === "ALIMENT") ? "Alimento" : "Medicina";
+  }
+
+  const getUseTypeBg = (use_type) => {
+    return (use_type === "ALIMENT") ? Constants.COLORS.GREEN : Constants.COLORS.BLUE;
+  }
 
   return (
     <TouchableOpacity
@@ -34,9 +42,14 @@ export const SupplyItem = ({ supply, navigation, onDelete = () => {} }) => {
           style={Style.text}
         >{`Stock: ${supply.stock} ${supply.unit_type.name}`}</Text>
       </View>
-      <Text style={[Style.text_red, Style.font_roboto_bold]}>
-        ${supply.total_cost.toLocaleString("es-CO")}
-      </Text>
+      <View>
+        <Text style={[Style.text_red, Style.font_roboto_regular, Style.label, {backgroundColor: getUseTypeBg(supply.use_type)}]}>
+          {Utilities.getSupplyName(supply.use_type).name}
+        </Text>
+        <Text style={[Style.text_red, Style.font_roboto_bold]}>
+          ${supply.total_cost.toLocaleString("es-CO")}
+        </Text>
+      </View>
       <CustomModal
         height={height - 400}
         title={supply.name}
@@ -67,4 +80,14 @@ const Style = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
   },
+  label: {
+    borderRadius: 5,
+    overflow: "hidden",
+    color: Constants.COLORS.WHITE,
+    paddingHorizontal: 3,
+    paddingVertical: 1,
+    fontSize: 12,
+    width: 46,
+    alignSelf: "flex-end"
+  }
 });

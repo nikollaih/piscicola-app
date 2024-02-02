@@ -114,5 +114,11 @@ export default [
         title: "Suministros",
         icon: "ios-cash",
         users_type: [2]
+    },
+    {
+        screen: "Sales",
+        title: "Ventas",
+        icon: "ios-cash",
+        users_type: [2]
     }
 ]

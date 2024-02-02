@@ -32,8 +32,6 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
         productiveUnitID
       );
       let jsonResponse = await response.json();
-      console.log("Token", loggedUser.token);
-      console.log("Response Json", jsonResponse);
       if (response.status == 200) {
         setSowings(jsonResponse.data);
         setLoading(false);
@@ -54,7 +52,7 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "sowings") {
+    if (updatedScreen == "sowings" || updatedScreen == "sale") {
       getSowings();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }

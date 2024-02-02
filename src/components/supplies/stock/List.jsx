@@ -36,28 +36,21 @@ export const SuppliesStockList = ({
         supply?.id
       );
 
-      console.log("Supplies: ", response)
-
       let jsonResponse = await response.json();
       if (response.status == 200) {
         setSupplies(jsonResponse.data);
         setLoading(false);
       } else {
         if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
-          console.log("numero: ", countAPICalls)
           if(countAPICalls < 3){
             countAPICalls++;
             await refreshToken({ force: true, navigation: navigation });
             getSupplies();
           }
-          else {
-            console.log("Usuario inválido: ", loggedUser);
-          }
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };

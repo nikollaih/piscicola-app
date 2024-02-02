@@ -35,7 +35,6 @@ export const AddMedication = (props) => {
   };
 
   useEffect(() => {
-    console.log("Loaded: ", loadedData);
     if (!loadedData) setInitialData(medication);
     else setMaxQuantity();
   }, [dataForm[FormInputs.form_name]?.structure?.supply_id]);
@@ -51,7 +50,6 @@ export const AddMedication = (props) => {
     if (!medication) FormInputs["structure"]["supply_id"] = null;
     FormInputs["fields"]["quantity"]["title"] = `Cantidad`;
     FormInputs["fields"]["supply_id"]["items"] = MEDICINES.data;
-    console.log("Medication: ", medication);
     FormInputs["structure"] = medication ? medication : medicationStructure;
     if (medication)
       FormInputs["fields"]["quantity"]["validate"]["max"] =
@@ -79,7 +77,6 @@ export const AddMedication = (props) => {
       if (medication && medication.supply.id == SUPPLY_ID)
         max_stock = medication.quantity + medication.supply.stock;
 
-      console.log("Max stock: ", max_stock);
       FormInputs["fields"]["quantity"]["validate"]["max"] = max_stock;
       setDataForm({ [FormInputs.form_name]: FormInputs });
     }
@@ -105,7 +102,7 @@ export const AddMedication = (props) => {
       let sendDataForm = dataForm[FormInputs.form_name].structure;
       let response = await MedicationServices.create(loggeduser.token, sendDataForm);
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
+
       if (response.status == 200) {
         onSuccessSave();
       } else {
@@ -116,7 +113,6 @@ export const AddMedication = (props) => {
         setSaving(false);
       }
     } catch (error) {
-      console.log(error);
       Utilities.showAlert({});
       setSaving(false);
     }

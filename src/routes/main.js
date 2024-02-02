@@ -44,6 +44,7 @@ import { SuppliesStock } from '../screens/supplies/stock/suppliesStock';
 import { AddSupplyStock } from '../screens/supplies/stock/addSupplyStock';
 import { Mortalities } from '../screens/mortalities/Mortalities';
 import { AddMortality } from '../screens/mortalities/add/addMortality';
+import { AddSale } from '../screens/sales/add/addSale';
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -234,5 +235,9 @@ export default [
     {
         name: "AddMortality",
         screen: AddMortality,
+    },
+    {
+        name: "AddSale",
+        screen: AddSale,
     },
 ]

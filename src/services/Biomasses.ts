@@ -1,7 +1,6 @@
 import { Constants, Utilities } from "../util";
 
 export const get = async (user: any, filter: any) => {
-  console.log(filter)
   let urlFetch = Constants.API.URL + "biomasses/list_by_sowing/" + filter.sowing.id;
 
   let response = await fetch(urlFetch, {

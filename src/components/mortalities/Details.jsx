@@ -19,7 +19,6 @@ export const MortalityDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  console.log(mortality);
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();
@@ -48,7 +47,6 @@ export const MortalityDetails = ({
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };

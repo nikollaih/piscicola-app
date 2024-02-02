@@ -86,7 +86,7 @@ export const AddExpense = (props) => {
         sendDataForm
       );
       let jsonResponse = await response.json();
-      console.log(jsonResponse)
+
       if (response.status == 200) {
         onSuccessSave();
       } else {
@@ -97,7 +97,6 @@ export const AddExpense = (props) => {
         setSaving(false);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
       setSaving(false);
     }
@@ -125,7 +124,7 @@ export const AddExpense = (props) => {
 
       if (!generalExpenseID) setDataForm({ [FormInputs.form_name]: FormInputs });
     } catch (error) {
-      console.log(error)
+
     }
   };
 

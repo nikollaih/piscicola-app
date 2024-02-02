@@ -12,7 +12,6 @@ export const PaymentDetailDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  console.log(paymentDetail);
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();

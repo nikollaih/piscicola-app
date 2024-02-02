@@ -39,7 +39,6 @@ export const BiomassesList = ({ navigation, sowing }) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
       Utilities.showAlert({});
     }
   };

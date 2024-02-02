@@ -124,6 +124,10 @@ export const getSupplyName = (key = "ALIMENT") => {
     case "ALIMENT":
       return {name: "Alimento"}
       break;
+
+    case "MEDICINE":
+      return {name: "Medicina"}
+      break;
   
     default:
       break;

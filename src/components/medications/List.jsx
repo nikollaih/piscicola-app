@@ -27,7 +27,7 @@ export const MedicationsList = ({ navigation, sowing }) => {
       setLoading(true);
       let response = await MedicationServices.get(loggedUser.token, sowing.id);
       let jsonResponse = await response.json();
-      console.log("medications: ", jsonResponse);
+
       if (response.status == 200) {
         setMedication(jsonResponse.data);
         setLoading(false);

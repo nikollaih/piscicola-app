@@ -74,14 +74,12 @@ export const AddPaymentDetail = ({ route, navigation }) => {
   const getTasksLogs = () => {
     const EMPLOYEE_ID = dataForm[FormInputs.form_name]?.structure?.employee_id;
     FormInputs["fields"]["task_logs_id"]["items"] = [];
-    console.log("Employee Id: ", EMPLOYEE_ID);
     let tempEmployeeTasksLogs = handlerTasksLogsName(tasksLogs);
 
     let employeeTasksLogs = tempEmployeeTasksLogs.filter(
       (task) => task.employee_id == EMPLOYEE_ID
     );
 
-    console.log(employeeTasksLogs);
     FormInputs["fields"]["task_logs_id"]["items"] = employeeTasksLogs;
     setDataForm({
       [FormInputs.form_name]: {
@@ -91,7 +89,6 @@ export const AddPaymentDetail = ({ route, navigation }) => {
         },
       },
     });
-    console.log(FormInputs.fields.task_logs_id.items)
   };
 
   const handlerTasksLogsName = (tasksLogs) => {
@@ -124,7 +121,6 @@ export const AddPaymentDetail = ({ route, navigation }) => {
         sendDataForm
       );
       let jsonResponse = await response.json();
-      console.log("response", jsonResponse);
       if (response.status == 200) {
         onSuccessSave();
       } else {

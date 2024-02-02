@@ -1,19 +1,25 @@
-import { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
-import Theme from "../../theme/theme";
+import { SaleDetails } from "./Details";
+import { useState } from "react";
 import { Constants } from "../../util";
 import { CustomModal } from "../customModal/customModal";
-import { SaleDetails } from "./Details";
+import Theme from "../../theme/theme";
+import moment from "moment";
 const { height } = Dimensions.get("window");
 
-export const SalesItem = (props) => {
+export const SaleItem = ({ navigation, sale, onDelete = () => {} }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const onRemove = () => {
+    setShowModal(false);
+    onDelete()
+  }
 
   return (
     <TouchableOpacity
@@ -21,21 +27,33 @@ export const SalesItem = (props) => {
       style={Style.container}
       onPress={() => {
         setShowModal(true);
-      }}>
+      }}
+    >
       <View>
-        <Text style={Style.font_roboto_bold}>Mojarra Roja</Text>
-        <Text style={Style.font_roboto_regular}>2023/03/21</Text>
+        <View style={[Style.inside, Style.row_between]}>
+          <View>
+            
+            <Text style={Style.text_name}>{`${sale.fish.name}`}</Text>
+            <Text style={Style.text_sale}>{`Cantidad: ${sale.total_weight}`}</Text>
+            <Text style={Style.text_sale}>{moment(sale.manual_created_at).format(Constants.DATETIME_FORMATS.DATE)}</Text>
+          </View>
+          <Text style={Style.text_name}>{`$${sale.total_earning.toLocaleString("Es-co")}`}</Text>
+        </View>
       </View>
-      <Text style={[Style.text_red, Style.font_roboto_bold]}>$5.000.000</Text>
       <CustomModal
-        height={height - 400}
-        title="Servicio de luz"
+        height={height - 500}
+        title={""}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);
         }}
       >
-        <SaleDetails />
+        <SaleDetails
+          onClose={() => setShowModal(false)}
+          onDelete={() => onRemove()}
+          navigation={navigation}
+          sale={sale}
+        />
       </CustomModal>
     </TouchableOpacity>
   );
@@ -44,12 +62,40 @@ export const SalesItem = (props) => {
 const Style = StyleSheet.create({
   ...Theme,
   container: {
-    ...Theme.row_between,
-    ...Theme.list_container,
+    marginBottom: 10,
+  },
+  text_sale: {
+    color: Constants.COLORS.DARK,
+    fontSize: 14,
+    fontFamily: "RobotoCondensed-Regular",
+  },
+  text_name: {
+    color: Constants.COLORS.DARK,
+    fontFamily: "RobotoCondensed-Bold",
+    fontSize: 17,
+  },
+  inside: {
+    ...Theme.row,
     backgroundColor: Constants.COLORS.WHITE,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderColor: Constants.COLORS.IOS_BACKGROUND_GRAY,
+    borderRadius: 20,
+    padding: 15,
+  },
+  product_title: {
+    color: Constants.COLORS.DARK,
+    marginTop: 5,
+    fontFamily: "RobotoCondensed-Regular",
+  },
+  fish: {
+    width: 70,
+    height: 70,
+  },
+  container_image: {
+    backgroundColor: Constants.COLORS.WHITE,
+    width: 80,
+    height: 80,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 25,
+    marginRight: 20,
   },
 });

@@ -38,8 +38,6 @@ export const Expenses = (props) => {
       manualCreatedAtStart: filters.start_date + " 00:00:00",
       manualCreatedAtEnd: filters.end_date + " 23:59:59",
     }
-    console.log(filters)
-    console.log(EXPENSES_FILTERS)
     setShowFilter(false);
     setDateFilters(EXPENSES_FILTERS);
   };

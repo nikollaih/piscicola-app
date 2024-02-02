@@ -73,14 +73,10 @@ export const GeneralExpensesList = ({
             await refreshToken({ force: true, navigation: navigation });
             getGeneralExpenses();
           }
-          else {
-            console.log("Usuario inválido: ", loggedUser);
-          }
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };

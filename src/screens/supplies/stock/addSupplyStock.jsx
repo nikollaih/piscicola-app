@@ -22,7 +22,6 @@ import { showMessage } from "react-native-flash-message";
 export const AddSupplyStock = (props) => {
   const supplyStock = props.route.params?.supplyStock;
   const supply = props.route.params?.supply;
-  console.log(supplyStock);
   const { getAuth, refreshToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -77,7 +76,6 @@ export const AddSupplyStock = (props) => {
         sendDataForm
       );
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
       if (response.status == 200) {
         onSuccessSave();
       } else {

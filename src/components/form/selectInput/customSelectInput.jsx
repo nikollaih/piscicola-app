@@ -99,7 +99,6 @@ export const CustomSelectInput = ({ data, formName }) => {
           ) : null;
         }}
         onChange={(item) => {
-          console.log(dataForm[formName].structure)
           setDataForm({
             [formName]: {
               ...dataForm[formName],

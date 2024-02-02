@@ -48,10 +48,10 @@ export const AddSupply = (props) => {
 
     if (supply) {
       FormInputs["structure"]["quantity"] = getQuantity(supply);
-      FormInputs["structure"]["cost_unity"] = getPrice(supply);
+      FormInputs["structure"]["total_cost"] = getPrice(supply);
       FormInputs["fields"]["unit_type_id"]["is_editable"] = false;
       FormInputs["fields"]["use_type"]["is_editable"] = false;
-      FormInputs["fields"]["cost_unity"]["is_editable"] = false;
+      FormInputs["fields"]["total_cost"]["is_editable"] = false;
       FormInputs["fields"]["quantity"]["is_editable"] = false;
     }
 
@@ -94,7 +94,6 @@ export const AddSupply = (props) => {
         sendDataForm
       );
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
       if (response.status == 200) {
         onSuccessSave();
       } else {

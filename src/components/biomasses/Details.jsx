@@ -19,7 +19,6 @@ export const BiomasseDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  console.log(biomasse);
   const { getAuth } = useAuth();
   const onEdit = () => {
     onClose();
@@ -48,7 +47,6 @@ export const BiomasseDetails = ({
         } else Utilities.showErrorFecth(jsonResponse);
       }
     } catch (error) {
-      console.log(error)
       Utilities.showAlert({});
     }
   };
