@@ -1,10 +1,10 @@
 export default {
-    id: null,
+    productive_unit_id: null,
+    identifier: "",
     name: "",
-    useful_life: "",
-    reference: "",
-    status: null,
-    purchase_date: new Date(),
     description: "",
-    price: ""
+    time_to_life: 0,
+    purchased_cost: 0,
+    purchased_at: new Date(),
+    value_after_time: 0
 }

@@ -34,7 +34,7 @@ export const AddPaymentDetail = ({ route, navigation }) => {
   const paymentDetail = route.params?.paymentDetail;
 
   const breadcrumb = {
-    title: "Tipo de pago",
+    title: "Pago",
     subtitle: paymentDetail?.id ? "Modificar" : "Agregar",
     right_content: null,
   };

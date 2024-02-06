@@ -121,6 +121,11 @@
             "create": "Venta registrada exitosamente.",
             "update": "Venta modificada exitosamente.",
             "delete": "Venta eliminada exitosamente."
+        },
+        "equipment": {
+            "create": "Equipo registrado exitosamente.",
+            "update": "Equipo modificado exitosamente.",
+            "delete": "Equipo eliminado exitosamente."
         }
     }
 }

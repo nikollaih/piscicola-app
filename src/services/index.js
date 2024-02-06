@@ -21,6 +21,7 @@ import * as FoodServices from './Food';
 import * as MortalitiesServices from './Mortalities';
 import * as MedicationServices from './Medicine';
 import * as SaleServices from './Sale';
+import * as EquipmentServices from './Equipment';
 
 export {
   PondsServices,
@@ -45,5 +46,6 @@ export {
   FoodServices,
   MortalitiesServices,
   MedicationServices,
-  SaleServices
+  SaleServices,
+  EquipmentServices
 };

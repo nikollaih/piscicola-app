@@ -37,36 +37,12 @@ export default [
         icon: "ios-trending-down",
         users_type: [2]
     },
-    // {
-    //     screen: "Sales",
-    //     title: "Ventas",
-    //     icon: "ios-trending-up",
-    //     users_type: [2]
-    // },
-    // {
-    //     screen: "Food",
-    //     title: "Alimentos",
-    //     icon: "md-fast-food",
-    //     users_type: [2]
-    // },
-    // {
-    //     screen: "Medications",
-    //     title: "Medicamentos",
-    //     icon: "ios-medkit",
-    //     users_type: [2]
-    // },
-    // {
-    //     screen: "Equipment",
-    //     title: "Equipos",
-    //     icon: "ios-hardware-chip-sharp",
-    //     users_type: [2]
-    // },
-    // {
-    //     screen: "Supplies",
-    //     title: "Insumos",
-    //     icon: "ios-flask",
-    //     users_type: [2]
-    // },
+    {
+        screen: "Equipment",
+        title: "Equipos",
+        icon: "ios-hardware-chip-sharp",
+        users_type: [2]
+    },
     // {
     //     screen: "Materiales",
     //     title: "Materiales",

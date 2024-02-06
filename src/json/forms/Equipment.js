@@ -15,7 +15,7 @@ export default
                     required: true,
                 }
             },
-            reference: {
+            identifier: {
                 icon: "ios-hardware-chip-sharp",
                 title: "Referencia",
                 placeholder: "Referencia",
@@ -24,26 +24,39 @@ export default
                     required: true,
                 }
             },
-            price: {
+            purchased_cost: {
                 icon: "ios-cash",
                 title: "Precio",
                 placeholder: "$0",
                 bottom: 0,
                 type: "input",
+                keyboard_type: "numeric",
                 validate: {
                     required: true,
                 }
             },
-            useful_life: {
+            time_to_life: {
                 icon: "ios-battery-charging-outline",
-                title: "Vida Útil",
+                title: "Vida Útil (En días)",
                 placeholder: "10",
                 type: "input",
+                keyboard_type: "numeric",
                 validate: {
                     required: true,
                 }
             },
-            purchase_date: {
+            value_after_time: {
+                icon: "ios-cash",
+                title: "Valor final",
+                placeholder: "$0",
+                bottom: 0,
+                type: "input",
+                keyboard_type: "numeric",
+                validate: {
+                    required: true,
+                }
+            },
+            purchased_at: {
                 icon: "ios-calendar",
                 title: "Fecha de compra",
                 placeholder: "Fecha",
@@ -82,5 +95,14 @@ export default
                     required: true,
                 }
             },
+            description: {
+                title: "Descripcion",
+                placeholder: "",
+                is_large: true,
+                type: "input",
+                validate: {
+                    required: true
+                }
+            }
         }
     }
