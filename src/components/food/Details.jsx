@@ -19,7 +19,7 @@ export const FoodDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  const { getAuth } = useAuth();
+  const { getAuth, refreshToken } = useAuth();
   const onEdit = () => {
     onClose();
     navigation.navigate("AddFood", { food: food, sowing: sowing });

@@ -40,11 +40,13 @@ import { PaymentDetails } from '../screens/paymentDetails/paymentDetails';
 import { AddPaymentDetail } from '../screens/paymentDetails/add/addPaymentDetails';
 import { AddBiomasse } from '../screens/biomasses/add/addBiomasse';
 import { Biomasses } from '../screens/biomasses/Biomasses';
+import {ChartsBiomasses} from "../screens/biomasses/chartsBiomasses";
 import { SuppliesStock } from '../screens/supplies/stock/suppliesStock';
 import { AddSupplyStock } from '../screens/supplies/stock/addSupplyStock';
 import { Mortalities } from '../screens/mortalities/Mortalities';
 import { AddMortality } from '../screens/mortalities/add/addMortality';
 import { AddSale } from '../screens/sales/add/addSale';
+import {Actuators} from "../screens/actuators/Actuators";
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -229,6 +231,10 @@ export default [
         screen: AddBiomasse,
     },
     {
+        name: "ChartsBiomasses",
+        screen: ChartsBiomasses,
+    },
+    {
         name: "Mortalities",
         screen: Mortalities,
     },
@@ -239,5 +245,9 @@ export default [
     {
         name: "AddSale",
         screen: AddSale,
+    },
+    {
+        name: "Actuators",
+        screen: Actuators,
     },
 ]

@@ -22,7 +22,7 @@ export default {
       default: "",
       validate: {
         required: true,
-        min_length: 5,
+        min_length: 1,
       },
     },
     value_minimum: {

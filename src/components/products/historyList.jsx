@@ -53,9 +53,9 @@ export const ProductHistoryList = ({
           filters
         );
         let jsonResponse = await response.json();
-        if (response.status == 200) setStatsHistory(jsonResponse.stats);
+        if (response.status === 200) setStatsHistory(jsonResponse.stats);
         else if (
-          jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN
+          jsonResponse?.error_code === Constants.CONFIG.CODES.INVALID_TOKEN
         ) {
           refreshToken({ force: true, navigation: navigation });
           getStatsHistory();
@@ -85,10 +85,10 @@ export const ProductHistoryList = ({
         sowing.id
       );
       let jsonResponse = await response.json();
-      if (response.status == 200)
+      if (response.status === 200)
         return (statsKeys = jsonResponse.map((stat) => stat.key));
       else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.error_code === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({ force: true, navigation: navigation });
           getStatsKeys();
         } else Utilities.showErrorFecth(jsonResponse);

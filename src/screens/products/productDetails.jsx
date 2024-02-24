@@ -41,8 +41,12 @@ export const ProductDetail = ({ navigation, route }) => {
     navigation.navigate("AddSale", {sowing: sowing});
   }
 
+  const openActuator = () => {
+    navigation.navigate("Actuators", {sowing: sowing});
+  }
+
   const getSold = () => {
-    return (sowing.closed_at != "") ? 
+    return (sowing.closed_at != null) ?
     <View style={[Style.white_container, {marginTop: 10}]}>
       <Text style={Style.font_roboto_bold}>Vendido:</Text>
       <Text>{Utilities.changeDateFormatForAPI({date: sowing.closed_at})}</Text>
@@ -92,6 +96,7 @@ export const ProductDetail = ({ navigation, route }) => {
             </View>
           </View>
           <StatsList navigation={navigation} sowing={sowing} reload={reload}/>
+          <FillIconButton onPress={() => {openActuator()}} style={Style.sell_button} title="Actuadores" icon="ios-cog" />
           <ProductCompleteDetails sowing={sowing}/>
           {getSold()}
         </View>

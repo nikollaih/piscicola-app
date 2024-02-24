@@ -25,13 +25,13 @@ const generalConfig = {
 };
 
 export const LinearChart = ({ data }) => {
+  console.log(data)
   useEffect(() => {
-    data["data"] = data.data.reverse();
   }, []);
 
   const getLabels = () => {
     return data.data.map((reading) =>
-      moment(reading.created_at).format("DD/MM/Y hh:mm a")
+      moment(reading.topic_time).format("DD/MM/Y hh:mm a")
     );
   };
 
@@ -41,7 +41,7 @@ export const LinearChart = ({ data }) => {
 
   const getLimit = (type = "fish_step_stat_value_minimum") => {
     const LINE_COLOR =
-      type == "fish_step_stat_value_minimum"
+      type === "fish_step_stat_value_minimum"
         ? Constants.COLORS.GREEN
         : Constants.COLORS.RED;
     if (data.data.length > 0) {
@@ -53,7 +53,8 @@ export const LinearChart = ({ data }) => {
         });
         return {
           label:
-            type == "fish_step_stat_value_minimum"
+            type === "fish_step_stat_value_minimum"
+                
               ? `Minimo: ${FISH_STEP_MINIMUN_VALUE}`
               : `Maximo: ${FISH_STEP_MINIMUN_VALUE}`,
           textColor: processColor(LINE_COLOR),
@@ -86,7 +87,6 @@ export const LinearChart = ({ data }) => {
         values: getValues(),
         config: {
           ...generalConfig,
-          valueTextSize: 12,
           circleColor: processColor(Constants.COLORS.PRIMARY),
           color: processColor(Constants.COLORS.PRIMARY),
           fillColor: processColor(Constants.COLORS.PRIMARY),
@@ -103,9 +103,15 @@ export const LinearChart = ({ data }) => {
   };
 
   const getTitle = () => {
-    return data.data[0]["fish_step_stat_name"]
-      ? data.data[0]["fish_step_stat_name"]
-      : data.key;
+    if (data && data.data && data.data.length > 0) {
+      if ("fish_step_stat_name" in data.data[0]) {
+        return data.data[0]["fish_step_stat_name"]
+      } else {
+        return data.key
+      }
+    } else {
+      return data.key
+    }
   };
 
   return (
