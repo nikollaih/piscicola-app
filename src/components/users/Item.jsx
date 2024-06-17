@@ -30,16 +30,16 @@ export const UserItem = ({ user, navigation, onDelete = () => {} }) => {
     >
       <View>
         <Text style={Style.inside_subtitle}>
-          {Utilities.capitalize(user?.full_name)}
+          {Utilities.capitalize(user?.name)}
         </Text>
         <Text style={Style.text}>{user?.email}</Text>
       </View>
       <Text style={[Style.font_roboto_bold]}>
-        {Utilities.capitalize(user?.user_type.key)}
+        {Utilities.capitalize(user?.role.name)}
       </Text>
       <CustomModal
         height={height - 320}
-        title={user?.full_name}
+        title={user?.name}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);

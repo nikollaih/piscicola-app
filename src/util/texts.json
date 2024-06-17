@@ -23,6 +23,11 @@
             "update": "Unidad productiva modificada exitosamente.",
             "delete": "Unidad productiva eliminada exitosamente."
         },
+        "associations": {
+            "create": "Asociación creada exitosamente.",
+            "update": "Asociación modificada exitosamente.",
+            "delete": "Asociación eliminada exitosamente."
+        },
         "fish": {
             "create": "Producto creado exitosamente.",
             "update": "Producto modificado exitosamente.",
@@ -73,9 +78,9 @@
             "delete": "Tarea eliminada exitosamente."
         },
         "employee": {
-            "create": "Empleado creado exitosamente.",
-            "update": "Empleado modificado exitosamente.",
-            "delete": "Empleado eliminado exitosamente."
+            "create": "Registro creado exitosamente.",
+            "update": "Registro modificado exitosamente.",
+            "delete": "Registro eliminado exitosamente."
         },
         "task_log": {
             "create": "Registro de tarea creado exitosamente.",

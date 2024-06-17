@@ -22,11 +22,12 @@ import {
     const { getAuth, refreshToken } = useAuth();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+    const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
     const employee = props.route.params?.employee;
-  
+    const internalRoleId = props.route.params?.internal_role_id;
+
     const breadcrumb = {
-      title: "Empleado",
+      title: (internalRoleId === 2) ? "Empleado" : "Cliente",
       subtitle: employee?.id ? "Modificar" : "Agregar",
       right_content: null,
     };
@@ -39,13 +40,20 @@ import {
      * It sets the initial data for the form.
      */
     const setInitialData = async () => {
-      const loggedUser = await getAuth();
-      FormInputs["structure"] = employee ? employee : employeeStructure;
-      FormInputs["structure"]["productive_unit_id"] =
-        loggedUser.productive_unit.id;
-  
+      FormInputs["structure"]["party_role_id"] = internalRoleId;
+      FormInputs["structure"] = employee?.id ? {
+        id: employee?.id,
+        name: employee?.name,
+        document: employee?.document,
+        home_phone: employee?.home_phone,
+        mobile_phone: employee?.mobile_phone,
+        email: employee?.email,
+        party_role_id: employee?.party_role_id,
+      } : employeeStructure;
+
+
       setSaving(false);
-      setCheckrequired({ [FormInputs.form_name]: false });
+      setCheckRequired({ [FormInputs.form_name]: false });
       setDataForm({ [FormInputs.form_name]: FormInputs });
       setLoading(false);
     };
@@ -56,9 +64,9 @@ import {
      */
     const checkForm = () => {
       if (!saving) {
-        setCheckrequired({ [FormInputs.form_name]: true });
+        setCheckRequired({ [FormInputs.form_name]: true });
         if (isValidated(FormInputs.form_name)) {
-          setCheckrequired({ [FormInputs.form_name]: false });
+          setCheckRequired({ [FormInputs.form_name]: false });
           setSaving(true);
           saveForm();
         }
@@ -67,15 +75,15 @@ import {
   
     const saveForm = async () => {
       try {
-        let loggeduser = await getAuth();
+        let loggedUser = await getAuth();
         let sendDataForm = dataForm[FormInputs.form_name].structure;
-        let response = await EmployeesServices.create(loggeduser.token, sendDataForm);
+        let response = await EmployeesServices.create(loggedUser.token, sendDataForm);
         let jsonResponse = await response.json();
   
-        if (response.status == 200) {
+        if (response.status === 200) {
           onSuccessSave();
         } else {
-          if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+          if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
             refreshToken({force:true, navigation: props.navigation});
             saveForm();
           } else Utilities.showErrorFecth(jsonResponse);

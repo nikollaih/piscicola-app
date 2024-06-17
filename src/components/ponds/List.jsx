@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import {ActivityIndicator, FlatList} from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { PondItem } from "./Item";
@@ -23,16 +23,15 @@ export const PondsList = ({ navigation }) => {
   // Get the fish listing
   const getPonds = async () => {
     const loggedUser = await getAuth();
-    const productiveUnitID = loggedUser?.productive_unit?.id;
     try {
       setLoading(true);
-      let response = await PondsServices.get(loggedUser.token, productiveUnitID);
+      let response = await PondsServices.get(loggedUser.token);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setPonds(jsonResponse.data);
+      if (response.status === 200) {
+        setPonds(jsonResponse.payload.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getPonds();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -43,12 +42,12 @@ export const PondsList = ({ navigation }) => {
     }
   };
 
-  // Check if it's neccessary to get the listing again
+  // Check if it's necessary to get the listing again
   const checkChanges = async () => {
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "ponds") {
+    if (updatedScreen === "ponds") {
       getPonds();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }
@@ -61,6 +60,8 @@ export const PondsList = ({ navigation }) => {
   const renderRow = ({ item, index }) => {
     return <PondItem onDelete={() => getPonds()} pond={item} navigation={navigation} />;
   };
+
+  if (loading) return <ActivityIndicator />;
 
   return (
     <FlatList

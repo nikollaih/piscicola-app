@@ -25,10 +25,10 @@ export const AddSupplyStock = (props) => {
   const { getAuth, refreshToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
 
   const breadcrumb = {
-    title: `${supplyStock ? "Modificar" : "Nuevo"} Stock "${supply?.name}"`,
+    title: `${supplyStock.id ? "Modificar" : "Nuevo"} Stock "${supply?.name}"`,
     subtitle: "Insumos",
   };
 
@@ -41,13 +41,17 @@ export const AddSupplyStock = (props) => {
    */
   const setInitialData = async (supplyStock) => {
     const loggedUser = await getAuth();
-    FormInputs["structure"] = supplyStock ? supplyStock : supplyStockStructure;
-    FormInputs["structure"]["productive_unit_id"] =
-      loggedUser.productive_unit.id;
+    FormInputs["structure"] = supplyStock.id ? {
+      id: supplyStock?.id,
+      price: supplyStock?.price,
+      quantity: supplyStock?.quantity,
+      manual_created_at: supplyStock?.manual_created_at
+    } : supplyStockStructure;
+
     FormInputs["structure"]["supply_id"] = supplyStock?.supply_id;
 
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setLoading(false);
   };
@@ -59,7 +63,7 @@ export const AddSupplyStock = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated([FormInputs.form_name])) {
         setSaving(true);
         saveForm();
@@ -69,17 +73,17 @@ export const AddSupplyStock = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
       let response = await SuppliesStockServices.create(
-        loggeduser.token,
+          loggedUser.token,
         sendDataForm
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         onSuccessSave();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           await refreshToken({ force: true, navigation: props.navigation });
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -104,7 +108,7 @@ export const AddSupplyStock = (props) => {
       type: "success",
     });
 
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     if (!supplyStockID) setDataForm({ [FormInputs.form_name]: FormInputs });
   };
 

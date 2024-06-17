@@ -21,6 +21,7 @@ export const GeneralDateInput = ({ data, style, onDateChange = () => {} }) => {
    */
 
   return (
+      (data?.is_visible === false) ? null :
     <TouchableOpacity
       style={[{ marginBottom: 10, flex: 1, ...style }]}
       activeOpacity={Constants.CONFIG.BUTTON_OPACITY}

@@ -1,30 +1,18 @@
-import { Constants } from "../util";
+import {Constants} from "../util";
 
-export const get = async (token: String) => {
-  let response = await fetch(Constants.API.URL + "productive_units/list", {
+export const get = async (token: String, associationId: Number) => {
+  return await fetch(Constants.API.URL + "productive_units/" + associationId, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: "GET",
   });
-  return response;
 };
 
 export const create = async (token: String, data: any) => {
-  let response = await fetch(Constants.API.URL + "productive_units", {
-    headers: {
-      ...Constants.CONFIG.HEADERS,
-      Authorization: "Bearer " + token,
-    },
-    method: data?.id ? "PUT" : "POST",
-    body: JSON.stringify(data), //* <-- Post parameters
-  });
-  return response;
-};
-
-export const assignUser = async (token: String, data: any) => {
-  let response = await fetch(Constants.API.URL + "productive_units/users", {
+  let fetchUrl = (data.id) ? `${Constants.API.URL}productive_units/${data.id}/update` : `${Constants.API.URL}productive_units/store`;
+  return await fetch(fetchUrl, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
@@ -32,16 +20,15 @@ export const assignUser = async (token: String, data: any) => {
     method: "POST",
     body: JSON.stringify(data), //* <-- Post parameters
   });
-  return response;
 };
 
+
 export const remove = async (token: String, puID: Number) => {
-  let response = await fetch(`${Constants.API.URL}productive_units/${puID}` , {
+  return await fetch(`${Constants.API.URL}productive_units/${puID}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: "DELETE",
   });
-  return response;
 };

@@ -39,17 +39,16 @@ export const SuppliesList = ({
     try {
       setLoading(true);
       let response = await SuppliesServices.get(
-        loggedUser.token,
-        productiveUnitID,
-        getDefaultDateFilter()
+        loggedUser.token
       );
 
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setSupplies(jsonResponse.data);
+      console.log(jsonResponse.payload.data)
+      if (response.status === 200) {
+        setSupplies(jsonResponse.payload.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           if(countAPICalls < 3){
             countAPICalls++;
             await refreshToken({ force: true, navigation: navigation });

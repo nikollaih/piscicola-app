@@ -33,7 +33,7 @@ export const SupplyStockDetails = ({
       const loggedUser = await getAuth();
       let response = await SuppliesStockServices.remove(loggedUser.token, supplyStock.id);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         Utilities.showAlert({
           title: Texts.success.title,
           text: Texts.success.supplyStock.delete,
@@ -41,7 +41,7 @@ export const SupplyStockDetails = ({
         });
         onDelete();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({ force: true, navigation: navigation });
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -78,7 +78,7 @@ export const SupplyStockDetails = ({
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Fecha de registro</Text>
         <Text style={Style.text}>
-          {moment(supplyStock.created_at).format(Constants.DATETIME_FORMATS.DATE)}
+          {moment(supplyStock.manual_created_at).format(Constants.DATETIME_FORMATS.DATE)}
         </Text>
       </View>
       <View style={Style.list_container}>
@@ -90,13 +90,13 @@ export const SupplyStockDetails = ({
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Precio Unidad</Text>
         <Text style={Style.text}>
-          {`$${supplyStock?.cost_unity.toLocaleString("es-CO")}`}
+          {`$${(supplyStock?.price / supplyStock?.quantity).toLocaleString("es-CO")}`}
         </Text>
       </View>
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Precio Total</Text>
         <Text style={Style.text}>
-          ${supplyStock.total_cost.toLocaleString("es-CO")}
+          ${supplyStock.price.toLocaleString("es-CO")}
         </Text>
       </View>
       <DetailsActions

@@ -39,18 +39,17 @@ const AuthProvider = ({ children }) => {
         Constants.LOCALSTORAGE.SESSION
       );
       let login = await LocalStorage.getObject(Constants.LOCALSTORAGE.LOGIN);
-      let currentTime = moment().format(Constants.DATETIME_FORMATS.TIMEZONE);
-  
-      if (currentTime > loggedUser.expires_at || params?.force) {
+
+      if (params?.force) {
         let response = await AuthServices.login(login.email, login.password);
         let jsonResponse = await response.json();
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN || jsonResponse?.error_code == 1001) logout(params.navigation);
-        else if (response.status == 200) {
-          await onSuccessLogin(jsonResponse, login);
-        }
+
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) logout(params.navigation);
+        else if (response.status === 200) await onSuccessLogin(jsonResponse, login);
+        else logout(params.navigation)
       }
     } catch (error) {
-
+      logout(params.navigation)
     }
   };
 

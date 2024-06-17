@@ -28,10 +28,10 @@ export const UsersList = ({ navigation, productiveUnit = {} }) => {
     try {
       setLoading(true);
       let filter = getUsersFilter();
-      let response = await UsersServices.get(loggedUser, filter);
+      let response = await UsersServices.get(loggedUser, productiveUnit.id);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setUsers(jsonResponse.data);
+      if (response.status === 200) {
+        setUsers(jsonResponse.payload.data);
         setLoading(false);
         setRefresh(false);
       } else {

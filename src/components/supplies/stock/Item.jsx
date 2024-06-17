@@ -33,10 +33,10 @@ export const SupplyStockItem = ({ supplyStock, navigation, supply, onDelete = ()
         <Text style={Style.inside_subtitle}>{`Cantidad: ${supplyStock?.quantity}`}</Text>
         <Text
           style={Style.text}
-        >{`Precio unidad: $${supplyStock?.cost_unity.toLocaleString("es-CO")}`}</Text>
+        >{`Precio: $${supplyStock?.price.toLocaleString("es-CO")}`}</Text>
       </View>
       <Text style={[Style.text_red, Style.font_roboto_bold]}>
-        {moment(supplyStock?.created_at).format(Constants.DATETIME_FORMATS.DATE)}
+        {moment(supplyStock?.manual_created_at).format(Constants.DATETIME_FORMATS.DATE)}
       </Text>
       <CustomModal
         height={height - 380}

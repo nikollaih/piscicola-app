@@ -1,7 +1,7 @@
-import { Constants } from "../util";
+import {Constants} from "../util";
 
 export const login = async (email: String, password: String) => {
-	let response = await fetch(Constants.API.URL + 'login', {
+	return await fetch(Constants.API.URL + 'auth/login', {
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
@@ -11,7 +11,5 @@ export const login = async (email: String, password: String) => {
 			email: email,
 			password: password,
 		}) //* <-- Post parameters
-	})
-
-	return response;
+	});
 }

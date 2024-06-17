@@ -32,7 +32,7 @@ export const MortalitiesList = ({ navigation, sowing }) => {
         setMortalities(jsonResponse.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           await refreshToken({ force: true, navigation: navigation });
           getMortalities();
         } else Utilities.showErrorFecth(jsonResponse);

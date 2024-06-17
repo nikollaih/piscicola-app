@@ -1,5 +1,6 @@
 export default {
     supply_id: null,
     quantity: "",
-    cost_unity: ""
+    price: "",
+    manual_created_at: new Date()
 }

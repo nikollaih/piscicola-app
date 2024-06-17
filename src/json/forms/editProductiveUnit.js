@@ -1,48 +1,68 @@
-import productiveUnitStructure from '../formsStructure/productiveUnit';
+import productiveUnitStructure from '../formsStructure/productiveUnitStructure';
 export default
     {
         form_name: "EditProductiveUnit",
         structure: productiveUnitStructure,
         fields: {
-            manager_id: {
-                icon: "ios-person",
-                title: "Encargado",
-                placeholder: "- Seleccionar",
-                type: "select",
-                item_label: "full_name",
-                item_id: "id",
-                items: [],
-                validate: {
-                    required: true,
-                }
-            },
             name: {
                 icon: "ios-business",
                 title: "Nombre de la unidad productiva",
                 placeholder: "Nombre",
                 type: "input",
-                default: "Asorobles",
-                validate: { 
-                    required: true,
-                    min_length: 5
-                }
-            },
-            description: {
-                title: "Descripción",
-                placeholder: "Escriba una descripción...",
-                is_large: true,
-                type: "input",
+                default: "",
                 validate: {
                     required: true,
                     min_length: 5
                 }
             },
+            email: {
+                title: "Correo electrónico",
+                placeholder: "asociacion@ejemplo.com",
+                is_large: false,
+                type: "input",
+                keyboard_type: "email-address",
+                validate: {
+                    required: true,
+                    is_email: true
+                }
+            },
+            phone: {
+                title: "Teléfono",
+                placeholder: "3334455",
+                is_large: false,
+                type: "input",
+                keyboard_type: "numeric",
+                validate: {
+                    required: false
+                }
+            },
+            mobile_phone: {
+                title: "Celular",
+                placeholder: "3334455666",
+                is_large: false,
+                type: "input",
+                keyboard_type: "numeric",
+                validate: {
+                    required: true,
+                    min_length: 10
+                }
+            },
+            mqtt_id: {
+                title: "MQTT ID",
+                placeholder: "3fd45",
+                is_large: false,
+                type: "input",
+                validate: {
+                    required: true,
+                }
+            },
             address: {
                 icon: "ios-map",
                 title: "Ubicación",
-                placeholder: "Ubicación",
+                placeholder: "",
                 bottom: 0,
                 type: "input",
+                is_large: false,
                 validate: {
                     required: true,
                     min_length: 5

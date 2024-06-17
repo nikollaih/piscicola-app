@@ -1,10 +1,10 @@
-import medicationStructure from "../formsStructure/medicationStructure";
+import supplyStructure from "../formsStructure/supplyStructure";
 import { Constants } from "../../util";
 
 export default
     {
         form_name: "Supply",
-        structure: {...medicationStructure},
+        structure: {...supplyStructure},
         fields: {
             name: {
                 title: "Nombre",
@@ -14,7 +14,7 @@ export default
                     required: true,
                 }
             },
-            total_cost: {
+            total_price: {
                 title: "Precio",
                 placeholder: "$0",
                 keyboard_type:"numeric",
@@ -32,7 +32,7 @@ export default
                     required: true,
                 }
             },
-            unit_type_id: {
+            measurement_unit_id: {
                 title: "Unidad de medida",
                 placeholder: "- Seleccionar",
                 type: "select",
@@ -54,15 +54,26 @@ export default
                     required: true,
                 }
             },
-            description: {
-                title: "Descripción",
-                placeholder: "Escriba una descripción...",
-                is_large: true,
-                type: "input",
-                bottom: 0,
+            manual_created_at: {
+                icon: "ios-calendar",
+                title: "Fecha de compra",
+                placeholder: "Fecha",
+                type: "date",
+                format: Constants.DATETIME_FORMATS.DATETIME,
                 validate: {
                     required: true,
                 }
             },
+            notes: {
+                title: "Notas",
+                placeholder: "Escriba algunas notas...",
+                is_large: true,
+                type: "input",
+                bottom: 0,
+                validate: {
+                    required: false,
+                }
+            },
+
         }
     }

@@ -1,42 +1,35 @@
-import { Constants } from "../util";
+import {Constants} from "../util";
 
-export const get = async (user: any, filter: String) => {
-  let urlFetch =
-    user.profile.user_type_id == 1
-      ? Constants.API.URL + "users/list" + filter
-      : `${Constants.API.URL}productive_units/${user.productive_unit.id}/users`;
-
-  let response = await fetch(urlFetch, {
+export const get = async (user: any, productiveUnitId: Number) => {
+  return await fetch(Constants.API.URL + "users/" + productiveUnitId, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + user.token,
     },
     method: "GET",
   });
-  return response;
 };
 
 export const remove = async (token: String, userID: Number) => {
-  let response = await fetch(Constants.API.URL + "users/" + userID, {
+  return await fetch(Constants.API.URL + "users/" + userID, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: "DELETE",
   });
-  return response;
 };
 
-export const create = async (token: String, data: any) => {
-  let response = await fetch(Constants.API.URL + "users", {
+export const create = async (token: String, data: any, productiveUnitId?: Number) => {
+  let fetchUrl = (data.id) ? `${Constants.API.URL}users/${data.id}/update` : `${Constants.API.URL}users/store/${productiveUnitId}`;
+  return await fetch(fetchUrl, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
-    method: data?.id ? "PUT" : "POST",
+    method: "POST",
     body: JSON.stringify(data), //* <-- Post parameters
   });
-  return response;
 };
 
 export const getUserTypes = async (token: String) => {

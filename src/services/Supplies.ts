@@ -1,27 +1,26 @@
-import { Constants, Utilities } from "../util";
+import {Constants, Utilities} from "../util";
 
-export const get = async (token: String, puID: String = "", filter: String = "") => {
-  let response = await fetch(`${Constants.API.URL}supplies/list_by_productive_unit_id/${puID}${filter}`, {
+export const get = async (token: String) => {
+  return await fetch(`${Constants.API.URL}supplies`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: "GET",
   });
-  return response;
 };
 
 export const create = async (token: String, data: any) => {
+  const fetchUrl = (data.id) ? `${Constants.API.URL}supplies/${data.id}/update` : `${Constants.API.URL}supplies/store`;
   const postData = JSON.stringify(Utilities.dataToFormDataAPI(data));
-  let response = await fetch(`${Constants.API.URL}supplies`, {
+  return await fetch(fetchUrl, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
-    method: data?.id ? "PUT" : "POST",
+    method: "POST",
     body: postData, //* <-- Post parameters
   });
-  return response;
 };
 
 export const remove = async (token: String, supplyID: Number) => {

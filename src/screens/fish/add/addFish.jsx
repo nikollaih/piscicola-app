@@ -22,7 +22,7 @@ export const AddFish = (props) => {
   const { getAuth } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
   const fish = props.route.params?.fish;
   const breadcrumb = {
     title: "Producto",
@@ -50,7 +50,7 @@ export const AddFish = (props) => {
     FormInputs["fields"]["fish_id"]["items"] = productTypes.data;
     FormInputs["fields"]["productive_unit_id"]["items"] = productiveUnits.data;
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setLoading(false);
   };
@@ -71,9 +71,9 @@ export const AddFish = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated(FormInputs.form_name)) {
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setSaving(true);
         saveForm();
       }
@@ -82,13 +82,13 @@ export const AddFish = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = {
         ...dataForm[FormInputs.form_name].structure,
       };
 
       // Create new productive unit
-      let response = await FishServices.create(loggeduser.token, sendDataForm);
+      let response = await FishServices.create(loggedUser.token, sendDataForm);
       let jsonResponse = await response.json();
       if (response.status == 200) {
         onSuccessSave();

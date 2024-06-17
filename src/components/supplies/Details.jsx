@@ -32,7 +32,7 @@ export const SupplyDetails = ({
       const loggedUser = await getAuth();
       let response = await SuppliesServices.remove(loggedUser.token, supply.id);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         Utilities.showAlert({
           title: Texts.success.title,
           text: Texts.success.supply.delete,
@@ -40,7 +40,7 @@ export const SupplyDetails = ({
         });
         onDelete();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({ force: true, navigation: navigation });
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -100,7 +100,7 @@ export const SupplyDetails = ({
         <Text style={Style.inside_subtitle}>Stock</Text>
         <Text
           style={Style.text}
-        >{`${supply.stock} ${supply?.unit_type?.name}`}</Text>
+        >{`${supply.available_quantity} ${supply?.measurement_unit?.name}`}</Text>
       </View>
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Tipo</Text>
@@ -109,14 +109,8 @@ export const SupplyDetails = ({
         </Text>
       </View>
       <View style={Style.list_container}>
-        <Text style={Style.inside_subtitle}>Precio</Text>
-        <Text style={Style.text}>
-          ${supply.total_cost.toLocaleString("es-CO")}
-        </Text>
-      </View>
-      <View style={Style.list_container}>
-        <Text style={Style.inside_subtitle}>Descripción</Text>
-        <Text style={Style.text}>{supply.description}</Text>
+        <Text style={Style.inside_subtitle}>Notas</Text>
+        <Text style={Style.text}>{supply.notes}</Text>
       </View>
       <DetailsActions
         onDelete={confirmDelete}

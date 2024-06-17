@@ -28,7 +28,7 @@ export const AddPaymentDetail = ({ route, navigation }) => {
   const { getAuth, refreshToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
   const [loadedData, setLoadedData] = useState(false);
   const [tasksLogs, setTasksLogs] = useState([]);
   const paymentDetail = route.params?.paymentDetail;
@@ -65,7 +65,7 @@ export const AddPaymentDetail = ({ route, navigation }) => {
 
     setTasksLogs(TASKS.data);
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setLoading(false);
     setLoadedData(true);
@@ -103,9 +103,9 @@ export const AddPaymentDetail = ({ route, navigation }) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated(FormInputs.form_name)) {
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setSaving(true);
         saveForm();
       }
@@ -114,17 +114,17 @@ export const AddPaymentDetail = ({ route, navigation }) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
       let response = await PaymentDetailsServices.create(
-        loggeduser.token,
+        loggedUser.token,
         sendDataForm
       );
       let jsonResponse = await response.json();
       if (response.status == 200) {
         onSuccessSave();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({ force: true, navigation: navigation });
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);

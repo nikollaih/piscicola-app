@@ -23,7 +23,7 @@ export const PondDetails = ({
       const loggedUser = await getAuth();
       let response = await PondsServices.remove(loggedUser.token, pond.id);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         Utilities.showAlert({
           title: Texts.success.title,
           text: Texts.success.pond.delete,
@@ -31,7 +31,7 @@ export const PondDetails = ({
         });
         onDelete();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -44,7 +44,7 @@ export const PondDetails = ({
   const confirmDelete = () => {
     Alert.alert(
       "¿Está seguro?",
-      "Desea eliminar el usuario",
+      "Desea eliminar el estanque",
       [
         {
           text: "Cancelar",
@@ -67,18 +67,28 @@ export const PondDetails = ({
     <View style={Style.full_flex}>
       <ScrollView style={Style.full_flex}>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Fecha de creación</Text>
-          <Text style={Style.text}>
-            {moment(pond.created_at).format(Constants.DATETIME_FORMATS.DATE)}
-          </Text>
+          <Text style={Style.inside_subtitle}>Área</Text>
+          <Text style={Style.text}>{pond.area}mts2</Text>
         </View>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Sensor ID</Text>
-          <Text style={Style.text}>{pond.sensor_id}</Text>
+          <Text style={Style.inside_subtitle}>Volumen</Text>
+          <Text style={Style.text}>{pond.volume}L</Text>
         </View>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Descripción</Text>
-          <Text style={Style.text}>{pond.description}</Text>
+          <Text style={Style.inside_subtitle}>Caudal de entrada</Text>
+          <Text style={Style.text}>{pond.entrance}L/s</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Caudal de salida</Text>
+          <Text style={Style.text}>{pond.exit}L/s</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>MQTT ID</Text>
+          <Text style={Style.text}>{pond.mqtt_id}</Text>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Cubierto</Text>
+          <Text style={Style.text}>{(pond.covered === 1) ? "Si" : "No"}</Text>
         </View>
       </ScrollView>
       <DetailsActions onDelete={confirmDelete} onEdit={onEdit} />

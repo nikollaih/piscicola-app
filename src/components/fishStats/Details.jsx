@@ -41,7 +41,7 @@ export const FishStatsDetails = ({
         });
         onDelete();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);

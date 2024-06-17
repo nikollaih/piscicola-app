@@ -37,14 +37,14 @@ export const GeneralExpenseItem = ({
       <View>
         <View style={Style.inside}>
           <View>
-            <Text style={Style.text_name}>{generalExpense.name}</Text>
+            <Text style={Style.text_name}>{generalExpense.concept}</Text>
             <Text style={Style.text_generalExpense}>
               {moment(generalExpense.manual_created_at).format(Constants.DATETIME_FORMATS.DATETIME)}
             </Text>
           </View>
           <View>
             <Text style={[Style.text_generalExpense, Style.value]}>
-              ${generalExpense.value.toLocaleString("Es-es")}
+              ${generalExpense.cost.toLocaleString("Es-es")}
             </Text>
           </View>
         </View>

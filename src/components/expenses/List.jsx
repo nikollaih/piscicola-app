@@ -58,16 +58,15 @@ export const GeneralExpensesList = ({
     try {
       setLoading(true);
       let response = await GeneralExpensesServices.get(
-        loggedUser.token,
-        productiveUnitID,
-        getDefaultDateFilter()
+        loggedUser.token
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setGeneralExpenses(jsonResponse.data);
+
+      if (response.status === 200) {
+        setGeneralExpenses(jsonResponse.payload.latestExpenses);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           if(countAPICalls < 3){
             countAPICalls++;
             await refreshToken({ force: true, navigation: navigation });

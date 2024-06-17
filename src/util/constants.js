@@ -1,12 +1,12 @@
 export default {
   API: {
-    URL: "http://cryzat.xyz/",
+    URL: "http://192.168.0.9/api/",
   },
   COLORS: {
     DARK: "#31322d",
     WHITE: "#fff",
-    PRIMARY: "#8d375a",
-    SECONDARY: "#f46321",
+    PRIMARY: "#ea580c",
+    SECONDARY: "#000",
     LILA: "#e5e2ff",
     GREEN: "#5eccb4",
     LIVE_GREEN: "#44ce1b",
@@ -32,7 +32,7 @@ export default {
       "Content-Type": "application/json",
     },
     CODES: {
-      INVALID_TOKEN: 1001,
+      INVALID_TOKEN: "Unauthenticated.",
     },
   },
   CHIPER: {

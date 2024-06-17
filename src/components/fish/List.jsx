@@ -34,7 +34,7 @@ export const FishList = ({ navigation, productiveUnit = {}, filter }) => {
         setFish(jsonResponse.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getFish();
         } else

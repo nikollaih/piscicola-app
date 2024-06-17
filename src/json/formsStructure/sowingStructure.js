@@ -1,6 +1,9 @@
 export default {
     id: null,
+    name: "",
+    fish_id: null,
     pond_id: null,
-    fish_step_id: null,
-    total_fish: 0
+    step_id: null,
+    quantity: 0,
+    manual_created_at: new Date()
 }

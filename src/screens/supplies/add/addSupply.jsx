@@ -24,7 +24,7 @@ export const AddSupply = (props) => {
   const { getAuth, refreshToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
 
   const breadcrumb = {
     title: `${supply ? "Modificar" : "Nuevo"} Insumo`,
@@ -41,35 +41,31 @@ export const AddSupply = (props) => {
   const setInitialData = async (supply) => {
     const loggedUser = await getAuth();
     const UNIT_TYPES = await UtilServices.getUnitTypes(loggedUser);
-    FormInputs["structure"] = supply ? supply : supplyStructure;
+    console.log(UNIT_TYPES)
+
+    FormInputs["structure"] = supply?.id ? {
+      id: supply?.id,
+      name: supply?.name,
+      use_type: supply?.use_type,
+      measurement_unit_id: supply?.measurement_unit_id,
+      notes: supply?.notes
+    } : supplyStructure;
     FormInputs["structure"]["productive_unit_id"] =
       loggedUser.productive_unit.id;
-    FormInputs["fields"]["unit_type_id"]["items"] = UNIT_TYPES;
+    FormInputs["fields"]["measurement_unit_id"]["items"] = UNIT_TYPES.payload;
 
     if (supply) {
-      FormInputs["structure"]["quantity"] = getQuantity(supply);
-      FormInputs["structure"]["total_cost"] = getPrice(supply);
-      FormInputs["fields"]["unit_type_id"]["is_editable"] = false;
-      FormInputs["fields"]["use_type"]["is_editable"] = false;
-      FormInputs["fields"]["total_cost"]["is_editable"] = false;
-      FormInputs["fields"]["quantity"]["is_editable"] = false;
+      FormInputs["fields"]["total_price"]["is_visible"] = false;
+      FormInputs["fields"]["quantity"]["is_visible"] = false;
+      FormInputs["fields"]["manual_created_at"]["is_visible"] = false;
     }
 
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setLoading(false);
   };
 
-  const getQuantity = (supply) => {
-    const STOCK_LENGTH = supply.stock_details.length;
-    return supply.stock_details[STOCK_LENGTH - 1].quantity;
-  };
-
-  const getPrice = (supply) => {
-    const STOCK_LENGTH = supply.stock_details.length;
-    return supply.stock_details[STOCK_LENGTH - 1].cost_unity;
-  };
 
   /**
    * If the form is not saving, then set the checkrequired state to true, and if the form is validated,
@@ -77,7 +73,7 @@ export const AddSupply = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated([FormInputs.form_name])) {
         setSaving(true);
         saveForm();
@@ -87,17 +83,18 @@ export const AddSupply = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
       let response = await SuppliesServices.create(
-        loggeduser.token,
+          loggedUser.token,
         sendDataForm
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      console.log(jsonResponse)
+      if (response.status === 200) {
         onSuccessSave();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           await refreshToken({ force: true, navigation: props.navigation });
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -122,7 +119,7 @@ export const AddSupply = (props) => {
       type: "success",
     });
 
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     if (!supplyID) setDataForm({ [FormInputs.form_name]: FormInputs });
   };
 

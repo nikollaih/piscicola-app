@@ -3,13 +3,13 @@ import {
   Text,
   ScrollView,
   KeyboardAvoidingView,
-  ActivityIndicator,
+  ActivityIndicator, Platform,
 } from "react-native";
 import { Layout } from "../../Layout";
 import { useState, useEffect } from "react";
 import { FillIconButton } from "../../../components/button/fillIconButton";
 import FormInputs from "../../../json/forms/editProductiveUnit";
-import productiveUnitStructure from "../../../json/formsStructure/productiveUnit";
+import productiveUnitStructure from "../../../json/formsStructure/productiveUnitStructure";
 import { useAuth } from "../../../hooks/useAuth";
 import Style from "./style";
 import { Constants, LocalStorage, Texts, Utilities } from "../../../util";
@@ -20,10 +20,11 @@ import { showMessage } from "react-native-flash-message";
 
 export const EditProductiveUnit = (props) => {
   const productiveUnit = props.route.params?.productive_unit;
+  const association = props.route.params?.association;
   const { getAuth } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
 
   useEffect(() => {
     setInitialData(productiveUnit);
@@ -33,19 +34,22 @@ export const EditProductiveUnit = (props) => {
    * It sets the initial data for the form.
    */
   const setInitialData = async (productiveUnit) => {
-    let loggeduser = await getAuth();
-    let managers = await Utilities.getUsersByType(loggeduser, 2);
 
-    managers.data.map((manager) => {
-      manager["full_name"] = manager?.user?.full_name;
-    })
-
-    FormInputs["fields"]["manager_id"]["items"] = managers.data;
     FormInputs["structure"] = productiveUnit
-      ? productiveUnit
+      ? {
+          "id": productiveUnit.id,
+          "name": productiveUnit.name,
+          "phone": productiveUnit.phone,
+          "email": productiveUnit.email,
+          "mobile_phone": productiveUnit.mobile_phone,
+          "address": productiveUnit.address,
+          "mqtt_id": productiveUnit.mqtt_id,
+        }
       : productiveUnitStructure;
+    FormInputs["structure"]["association_id"] = (productiveUnit) ? productiveUnit.association_id : association.id;
+
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setLoading(false);
   };
@@ -56,9 +60,9 @@ export const EditProductiveUnit = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated(FormInputs.form_name)) {
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setSaving(true);
         saveForm();
       }
@@ -67,18 +71,18 @@ export const EditProductiveUnit = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = {
         ...dataForm[FormInputs.form_name].structure
       };
 
       // Create new productive unit
       let response = await ProductiveUnitsServices.create(
-        loggeduser.token,
+        loggedUser.token,
         sendDataForm
       );
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         onSuccessSave();
       } else {
         showErrorMessage();
@@ -98,19 +102,19 @@ export const EditProductiveUnit = (props) => {
   };
 
   const onSuccessSave = () => {
-    let pruductiveUnitID = dataForm[FormInputs.form_name]?.structure?.id;
+    let productiveUnitID = dataForm[FormInputs.form_name]?.structure?.id;
     setSaving(false);
     LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "home");
     showMessage({
       message: Texts.success.title,
-      description: pruductiveUnitID
+      description: productiveUnitID
         ? Texts.success.porductive_unit.update
         : Texts.success.porductive_unit.create,
       duration: 3000,
       type: "success",
     });
 
-    if (!pruductiveUnitID) setDataForm({ [FormInputs.form_name]: FormInputs });
+    if (!productiveUnitID) setDataForm({ [FormInputs.form_name]: FormInputs });
   };
 
   return (
@@ -140,9 +144,9 @@ export const EditProductiveUnit = (props) => {
                 </View>
                 <View style={Style.buttons_container}>
                   <FillIconButton
-                    title="Cancelar"
+                    title="Regresar"
                     icon="ios-arrow-back"
-                    fill={Constants.COLORS.GRAY}
+                    fill={Constants.COLORS.DARK}
                     style={Style.left_button}
                     onPress={() => {
                       props.navigation.goBack();

@@ -1,8 +1,10 @@
 export default {
     id: null,
-    user_type_id: 1,
+    role_id: 2,
     email: "",
     password: "",
     password_confirmation: "",
-    full_name: ""
+    name: "",
+    document: "",
+    mobile_phone: ""
 }

@@ -31,14 +31,14 @@ export const EmployeeItem = ({ navigation, employee, onDelete = () => {} }) => {
       <View>
         <View style={Style.inside}>
           <View>
-            <Text style={Style.text_name}>{employee.full_name}</Text>
-            <Text style={Style.text_employee}>{employee.identifier}</Text>
+            <Text style={Style.text_name}>{employee.name}</Text>
+            <Text style={Style.text_employee}>{employee.mobile_phone}</Text>
           </View>
         </View>
       </View>
       <CustomModal
-        height={height - 400}
-        title={employee.full_name}
+        height={height - 450}
+        title={employee.name}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);

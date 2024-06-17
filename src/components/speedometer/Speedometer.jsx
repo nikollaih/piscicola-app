@@ -13,15 +13,16 @@ import Alarm from "../../assets/images/alarm.gif";
 const { width } = Dimensions.get("screen");
 
 export const CustomSpeedometer = ({ stat }) => {
+  const min = stat.step_stat.value_minimun;
+  const max = stat.step_stat.value_maximun;
+
   const getIndicatorColor = () => {
-    const min = stat.fish_step_stat_value_minimum;
-    const max = stat.fish_step_stat_value_maximum;
     const value = stat.value;
 
     if (stat.triggered_alarm || (value < min && min) || (value > max && max))
       return Constants.COLORS.RED;
 
-    if ((value == min && min) || (value == max && max))
+    if ((value === min && min) || (value === max && max))
       return Constants.COLORS.SOFT_YELLOW;
 
     if (value && min && max) {
@@ -44,25 +45,25 @@ export const CustomSpeedometer = ({ stat }) => {
   };
 
   const getMinValue = () => {
-    if (stat.value <= stat.fish_step_stat_value_minimum)
-      return stat.fish_step_stat_value_minimum - 5;
-    if (stat.fish_step_stat_value_minimum)
-      return stat.fish_step_stat_value_minimum;
+    if (stat.value <= min)
+      return stat.value - 5;
+    if (min)
+      return min;
     if (stat.value > 0) return 0;
     return stat.value;
   };
 
   const getMaxValue = () => {
-    if (stat.value >= stat.fish_step_stat_value_maximum)
+    if (stat.value >= max)
       return stat.value + 5;
-    if (stat.fish_step_stat_value_maximum)
-      return stat.fish_step_stat_value_maximum;
+    if (max)
+      return max;
     if (stat.value > 0) return stat.value + 5;
     return stat.value;
   };
 
   const getTitle = () => {
-    return stat.fish_step_stat_name ? stat.fish_step_stat_name : stat.key;
+    return stat.step_stat.name ? stat.step_stat.name : stat.step_stat.key;
   };
 
   return (
@@ -74,16 +75,17 @@ export const CustomSpeedometer = ({ stat }) => {
       <View style={Style.container_value}>
         <Text style={Style.value}>{stat.value}</Text>
       </View>
+
       <View style={Style.min_max_container}>
-        {stat.fish_step_stat_value_minimum ? (
+        {min ? (
           <Text
             style={Style.min_max_text}
-          >{`Min: ${stat.fish_step_stat_value_minimum}`}</Text>
+          >{`Min: ${min}`}</Text>
         ) : null}
-        {stat.fish_step_stat_value_maximum ? (
+        {max ? (
           <Text
             style={Style.min_max_text}
-          >{`Max: ${stat.fish_step_stat_value_maximum}`}</Text>
+          >{`Max: ${max}`}</Text>
         ) : null}
       </View>
       <Speedometer
@@ -125,7 +127,7 @@ const Style = StyleSheet.create({
   },
   title: {
     ...Theme.font_roboto_bold,
-    fontSize: 20,
+    fontSize: 17,
   },
   value: {
     ...Theme.font_roboto_bold,
@@ -137,8 +139,8 @@ const Style = StyleSheet.create({
     borderRadius: 8,
   },
   alarm: {
-    height: 25,
-    width: 25,
+    height: 15,
+    width: 15,
     marginRight: 10,
     position: "absolute",
     left: 10,

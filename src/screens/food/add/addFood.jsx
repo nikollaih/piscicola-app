@@ -27,7 +27,7 @@ export const AddFood = (props) => {
   const [saving, setSaving] = useState(false);
   const [loadedData, setLoadedData] = useState(false);
   const [aliments, setAliments] = useState([]);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
 
   const breadcrumb = {
     title: `${food ? "Modificar" : "Nueva"} Alimentación`,
@@ -56,7 +56,7 @@ export const AddFood = (props) => {
         food.quantity + food.supply.stock;
 
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setAliments(ALIMENTS.data);
     setLoadedData(true);
@@ -88,7 +88,7 @@ export const AddFood = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated([FormInputs.form_name])) {
         setSaving(true);
         saveForm();
@@ -98,15 +98,15 @@ export const AddFood = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
-      let response = await FoodServices.create(loggeduser.token, sendDataForm);
+      let response = await FoodServices.create(loggedUser.token, sendDataForm);
       let jsonResponse = await response.json();
 
       if (response.status == 200) {
         onSuccessSave();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           await refreshToken({ force: true, navigation: props.navigation });
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -131,7 +131,7 @@ export const AddFood = (props) => {
       type: "success",
     });
 
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     if (!foodID) setDataForm({ [FormInputs.form_name]: FormInputs });
   };
 

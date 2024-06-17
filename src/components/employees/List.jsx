@@ -1,11 +1,11 @@
-import { FlatList } from "react-native";
+import {ActivityIndicator, FlatList} from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { EmployeeItem } from "./Item";
 import { EmployeesServices } from "../../services";
 import { LocalStorage, Constants, Utilities } from "../../util";
 
-export const EmployeesList = ({ navigation }) => {
+export const EmployeesList = ({ navigation, internalRoleId }) => {
   const { getAuth, refreshToken } = useAuth();
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ export const EmployeesList = ({ navigation }) => {
       checkChanges();
     });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
+    // Return the function to unsubscribe from the event, so it gets removed on unmount
     getEmployees();
     return unsubscribe;
   }, [navigation]);
@@ -25,13 +25,14 @@ export const EmployeesList = ({ navigation }) => {
     const loggedUser = await getAuth();
     try {
       setLoading(true);
-      let response = await EmployeesServices.get(loggedUser);
+      let response = await EmployeesServices.get(loggedUser, internalRoleId);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setEmployees(jsonResponse.data);
+      console.log(jsonResponse);
+      if (response.status === 200) {
+        setEmployees(jsonResponse.payload.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getEmployees();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -47,7 +48,7 @@ export const EmployeesList = ({ navigation }) => {
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "employees") {
+    if (updatedScreen === "employees") {
       getEmployees();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }
@@ -60,6 +61,8 @@ export const EmployeesList = ({ navigation }) => {
   const renderRow = ({ item, index }) => {
     return <EmployeeItem onDelete={() => getEmployees()} employee={item} navigation={navigation} />;
   };
+
+  if (loading) return <ActivityIndicator />;
 
   return (
     <FlatList

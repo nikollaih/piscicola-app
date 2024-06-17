@@ -25,7 +25,6 @@ const generalConfig = {
 };
 
 export const LinearChart = ({ data }) => {
-  console.log(data)
   useEffect(() => {
   }, []);
 

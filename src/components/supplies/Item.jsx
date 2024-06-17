@@ -40,14 +40,11 @@ export const SupplyItem = ({ supply, navigation, onDelete = () => {} }) => {
         <Text style={Style.inside_subtitle}>{supply.name}</Text>
         <Text
           style={Style.text}
-        >{`Stock: ${supply.stock} ${supply.unit_type.name}`}</Text>
+        >{`Disponible: ${supply.available_quantity} ${supply.measurement_unit.name}`}</Text>
       </View>
       <View>
         <Text style={[Style.text_red, Style.font_roboto_regular, Style.label, {backgroundColor: getUseTypeBg(supply.use_type)}]}>
           {Utilities.getSupplyName(supply.use_type).name}
-        </Text>
-        <Text style={[Style.text_red, Style.font_roboto_bold]}>
-          ${supply.total_cost.toLocaleString("es-CO")}
         </Text>
       </View>
       <CustomModal
@@ -87,7 +84,7 @@ const Style = StyleSheet.create({
     paddingHorizontal: 3,
     paddingVertical: 1,
     fontSize: 12,
-    width: 46,
+    width: 50,
     alignSelf: "flex-end"
   }
 });

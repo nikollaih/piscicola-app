@@ -30,9 +30,9 @@ export const SideMenuDom = ({ navigation, route, onOpenLink = () => {} }) => {
     setLoggedUser({ ...loggedUser });
   };
 
-  const openLink = (linkData) => {
+  const openLink = (linkData, params) => {
     onOpenLink();
-    navigation.navigate(linkData.screen, {productive_unit: loggedUser?.productive_unit});
+    navigation.navigate(linkData.screen, { productive_unit: loggedUser?.productive_unit, ...params });
   };
 
   /**
@@ -41,7 +41,7 @@ export const SideMenuDom = ({ navigation, route, onOpenLink = () => {} }) => {
    * @returns The color of the item.
    */
   const getItemColor = (item, secondaryColor = Constants.COLORS.GRAY) => {
-    return route.name == item.screen
+    return route.name === item.screen
       ? Constants.COLORS.PRIMARY
       : secondaryColor;
   };
@@ -101,7 +101,7 @@ export const SideMenuDom = ({ navigation, route, onOpenLink = () => {} }) => {
   const renderRow = ({ item }) => {
     if (
       !item?.users_type ||
-      item?.users_type.includes(loggedUser?.profile?.user_type_id)
+      item?.users_type.includes(loggedUser?.profile?.role_id)
     )
       return (
         <TouchableOpacity
@@ -111,7 +111,8 @@ export const SideMenuDom = ({ navigation, route, onOpenLink = () => {} }) => {
             { borderLeftColor: getItemColor(item, Constants.COLORS.WHITE) },
           ]}
           onPress={() => {
-            openLink({ screen: item.screen });
+            let params = (item?.params) ? item.params : {};
+            openLink({ screen: item.screen }, params);
           }}
         >
           {getIcon(item)}
@@ -131,7 +132,7 @@ export const SideMenuDom = ({ navigation, route, onOpenLink = () => {} }) => {
         </View>
         <View style={Style.name_container}>
           <Text style={Style.name}>{loggedUser?.productive_unit?.name}</Text>
-          {loggedUser?.profile?.user_type_id ==
+          {loggedUser?.profile?.role_id ===
           Constants.USERS_TYPES.UNIT_MANAGER ? (
             <TouchableOpacity
               activeOpacity={Constants.CONFIG.BUTTON_OPACITY}

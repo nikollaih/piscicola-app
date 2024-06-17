@@ -26,12 +26,12 @@ export const StatsList = ({ sowing, reload = false, navigation }) => {
         sowing.id
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         setLoading(false);
-        setStats(jsonResponse);
+        setStats(jsonResponse.payload.statsReadings);
       } else {
         setLoading(false);
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getStats();
         } else Utilities.showErrorFecth(jsonResponse);

@@ -2,7 +2,7 @@ import {
   View,
   ActivityIndicator,
   ScrollView,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, Platform,
 } from "react-native";
 import { Layout } from "../../Layout";
 import { useState, useEffect } from "react";
@@ -23,13 +23,15 @@ import { useForm } from "../../../hooks/useForm";
 import { SowingsServices } from "../../../services";
 import { showMessage } from "react-native-flash-message";
 import { Breadcrumb } from "../../../components/breadcrumb/Breadcrumb";
+import {getSowingCreateData} from "../../../services/Sowings";
+import {changeDateFormatForAPI} from "../../../util/utilities";
 
 export const AddSowing = (props) => {
   const { getAuth, refreshToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [wasSaved, setWasSaved] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
   const sowing = props.route.params?.sowing;
 
   const breadcrumb = {
@@ -48,28 +50,29 @@ export const AddSowing = (props) => {
   const setInitialData = async () => {
     try {
       const loggedUser = await getAuth();
-      const ponds = await UtilServices.getPonds(loggedUser);
-      const fishStep = await UtilServices.getFish(loggedUser);
+      const response = await SowingsServices.getSowingCreateData(loggedUser.token);
+      let jsonResponse = await response.json();
 
-      if (ponds?.is_logged === false || fishStep?.is_logged === false) {
-        refreshToken({force:true, navigation: props.navigation});
-        setInitialData();
-      } else {
-        fishStep.data.map((fish) => {
-          fish["select_name"] = `${fish.fish.name} - ${fish.name}`;
-        });
-
+      if (response.status === 200) {
         FormInputs["structure"] = sowing ? sowing : sowingStructure;
-        FormInputs["fields"]["pond_id"]["items"] = ponds.data;
-        FormInputs["fields"]["fish_step_id"]["items"] = fishStep.data;
+        console.log(FormInputs.structure)
+        FormInputs["fields"]["pond_id"]["items"] = jsonResponse.payload.ponds;
+        FormInputs["fields"]["step_id"]["items"] = jsonResponse.payload.steps;
+        FormInputs["fields"]["fish_id"]["items"] = jsonResponse.payload.fish;
 
         setSaving(false);
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setDataForm({ [FormInputs.form_name]: FormInputs });
         setLoading(false);
       }
+      else {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
+          refreshToken({force:true, navigation: props.navigation});
+          setInitialData();
+        } else Utilities.showErrorFecth(jsonResponse);
+        setLoading(false);
+      }
     } catch (error) {
-
     }
   };
 
@@ -79,9 +82,9 @@ export const AddSowing = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated(FormInputs.form_name)) {
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setSaving(true);
         saveForm();
       }
@@ -90,17 +93,19 @@ export const AddSowing = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
+      console.log(sendDataForm)
       let response = await SowingsServices.create(
-        loggeduser.token,
+          loggedUser.token,
         sendDataForm
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      console.log(jsonResponse)
+      if (response.status === 200) {
         onSuccessSave();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: props.navigation});
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);

@@ -7,7 +7,7 @@ import moment from "moment";
  */
 export const isEmail = (email) => {
   let reg = /[^@!"·$%&#]+@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-  return reg.test(email) === false ? false : true;
+  return reg.test(email) !== false;
 };
 
 export const checkRequiredField = (data, dataForm, check) => {
@@ -16,7 +16,7 @@ export const checkRequiredField = (data, dataForm, check) => {
         required */
     if (
       data?.validate?.required &&
-      (dataForm.structure[data.name] == "" ||
+      (dataForm.structure[data.name] === "" ||
         dataForm.structure[data.name] == null)
     )
       return { status: false, text: "Por favor complete este campo" };
@@ -33,7 +33,7 @@ export const checkRequiredField = (data, dataForm, check) => {
               the same to the another value */
     if (
       data?.validate?.is_equal_than?.is_active &&
-      dataForm.structure[data.name] !=
+      dataForm.structure[data.name] !==
         dataForm.structure[data?.validate?.is_equal_than.field]
     )
       return { status: false, text: data.validate.is_equal_than.text };
@@ -49,7 +49,7 @@ export const checkRequiredField = (data, dataForm, check) => {
           Texts.error.min_length + data?.validate?.min_length + " caracteres",
       };
 
-    /* It checks if a date if greater than another */
+    /* It checks if a date is greater than another */
     if (
       data?.validate?.is_greater_than &&
       (moment(dataForm.structure[data?.validate?.is_greater_than]).format(Constants.DATETIME_FORMATS.DATETIME) == moment(dataForm.structure[data.name]).format(Constants.DATETIME_FORMATS.DATETIME) || moment(dataForm.structure[data?.validate?.is_greater_than]).isAfter(moment(dataForm.structure[data.name])))
@@ -58,7 +58,7 @@ export const checkRequiredField = (data, dataForm, check) => {
 
     /* It checks if value is greater than allowed */
     if (
-      data?.validate?.max != undefined &&
+      data?.validate?.max !== undefined &&
       dataForm.structure[data.name] > data?.validate?.max
     )
       return { status: false, text: Texts.error.max + data?.validate?.max };

@@ -27,18 +27,15 @@ export const SowingsList = ({ navigation, orientation = "vertical" }) => {
     const productiveUnitID = loggedUser?.productive_unit?.id;
     try {
       setLoading(true);
-      let response = await SowingsServices.get(
-        loggedUser.token,
-        productiveUnitID
-      );
+      let response = await SowingsServices.get(loggedUser.token);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setSowings(jsonResponse.data);
+      if (response.status === 200) {
+        setSowings(jsonResponse.payload.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           await refreshToken({ force: true, navigation: navigation });
-          //getSowings();
+          getSowings();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }

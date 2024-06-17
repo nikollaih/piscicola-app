@@ -11,6 +11,7 @@ import { useAuth } from "../../hooks/useAuth";
 export const ProductiveUnit = (props) => {
   const { getAuth, refreshToken } = useAuth();
   const productiveUnit = props.route.params.productive_unit;
+
   const breadcrumb = {
     title: productiveUnit.name,
     subtitle: "Unidad Productiva",
@@ -29,10 +30,10 @@ export const ProductiveUnit = (props) => {
           productiveUnit.id
         );
         let jsonResponse = await response.json();
-        if (response.status == 200) {
+        if (response.status === 200) {
           onSuccessDelete();
         } else {
-          if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+          if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
             refreshToken({force:true, navigation: props.navigation});
             onDelete();
           } else Utilities.showErrorFecth(jsonResponse);
@@ -88,12 +89,24 @@ export const ProductiveUnit = (props) => {
         </View>
         <View style={Style.white_container}>
           <View style={Style.list_container}>
-            <Text style={Style.inside_subtitle}>Descripción</Text>
-            <Text style={Style.text}>{productiveUnit.description}</Text>
+            <Text style={Style.inside_subtitle}>Correo Electrónico</Text>
+            <Text style={Style.text}>{(productiveUnit.email) ? productiveUnit.email : "Sin registro"}</Text>
+          </View>
+          <View style={Style.list_container}>
+            <Text style={Style.inside_subtitle}>Teléfono</Text>
+            <Text style={Style.text}>{(productiveUnit.phone) ? productiveUnit.phone : "Sin registro"}</Text>
+          </View>
+          <View style={Style.list_container}>
+            <Text style={Style.inside_subtitle}>Celular</Text>
+            <Text style={Style.text}>{(productiveUnit.mobile_phone) ? productiveUnit.mobile_phone : "Sin registro"}</Text>
           </View>
           <View style={Style.list_container}>
             <Text style={Style.inside_subtitle}>Ubicación</Text>
-            <Text style={Style.text}>{productiveUnit.address}</Text>
+            <Text style={Style.text}>{(productiveUnit.address) ? productiveUnit.address : "Sin registro"}</Text>
+          </View>
+          <View style={Style.list_container}>
+            <Text style={Style.inside_subtitle}>MQTT ID</Text>
+            <Text style={Style.text}>{(productiveUnit.mqtt_id) ? productiveUnit.mqtt_id : "Sin registro"}</Text>
           </View>
         </View>
       </ScrollView>

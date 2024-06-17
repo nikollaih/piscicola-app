@@ -37,11 +37,12 @@ export const SuppliesStockList = ({
       );
 
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setSupplies(jsonResponse.data);
+      console.log(jsonResponse)
+      if (response.status === 200) {
+        setSupplies(jsonResponse.payload.supplyPurchases.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           if(countAPICalls < 3){
             countAPICalls++;
             await refreshToken({ force: true, navigation: navigation });
@@ -60,7 +61,7 @@ export const SuppliesStockList = ({
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "supplyStock") {
+    if (updatedScreen === "supplyStock") {
       getSupplies();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }

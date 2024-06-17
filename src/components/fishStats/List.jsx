@@ -35,7 +35,7 @@ export const FishStatsList = ({ navigation, fish = {} }) => {
         setLoading(false);
       } 
       else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getFishStats();
         } else

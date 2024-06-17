@@ -117,8 +117,8 @@ export const getPaymentTypes = async (user) => {
 export const getUnitTypes = async (user, filter = {}) => {
   try {
     let response = await UnitTypesServices.get(user, filter);
-    if (response.status == 401) return { is_logged: false };
-    return response.status == 200
+    if (response.status === 401) return { is_logged: false };
+    return response.status === 200
       ? await response.json()
       : [];
   } catch (error) {

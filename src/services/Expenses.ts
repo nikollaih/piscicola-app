@@ -1,14 +1,13 @@
-import { Constants, Utilities } from "../util";
+import {Constants, Utilities} from "../util";
 
-export const get = async (token: String, puID: String = "", filter: any) => {
-  let response = await fetch(`${Constants.API.URL}general_expenses/list_by_productive_unit/${puID}?manualCreatedAtStart=${filter.manualCreatedAtStart}&manualCreatedAtEnd=${filter.manualCreatedAtEnd}`, {
+export const get = async (token: String) => {
+  return await fetch(`${Constants.API.URL}expenses/all`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: "GET",
   });
-  return response;
 };
 
 export const create = async (token: String, data: any) => {

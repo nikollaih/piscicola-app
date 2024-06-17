@@ -2,6 +2,7 @@ import { Home } from '../screens/home/home';
 import { ProductDetail } from '../screens/products/productDetails';
 import { ProductHistory } from '../screens/products/History';
 import { ProductiveUnit } from '../screens/productiveUnit/productiveUnit';
+import { ProductiveUnits } from "../screens/productiveUnit/productiveUnits";
 import { EditProductiveUnit } from '../screens/productiveUnit/edit/editProductiveUnit';
 import { Ponds } from '../screens/ponds/Ponds';
 import { AddPond } from '../screens/ponds/add/addPond';
@@ -40,13 +41,15 @@ import { PaymentDetails } from '../screens/paymentDetails/paymentDetails';
 import { AddPaymentDetail } from '../screens/paymentDetails/add/addPaymentDetails';
 import { AddBiomasse } from '../screens/biomasses/add/addBiomasse';
 import { Biomasses } from '../screens/biomasses/Biomasses';
-import {ChartsBiomasses} from "../screens/biomasses/chartsBiomasses";
+import { ChartsBiomasses } from "../screens/biomasses/chartsBiomasses";
 import { SuppliesStock } from '../screens/supplies/stock/suppliesStock';
 import { AddSupplyStock } from '../screens/supplies/stock/addSupplyStock';
 import { Mortalities } from '../screens/mortalities/Mortalities';
 import { AddMortality } from '../screens/mortalities/add/addMortality';
 import { AddSale } from '../screens/sales/add/addSale';
-import {Actuators} from "../screens/actuators/Actuators";
+import { Actuators } from "../screens/actuators/Actuators";
+import { Association } from '../screens/associations/Association';
+import { EditAssociation } from "../screens/associations/edit/editAssociation";
 import { Switch } from '../screens/Switch';
 
 export default [
@@ -69,6 +72,10 @@ export default [
     {
         name: "ProductiveUnit",
         screen: ProductiveUnit,
+    },
+    {
+        name: "ProductiveUnits",
+        screen: ProductiveUnits,
     },
     {
         name: "EditProductiveUnit",
@@ -187,6 +194,10 @@ export default [
         screen: Employees,
     },
     {
+        name: "Clients",
+        screen: Employees,
+    },
+    {
         name: "AddEmployee",
         screen: AddEmployee,
     },
@@ -249,5 +260,13 @@ export default [
     {
         name: "Actuators",
         screen: Actuators,
+    },
+    {
+        name: "Association",
+        screen: Association,
+    },
+    {
+        name: "EditAssociation",
+        screen: EditAssociation,
     },
 ]

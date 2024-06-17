@@ -39,15 +39,16 @@ export const Login = ({ navigation }) => {
         setLoading(true);
         let response = await AuthServices.login(data.email, data.password);
         let jsonResponse = await response.json();
-        if (response.status != 200) {
+
+        if (response.status !== 200) {
           Utilities.showErrorFecth(jsonResponse);
           setLoading(false);
         } else {
-          onSuccessLogin(jsonResponse);
+          await onSuccessLogin(jsonResponse.payload);
         }
       }
     } catch (error) {
-      if (error == Constants.CONFIG.CONNECTION_ERROR_RESPONSE)
+      if (error === Constants.CONFIG.CONNECTION_ERROR_RESPONSE)
         setAlert({
           text: Texts.error.network_fetch,
           type: "error",
@@ -58,32 +59,39 @@ export const Login = ({ navigation }) => {
   };
 
   const onSuccessLogin = async (user) => {
-    if (user?.profile?.user_type_id != Constants.USERS_TYPES.ADMIN) {
-      let productiveUnit = await getProductiveUnit(user);
-      if (productiveUnit == false || productiveUnit?.data.length <= 0){
-        setAlert({
-          text: Texts.error.no_productive_unit,
-          type: "error",
-          show: true,
-        });
-        setLoading(false);
-      }
-      else {
-        user["productive_unit"] = productiveUnit.data[0];
+    try {
+      if (Constants.USERS_TYPES.ADMIN !== user?.profile?.role_id) {
+        let productiveUnit = await getProductiveUnit(user);
+
+        if (productiveUnit === false || productiveUnit?.payload?.length <= 0){
+          setAlert({
+            text: Texts.error.no_productive_unit,
+            type: "error",
+            show: true,
+          });
+          setLoading(false);
+        }
+        else {
+          user["productive_unit"] = productiveUnit.payload[0];
+          setAuth(user, data);
+          navigation.replace("Home");
+        }
+      } else {
         setAuth(user, data);
         navigation.replace("Home");
       }
-    } else {
-      setAuth(user, data);
-      navigation.replace("Home");
     }
+    catch (e) {
+      setLoading(false);
+    }
+
   };
 
   const getProductiveUnit = async (user) => {
     try {
       let response = await ProductiveUnitsServices.get(user.token);
       let jsonResponse = await response.json();
-      return response.status == 200 ? jsonResponse : false;
+      return response.status === 200 ? jsonResponse : false;
     } catch (error) {
       return false;
     }

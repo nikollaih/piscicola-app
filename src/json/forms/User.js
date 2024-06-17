@@ -5,19 +5,18 @@ export default
         form_name: "User",
         structure: userStructure,
         fields: {
-            user_type_id: {
-                icon: "ios-beaker",
-                title: "Rol",
-                placeholder: "- Seleccionar",
-                type: "select",
-                item_label: "key",
-                item_id: "id",
-                items: [],
+            document: {
+                icon: "ios-card",
+                title: "Documento",
+                placeholder: "Número de documento",
+                type: "input",
+                keyboard_type: "numeric",
                 validate: {
                     required: true,
+                    min_length: 7
                 }
             },
-            full_name: {
+            name: {
                 icon: "ios-person",
                 title: "Nombre",
                 placeholder: "Nombre completo",
@@ -34,9 +33,21 @@ export default
                 bottom: 0,
                 type: "input",
                 required: true,
+                keyboard_type: "email-address",
                 validate: {
                     required: true,
                     is_email: { is_active: true, text: "El email no es válido" }
+                }
+            },
+            mobile_phone: {
+                icon: "ios-card",
+                title: "Celular",
+                placeholder: "Número de celular",
+                type: "input",
+                keyboard_type: "numeric",
+                validate: {
+                    required: true,
+                    min_length: 10
                 }
             },
             password: {

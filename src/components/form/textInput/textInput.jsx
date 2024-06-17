@@ -43,6 +43,7 @@ export const CustomTextInput = ({ data, formName }) => {
   const input_value = dataForm[formName].structure[data.name] ? dataForm[formName].structure[data.name].toString() : "";
 
   return (
+      (data?.is_visible === false) ? null :
     <View style={[{ marginBottom: data?.bottom ? data.bottom : 20 }]}>
       <View style={Style.row}>
         <Text style={Style.input_label}>{data.title}</Text>
@@ -54,7 +55,7 @@ export const CustomTextInput = ({ data, formName }) => {
         style={[
           Style.input_inside_container,
           { borderColor: getBorderColor(),
-            opacity: (data?.is_editable == false) ? 0.5 : 1 }
+            opacity: (data?.is_editable === false) ? 0.5 : 1 }
         ]}
       >
         {data?.icon ? (

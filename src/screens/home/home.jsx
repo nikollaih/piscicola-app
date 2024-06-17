@@ -5,6 +5,7 @@ import { UserHome } from "./userHome";
 import { AdminHome } from "./adminHome";
 import { useAuth } from "../../hooks/useAuth";
 import Style from "./style";
+import {Constants} from "../../util";
 
 export const Home = (props) => {
   const { getAuth } = useAuth();
@@ -45,11 +46,11 @@ export const Home = (props) => {
             <View>
               <Text style={Style.text_user}>Hola</Text>
               <Text style={Style.name_user}>
-                {loggedUser?.profile?.full_name}
+                {loggedUser?.profile?.name}
               </Text>
             </View>
           </View>
-          {loggedUser?.profile?.user_type_id == 1 ? (
+          {loggedUser?.profile?.role_id === Constants.USERS_TYPES.ADMIN ? (
             <AdminHome
               setFinishRefresh={() => {
                 setRefresh(false);
@@ -58,7 +59,7 @@ export const Home = (props) => {
               navigation={props.navigation}
             />
           ) : null}
-          {loggedUser?.profile?.user_type_id == 2 ? (
+          {loggedUser?.profile?.role_id === Constants.USERS_TYPES.UNIT_MANAGER ? (
             <UserHome
                 setFinishRefresh={() => {
                   setRefresh(false);

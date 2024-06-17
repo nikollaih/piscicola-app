@@ -28,7 +28,7 @@ export const AddExpense = (props) => {
   const { getAuth, refreshToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
   const generalExpense = props.route.params?.generalExpense;
 
   const breadcrumb = {
@@ -52,7 +52,7 @@ export const AddExpense = (props) => {
       loggedUser.productive_unit.id;
 
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ [FormInputs.form_name]: FormInputs });
     setLoading(false);
   };
@@ -63,9 +63,9 @@ export const AddExpense = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated(FormInputs.form_name)) {
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setSaving(true);
         saveForm();
       }
@@ -79,10 +79,10 @@ export const AddExpense = (props) => {
    */
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
       let response = await GeneralExpensesServices.create(
-        loggeduser.token,
+        loggedUser.token,
         sendDataForm
       );
       let jsonResponse = await response.json();
@@ -90,7 +90,7 @@ export const AddExpense = (props) => {
       if (response.status == 200) {
         onSuccessSave();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({ force: true, navigation: props.navigation });
           saveForm();
         } else Utilities.showErrorFecth(jsonResponse);

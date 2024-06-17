@@ -1,6 +1,9 @@
 export default {
     id: null,
-    name: "",
-    description: "",
-    sensor_id: ""
+    name : "",
+    area : "",
+    volume : "",
+    entrance : "",
+    exit : "",
+    covered : ""
 }

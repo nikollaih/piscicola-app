@@ -1,8 +1,8 @@
 export default {
-    productive_unit_id: null,
-    identifier_type: "cc",
-    identifier: "",
-    full_name: "",
-    phone: "",
-    occupation: ""
+    party_role_id: null,
+    document: "",
+    name: "",
+    mobile_phone: "",
+    home_phone: "",
+    email: ""
 }

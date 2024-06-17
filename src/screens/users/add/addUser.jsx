@@ -18,7 +18,7 @@ export const AddUser = (props) => {
   const { getAuth } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+  const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
 
   const breadcrumb = {
     title: User?.id ? "Modificar Usuario" : "Nuevo Usuario",
@@ -33,13 +33,16 @@ export const AddUser = (props) => {
    * It sets the initial data for the form.
    */
   const setInitialData = async (User) => {
-    let loggeduser = await getAuth();
-    let userTypes = await UtilServices.getUserTypes(loggeduser);
-
-    FormInputs["structure"] = User ? User : userStructure;
-    FormInputs["fields"]["user_type_id"]["items"] = userTypes;
+    FormInputs["structure"] = User ? {
+      "id": User?.id,
+      "document": User.document,
+      "name": User.name,
+      "email": User.email,
+      "mobile_phone": User.mobile_phone,
+      "role_id": User?.role_id
+    } : userStructure;
     setSaving(false);
-    setCheckrequired({ [FormInputs.form_name]: false });
+    setCheckRequired({ [FormInputs.form_name]: false });
     setDataForm({ ...dataForm, [FormInputs.form_name]: FormInputs });
     setLoading(false);
   };
@@ -50,9 +53,9 @@ export const AddUser = (props) => {
    */
   const checkForm = () => {
     if (!saving) {
-      setCheckrequired({ [FormInputs.form_name]: true });
+      setCheckRequired({ [FormInputs.form_name]: true });
       if (isValidated(FormInputs.form_name)) {
-        setCheckrequired({ [FormInputs.form_name]: false });
+        setCheckRequired({ [FormInputs.form_name]: false });
         setSaving(true);
         saveForm();
       }
@@ -61,40 +64,14 @@ export const AddUser = (props) => {
 
   const saveForm = async () => {
     try {
-      let loggeduser = await getAuth();
+      let loggedUser = await getAuth();
       let sendDataForm = {
         ...dataForm[FormInputs.form_name].structure,
       };
 
       // Create new productive unit
-      let response = await UsersServices.create(loggeduser.token, sendDataForm);
-      if (response.status == 200) {
-        let user = await response.json();
-        if (User.id) onSuccessSave();
-        else assignUserUnit(user);
-      } else {
-        Utilities.showAlert({});
-      }
-    } catch (error) {
-      Utilities.showAlert({});
-    }
-  };
-
-  const assignUserUnit = async (user) => {
-    try {
-      let loggeduser = await getAuth();
-      let assignUserUnitData = {
-        user_id: user.id,
-        productive_unit_id: productiveUnit.id,
-      };
-
-      // Assign the user to the productie unit
-      let response = await ProductiveUnitsServices.assignUser(
-        loggeduser.token,
-        assignUserUnitData
-      );
-      if (response.status == 200) {
-        let user = await response.json();
+      let response = await UsersServices.create(loggedUser.token, sendDataForm, productiveUnit?.id);
+      if (response.status === 200) {
         onSuccessSave();
       } else {
         Utilities.showAlert({});
@@ -103,6 +80,7 @@ export const AddUser = (props) => {
       Utilities.showAlert({});
     }
   };
+
 
   const onSuccessSave = () => {
     let userID = dataForm[FormInputs.form_name]?.structure?.id;

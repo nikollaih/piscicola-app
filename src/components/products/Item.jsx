@@ -23,9 +23,9 @@ export const SowingItem = ({
 
   const getCustomStyle = () => {
     return {
-      width: orientation == "horizontal" ? 160 : undefined,
-      marginRight: orientation == "horizontal" ? 10 : 0,
-      marginBottom: orientation == "horizontal" ? 0 : 10,
+      width: orientation === "horizontal" ? 160 : undefined,
+      marginRight: orientation === "horizontal" ? 10 : 0,
+      marginBottom: orientation === "horizontal" ? 0 : 10,
     };
   };
 
@@ -47,10 +47,12 @@ export const SowingItem = ({
           <View style={Style.container_image}>
             <Image source={Fish} style={Style.fish} />
           </View>
-          <Text style={Style.text_pond}>{sowing.total_fish}</Text>
           <Text
             style={Style.text_name}
-          >{`${sowing.fish_step.fish.name} - ${sowing.fish_step.name}`}</Text>
+          >{sowing.name}</Text>
+          <Text style={Style.text_pond}>{`${sowing.fish.name} - ${sowing.step.name}`}</Text>
+          <Text style={Style.text_pond}>Cantidad: {sowing.quantity - sowing.dead_quantity}</Text>
+          <Text style={Style.text_pond}>Estanque: {sowing.pond.name}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -67,6 +69,7 @@ const Style = StyleSheet.create({
     color: Constants.COLORS.WHITE,
     fontFamily: "RobotoCondensed-Bold",
     fontSize: 17,
+    marginBottom: 5
   },
   inside: {
     backgroundColor: Constants.COLORS.SOFT_YELLOW,

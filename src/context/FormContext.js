@@ -5,7 +5,7 @@ const FormContext = React.createContext();
 
 const FormProvider = ({ children }) => {
   const [dataForm, setDataForm] = React.useState({});
-  const [checkRequired, setCheckrequired] = React.useState({});
+  const [checkRequired, setCheckRequired] = React.useState({});
 
   /**
    * It returns true if all the required fields in the form are filled, and false otherwise
@@ -42,7 +42,7 @@ const FormProvider = ({ children }) => {
         dataForm,
         setDataForm,
         checkRequired,
-        setCheckrequired,
+        setCheckRequired,
         isValidated,
       }}
     >

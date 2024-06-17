@@ -32,13 +32,13 @@ export const PondItem = ({ navigation, pond, onDelete = () => {} }) => {
         <View style={Style.inside}>
           <View>
             <Text style={Style.text_name}>{pond.name}</Text>
-            <Text style={Style.text_pond}>{pond.sensor_id}</Text>
-            <Text style={Style.text_pond}>{pond.description}</Text>
+            <Text style={Style.text_pond}>MQTT ID: {pond.mqtt_id}</Text>
+            <Text style={Style.text_pond}>Volumen: {pond.volume}L</Text>
           </View>
         </View>
       </View>
       <CustomModal
-        height={height - 400}
+        height={height - 500}
         title={pond.name}
         showModal={showModal}
         onClose={() => {

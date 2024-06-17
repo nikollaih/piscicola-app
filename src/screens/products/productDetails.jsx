@@ -21,9 +21,9 @@ export const ProductDetail = ({ navigation, route }) => {
   const [reload, setReload] = useState(false);
   const sowing = route.params?.sowing;
   const breadcrumb = {
-    title: `${sowing.fish_step.fish.name} - ${sowing.fish_step.name}`,
+    title: `${sowing.fish.name} - ${sowing.step.name}`,
     subtitle: sowing.pond.name,
-    icon: sowing.closed_at != "" ? null : "ios-create",
+    icon: sowing.closed_at !== "" ? null : "ios-create",
 
   };
 
@@ -66,7 +66,7 @@ export const ProductDetail = ({ navigation, route }) => {
             data={breadcrumb}
           />
           <ProductShortCuts navigation={navigation} sowing={sowing} />
-          <Text style={Style.subtitle}>Mediciones</Text>
+          <Text style={Style.subtitle}>Lecturas</Text>
           <View style={Style.refresh_container}>
             <Text style={Style.last_refresh}>
               {`Última actualización ${lastUpdate}`}

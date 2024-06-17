@@ -12,9 +12,9 @@ export const FormButtons = ({
   return (
     <View style={Style.buttons_container}>
       <FillIconButton
-        title="Cancelar"
+        title="Regresar"
         icon="ios-arrow-back"
-        fill={Constants.COLORS.GRAY}
+        fill={Constants.COLORS.DARK}
         style={Style.left_button}
         onPress={() => {
           navigation.pop(backTimes);

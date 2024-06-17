@@ -22,7 +22,7 @@ import {
     const { getAuth, refreshToken } = useAuth();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const { dataForm, isValidated, setDataForm, setCheckrequired } = useForm();
+    const { dataForm, isValidated, setDataForm, setCheckRequired } = useForm();
     const task = props.route.params?.task;
   
     const breadcrumb = {
@@ -45,7 +45,7 @@ import {
         loggedUser.productive_unit.id;
   
       setSaving(false);
-      setCheckrequired({ [FormInputs.form_name]: false });
+      setCheckRequired({ [FormInputs.form_name]: false });
       setDataForm({ [FormInputs.form_name]: FormInputs });
       setLoading(false);
     };
@@ -56,9 +56,9 @@ import {
      */
     const checkForm = () => {
       if (!saving) {
-        setCheckrequired({ [FormInputs.form_name]: true });
+        setCheckRequired({ [FormInputs.form_name]: true });
         if (isValidated(FormInputs.form_name)) {
-          setCheckrequired({ [FormInputs.form_name]: false });
+          setCheckRequired({ [FormInputs.form_name]: false });
           setSaving(true);
           saveForm();
         }
@@ -67,15 +67,15 @@ import {
   
     const saveForm = async () => {
       try {
-        let loggeduser = await getAuth();
+        let loggedUser = await getAuth();
         let sendDataForm = dataForm[FormInputs.form_name].structure;
-        let response = await TasksServices.create(loggeduser.token, sendDataForm);
+        let response = await TasksServices.create(loggedUser.token, sendDataForm);
         let jsonResponse = await response.json();
   
         if (response.status == 200) {
           onSuccessSave();
         } else {
-          if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+          if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
             refreshToken({force:true, navigation: props.navigation});
             saveForm();
           } else Utilities.showErrorFecth(jsonResponse);

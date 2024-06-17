@@ -34,7 +34,7 @@ export const ProductTypeList = ({ navigation }) => {
         setProductTypes(jsonResponse.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getProductTypes();
         } else Utilities.showErrorFecth(jsonResponse);

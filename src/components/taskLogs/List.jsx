@@ -32,7 +32,7 @@ export const TaskLogsList = ({ navigation }) => {
         setTaskLogs(jsonResponse.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           getTaskLogs();
         } else Utilities.showErrorFecth(jsonResponse);

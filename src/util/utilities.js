@@ -11,7 +11,7 @@ export const openUrl = (url) => {
 };
 
 export const capitalize = (text) => {
-  return text.length > 0 ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+  return (text && text.length) > 0 ? text.charAt(0).toUpperCase() + text.slice(1) : text;
 };
 
 export const showAlert = ({
@@ -89,7 +89,7 @@ export const confirmDelete = async (message = "") =>
  */
 export const changeDateFormatForAPI = (params) => {
   const NEW_FORMAT = params?.format ? params.format : "YYYY-MM-DD HH:mm:ss";
-  if (moment(params.date, "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid() === true)
+  if (moment(params.date, "YYYY-MM-DDTHH:mm:ss.SSSZ", false).isValid() === true)
     return moment(params.date, "YYYY-MM-DDTHH:mm:ss.SSSZ").format(NEW_FORMAT);
 
   return params.date;
@@ -103,8 +103,10 @@ export const changeDateFormatForAPI = (params) => {
  */
 export const dataToFormDataAPI = (data) => {
   for (let key in data) {
-    if (moment(data[key], "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid() === true)
+    if (moment(data[key], "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid() === true){
+      console.log(data[key])
       data[key] = changeDateFormatForAPI({ date: data[key] });
+    }
   }
 
   return data;
@@ -119,7 +121,7 @@ export const removeNonNumericCharacters = (inputString) => {
   return inputString.replace(/[^0-9]/g, '');
 }
 
-export const getSupplyName = (key = "ALIMENT") => {
+export const getSupplyName = (key = "ALIMENT") =>{
   switch (key) {
     case "ALIMENT":
       return {name: "Alimento"}

@@ -1,39 +1,33 @@
-import { Constants } from "../util";
+import {Constants} from "../util";
 
-export const get = async (user: any, filter: String = "") => {
-  let urlFetch = (user?.profile?.user_type_id == 1) ? 
-  Constants.API.URL + "employees/list/all" + filter :
-  Constants.API.URL + "employees/list_by_productive_unit/" + user.productive_unit.id + filter;
-
-  let response = await fetch(urlFetch, {
+export const get = async (user: any, internalRoleId: Number) => {
+  return await fetch(`${Constants.API.URL}personas/${internalRoleId}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + user.token,
     },
     method: "GET",
   });
-  return response;
 };
 
 export const create = async (token: String, data: any) => {
-  let response = await fetch(`${Constants.API.URL}employees`, {
+  let fetchUrl = (data.id) ? `${Constants.API.URL}personas/${data.id}/update` : `${Constants.API.URL}personas/store-party`;
+  return await fetch(fetchUrl, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
-    method: data?.id ? "PUT" : "POST",
+    method: "POST",
     body: JSON.stringify(data), //* <-- Post parameters
   });
-  return response;
 };
 
-export const remove = async (token: String, pondID: Number) => {
-  let response = await fetch(`${Constants.API.URL}employees/${pondID}` , {
+export const remove = async (token: String, personID: Number) => {
+  return await fetch(`${Constants.API.URL}personas/${personID}`, {
     headers: {
       ...Constants.CONFIG.HEADERS,
       Authorization: "Bearer " + token,
     },
     method: "DELETE",
   });
-  return response;
 };

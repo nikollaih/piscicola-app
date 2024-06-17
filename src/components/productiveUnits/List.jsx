@@ -3,12 +3,14 @@ import { ProductiveUnitItem } from "./Item";
 import { useEffect, useState } from "react";
 import { ProductiveUnitsServices } from "../../services";
 import { useAuth } from "../../hooks/useAuth";
-import { Constants, LocalStorage } from "../../util";
+import {Constants, LocalStorage, Utilities} from "../../util";
+import {NoDataFound} from "../noDataFound/noDataFound";
 
 export const ProductiveUnitsList = ({
-  navigation,
-  refresh,
-  setFinishRefresh = () => {},
+                                      associationId,
+                                      navigation,
+                                      refresh,
+                                      setFinishRefresh = () => {},
 }) => {
   const { getAuth, refreshToken } = useAuth();
   const [productiveUnits, setProductiveUnits] = useState([]);
@@ -29,15 +31,16 @@ export const ProductiveUnitsList = ({
     const loggedUser = await getAuth();
     try {
       setLoading(true);
-      let response = await ProductiveUnitsServices.get(loggedUser.token);
+      let response = await ProductiveUnitsServices.get(loggedUser.token, associationId);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
-        setProductiveUnits(jsonResponse.data);
+
+      if (response.status === 200) {
+        setProductiveUnits(jsonResponse.payload);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
-          getProductiveUnits();
+          await getProductiveUnits();
         } else Utilities.showErrorFecth(jsonResponse);
         setLoading(false);
       }
@@ -68,12 +71,12 @@ export const ProductiveUnitsList = ({
     getProductiveUnits();
   }
 
-  // Check if it's neccessary to get the listing again
+  // Check if it's necessary to get the listing again
   const checkChanges = async () => {
     const updatedScreen = await LocalStorage.get(
       Constants.LOCALSTORAGE.UPDATED
     );
-    if (updatedScreen == "home") {
+    if (updatedScreen === "home") {
       getProductiveUnits();
       LocalStorage.set(Constants.LOCALSTORAGE.UPDATED, "");
     }
@@ -81,18 +84,18 @@ export const ProductiveUnitsList = ({
 
   return loading ? (
     <ActivityIndicator color={Constants.COLORS.PRIMARY} />
-  ) : (
-    <FlatList
-      columnWrapperStyle={{ justifyContent: "space-between" }}
-      keyboardShouldPersistTaps="always"
-      showsHorizontalScrollIndicator={false}
-      data={productiveUnits}
-      initialNumToRender={5}
-      numColumns={2}
-      windowSize={10}
-      removeClippedSubviews={false}
-      keyExtractor={keyExtractor}
-      renderItem={renderRow}
-    />
-  );
+  ) :
+      (productiveUnits.length > 0) ?
+          <FlatList
+              columnWrapperStyle={{ justifyContent: "space-between" }}
+              keyboardShouldPersistTaps="always"
+              showsHorizontalScrollIndicator={false}
+              data={productiveUnits}
+              initialNumToRender={5}
+              numColumns={2}
+              windowSize={10}
+              removeClippedSubviews={false}
+              keyExtractor={keyExtractor}
+              renderItem={renderRow}
+          /> : <NoDataFound />
 };

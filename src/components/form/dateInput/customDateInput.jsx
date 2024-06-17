@@ -38,6 +38,7 @@ export const CustomDateInput = ({data, formName}) => {
   };
 
   return (
+      (data?.is_visible === false) ? null :
     <TouchableOpacity 
         style={[{marginBottom: data?.bottom ? data.bottom : 20}]}
         activeOpacity={Constants.CONFIG.BUTTON_OPACITY}

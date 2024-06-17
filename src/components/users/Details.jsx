@@ -16,7 +16,7 @@ export const UserDetails = ({
   const onEdit = () => {
     const modifiedUser = {
       ...user,
-      user_type_id: user.user_type.id,
+      role_id: user.role_id,
     };
     onClose();
     navigation.navigate("AddUser", { user: modifiedUser });
@@ -27,7 +27,8 @@ export const UserDetails = ({
       const loggedUser = await getAuth();
       let response = await UsersServices.remove(loggedUser.token, user.id);
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+
+      if (response.status === 200) {
         Utilities.showAlert({
           title: Texts.success.title,
           text: Texts.success.user.delete,
@@ -35,7 +36,7 @@ export const UserDetails = ({
         });
         onDelete();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -76,7 +77,7 @@ export const UserDetails = ({
       <View style={Style.list_container}>
         <Text style={Style.inside_subtitle}>Rol</Text>
         <Text style={Style.text}>
-          {Utilities.capitalize(user?.user_type.key)}
+          {Utilities.capitalize(user?.role.name)}
         </Text>
       </View>
       <View style={Style.list_container}>

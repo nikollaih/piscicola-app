@@ -36,6 +36,7 @@ export const CustomSelectInput = ({ data, formName }) => {
 
   const getDropDown = () => {
     return (
+        (data?.is_visible === false) ? null :
       <Dropdown
         style={[Style.dropdown, { borderColor: getBorderColor(), opacity: (data?.is_editable == false) ? 0.5 : 1 }]}
         itemTextStyle={Style.dropdown_item_text}

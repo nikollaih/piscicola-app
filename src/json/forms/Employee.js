@@ -5,24 +5,7 @@ export default
         form_name: "Employee",
         structure: {...employeeStructure},
         fields: {
-            identifier_type: {
-                icon: "ios-card",
-                title: "Tipo de identificación",
-                placeholder: "- Seleccionar",
-                type: "select",
-                item_label: "nombre",
-                item_id: "id",
-                items: [
-                    {
-                        nombre: "Cedula de ciudadanía",
-                        id: "cc"
-                    },
-                ],
-                validate: {
-                    required: true,
-                }
-            },
-            identifier: {
+            document: {
                 icon: "ios-card",
                 title: "Número de identificación",
                 placeholder: "123456789",
@@ -32,36 +15,48 @@ export default
                     required: true,
                 }
             },
-            full_name: {
+            name: {
                 icon: "ios-person",
                 title: "Nombre completo",
                 placeholder: "Jhon Doe",
                 type: "input",
                 validate: {
                     required: true,
-                    min_length: 10
+                    min_length: 4
                 }
             },
-            occupation: {
-                icon: "ios-person",
-                title: "Ocupación",
-                placeholder: "Ocupación",
-                type: "input",
-                validate: {
-                    required: true,
-                    min_length: 10
-                }
-            },
-            phone: {
+            home_phone: {
                 icon: "ios-call",
                 title: "Teléfono",
                 placeholder: "000-000-0000",
-                bottom: 0,
+                type: "input",
+                keyboard_type: "numeric",
+                validate: {
+                    required: false
+                }
+            },
+            mobile_phone: {
+                icon: "ios-call",
+                title: "Celular",
+                placeholder: "000-000-0000",
                 type: "input",
                 keyboard_type: "numeric",
                 validate: {
                     required: true,
-                    min_length: 7
+                    min_length: 10
+                }
+            },
+            email: {
+                icon: "ios-mail",
+                title: "Correo electronico",
+                placeholder: "ejemplo@ejemplo.com",
+                bottom: 0,
+                type: "input",
+                required: true,
+                keyboard_type: "email-address",
+                validate: {
+                    required: true,
+                    is_email: { is_active: true, text: "El email no es válido" }
                 }
             },
         }

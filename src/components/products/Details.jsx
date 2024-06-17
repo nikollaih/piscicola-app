@@ -5,7 +5,7 @@ import { Constants } from "../../util";
 
 export const ProductCompleteDetails = ({sowing}) => {
   const getDays = () => {
-    return moment().diff(sowing.created_at, "days");
+    return moment().diff(sowing.manual_created_at, "days");
   }
   
   return (
@@ -14,15 +14,15 @@ export const ProductCompleteDetails = ({sowing}) => {
       <View style={Style.white_container}>
       <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Producto</Text>
-          <Text style={Style.text}>{sowing.fish_step.fish.name}</Text>
+          <Text style={Style.text}>{sowing.fish.name}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Etapa</Text>
-          <Text style={Style.text}>{sowing.fish_step.name}</Text>
+          <Text style={Style.text}>{sowing.step.name}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Cantidad de peces</Text>
-          <Text style={Style.text}>{sowing.total_fish}</Text>
+          <Text style={Style.text}>{sowing.quantity - sowing.dead_quantity} / {sowing.quantity}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Estanque</Text>
@@ -30,21 +30,13 @@ export const ProductCompleteDetails = ({sowing}) => {
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Fecha de creación</Text>
-          <Text style={Style.text}>{moment(sowing.created_at).format(Constants.DATETIME_FORMATS.DATETIME)}</Text>
+          <Text style={Style.text}>{moment(sowing.manual_created_at).format(Constants.DATETIME_FORMATS.DATETIME)}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>
             Días de producción (Hasta hoy)
           </Text>
           <Text style={Style.text}>{getDays()}</Text>
-        </View>
-        <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Última Alimentación</Text>
-          <Text style={Style.text}>2023/02/21 04:35 PM</Text>
-        </View>
-        <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Último Medicamento</Text>
-          <Text style={Style.text}>2023/02/21 04:35 PM - Acetaminofen</Text>
         </View>
       </View>
     </View>

@@ -32,7 +32,7 @@ export const BiomassesList = ({ navigation, sowing }) => {
         setBiomasses(jsonResponse.data);
         setLoading(false);
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           await refreshToken({ force: true, navigation: navigation });
           getBiomasses();
         } else Utilities.showErrorFecth(jsonResponse);

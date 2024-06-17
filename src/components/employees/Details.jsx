@@ -33,7 +33,7 @@ export const EmployeeDetails = ({
         employee.id
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         Utilities.showAlert({
           title: Texts.success.title,
           text: Texts.success.employee.delete,
@@ -41,7 +41,7 @@ export const EmployeeDetails = ({
         });
         onDelete();
       } else {
-        if (jsonResponse?.error_code == Constants.CONFIG.CODES.INVALID_TOKEN) {
+        if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {
           refreshToken({force:true, navigation: navigation});
           onRemove();
         } else Utilities.showErrorFecth(jsonResponse);
@@ -54,7 +54,7 @@ export const EmployeeDetails = ({
   const confirmDelete = () => {
     Alert.alert(
       "¿Está seguro?",
-      "Desea eliminar el empleado",
+      "Desea eliminar el registro",
       [
         {
           text: "Cancelar",
@@ -78,19 +78,27 @@ export const EmployeeDetails = ({
       <ScrollView style={Style.full_flex}>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Número de identificación</Text>
-          <Text style={Style.text}>{employee.identifier}</Text>
+          <Text style={Style.text}>{employee.document}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Teléfono</Text>
           <TouchableOpacity 
             activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
-            onPress={() => {Utilities.openUrl(`tel:${employee.phone}`)}}>
-            <Text style={[Style.text, {color: Constants.COLORS.PRIMARY}]}>{employee.phone}</Text>
+            onPress={() => {Utilities.openUrl(`tel:${employee.home_phone}`)}}>
+            <Text style={[Style.text, {color: Constants.COLORS.PRIMARY}]}>{employee.home_phone}</Text>
           </TouchableOpacity>
         </View>
         <View style={Style.list_container}>
-          <Text style={Style.inside_subtitle}>Ocupación</Text>
-          <Text style={Style.text}>{employee.occupation}</Text>
+          <Text style={Style.inside_subtitle}>Celular</Text>
+          <TouchableOpacity
+              activeOpacity={Constants.CONFIG.BUTTON_OPACITY}
+              onPress={() => {Utilities.openUrl(`tel:${employee.mobile_phone}`)}}>
+            <Text style={[Style.text, {color: Constants.COLORS.PRIMARY}]}>{employee.mobile_phone}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={Style.list_container}>
+          <Text style={Style.inside_subtitle}>Correo electrónico</Text>
+          <Text style={Style.text}>{employee.email}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Fecha de creación</Text>
