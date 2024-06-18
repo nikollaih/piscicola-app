@@ -1,7 +1,8 @@
 export default {
-    productive_unit_id: 0,
-    name: "",
-    value: 0,
-    note: "",
+    id: null,
+    concept: "",
+    cost: "",
+    notes: "",
+    category_id: null,
     manual_created_at: new Date()
 }

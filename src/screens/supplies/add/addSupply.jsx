@@ -41,7 +41,6 @@ export const AddSupply = (props) => {
   const setInitialData = async (supply) => {
     const loggedUser = await getAuth();
     const UNIT_TYPES = await UtilServices.getUnitTypes(loggedUser);
-    console.log(UNIT_TYPES)
 
     FormInputs["structure"] = supply?.id ? {
       id: supply?.id,
@@ -90,7 +89,7 @@ export const AddSupply = (props) => {
         sendDataForm
       );
       let jsonResponse = await response.json();
-      console.log(jsonResponse)
+
       if (response.status === 200) {
         onSuccessSave();
       } else {

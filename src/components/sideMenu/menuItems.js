@@ -32,6 +32,12 @@ export default [
         users_type: [2]
     },
     {
+        screen: "Actuators",
+        title: "Actuadores",
+        icon: "ios-hardware-chip",
+        users_type: [2]
+    },
+    {
         screen: "Expenses",
         title: "Gastos",
         icon: "ios-trending-down",

@@ -11,8 +11,6 @@ export const Employees = props => {
   const {dataForm, setDataForm} = useForm();
   const internalRoleId = props.route.params?.internal_role_id;
 
-  console.log(internalRoleId)
-
   const breadcrumb = {
     title: (internalRoleId === 2) ? "Empleados" : "Clientes",
     subtitle: 'Lista',

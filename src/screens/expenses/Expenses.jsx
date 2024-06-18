@@ -35,8 +35,8 @@ export const Expenses = (props) => {
 
   const onFilter = (filters) => {
     const EXPENSES_FILTERS = {
-      manualCreatedAtStart: filters.start_date + " 00:00:00",
-      manualCreatedAtEnd: filters.end_date + " 23:59:59",
+      manualCreatedAtStart: filters.start_date,
+      manualCreatedAtEnd: filters.end_date,
     }
     setShowFilter(false);
     setDateFilters(EXPENSES_FILTERS);

@@ -9,7 +9,7 @@ import {
   PaymentTypesServices,
   TaskLogsServices,
   UnitTypesServices,
-  SuppliesServices
+  SuppliesServices, GeneralExpensesServices
 } from "../services";
 
 export const getProductType = async (token) => {
@@ -30,15 +30,28 @@ export const getProductiveUnit = async (token) => {
   }
 };
 
-export const getPonds = async (user) => {
+export const getPonds = async (token) => {
   try {
-    let response = await PondsServices.get(user.token, user.productive_unit.id);
-    if (response.status == 401) return { is_logged: false };
-    return response.status == 200
+    let response = await PondsServices.get(token);
+    if (response.status === 401) return { is_logged: false };
+    return response.status === 200
       ? await response.json()
       : { data: [] };
   } catch (error) {
     return { data: [] };
+  }
+};
+
+
+export const getExpensesCategories = async (token) => {
+  try {
+    let response = await GeneralExpensesServices.getCategories(token);
+    if (response.status === 401) return { is_logged: false };
+    return response.status === 200
+        ? await response.json()
+        : { payload: [] };
+  } catch (error) {
+    return { payload: [] };
   }
 };
 

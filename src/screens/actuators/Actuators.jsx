@@ -22,7 +22,7 @@ export const Actuators = props => {
     const openAddActuator = () => {
         FormFields['structure'] = actuatorStructure;
         setDataForm({...dataForm, [FormFields.form_name]: FormFields});
-        props.navigation.navigate('AddActuator', {sowing: props.route.params.sowing});
+        props.navigation.navigate('AddActuator');
     };
 
     return (

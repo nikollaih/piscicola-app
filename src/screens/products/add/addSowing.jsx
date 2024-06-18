@@ -55,7 +55,6 @@ export const AddSowing = (props) => {
 
       if (response.status === 200) {
         FormInputs["structure"] = sowing ? sowing : sowingStructure;
-        console.log(FormInputs.structure)
         FormInputs["fields"]["pond_id"]["items"] = jsonResponse.payload.ponds;
         FormInputs["fields"]["step_id"]["items"] = jsonResponse.payload.steps;
         FormInputs["fields"]["fish_id"]["items"] = jsonResponse.payload.fish;
@@ -95,13 +94,13 @@ export const AddSowing = (props) => {
     try {
       let loggedUser = await getAuth();
       let sendDataForm = dataForm[FormInputs.form_name].structure;
-      console.log(sendDataForm)
+
       let response = await SowingsServices.create(
           loggedUser.token,
         sendDataForm
       );
       let jsonResponse = await response.json();
-      console.log(jsonResponse)
+
       if (response.status === 200) {
         onSuccessSave();
       } else {

@@ -48,6 +48,7 @@ import { Mortalities } from '../screens/mortalities/Mortalities';
 import { AddMortality } from '../screens/mortalities/add/addMortality';
 import { AddSale } from '../screens/sales/add/addSale';
 import { Actuators } from "../screens/actuators/Actuators";
+import { AddActuator } from "../screens/actuators/add/addActuator";
 import { Association } from '../screens/associations/Association';
 import { EditAssociation } from "../screens/associations/edit/editAssociation";
 import { Switch } from '../screens/Switch';
@@ -260,6 +261,10 @@ export default [
     {
         name: "Actuators",
         screen: Actuators,
+    },
+    {
+        name: "AddActuator",
+        screen: AddActuator,
     },
     {
         name: "Association",

@@ -28,6 +28,11 @@
             "update": "Asociación modificada exitosamente.",
             "delete": "Asociación eliminada exitosamente."
         },
+        "actuator": {
+            "create": "Actuador creado exitosamente.",
+            "update": "Actuador modificado exitosamente.",
+            "delete": "Actuador eliminado exitosamente."
+        },
         "fish": {
             "create": "Producto creado exitosamente.",
             "update": "Producto modificado exitosamente.",

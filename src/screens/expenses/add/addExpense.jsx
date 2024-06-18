@@ -45,16 +45,28 @@ export const AddExpense = (props) => {
    * It sets the initial data for the form.
    */
   const setInitialData = async () => {
-    const loggedUser = await getAuth();
+    try {
+      const loggedUser = await getAuth();
+      const expensesCategories = await UtilServices.getExpensesCategories(loggedUser.token);
 
-    FormInputs["structure"] = generalExpense ? generalExpense : generalExpenseStructure;
-    FormInputs["structure"]["productive_unit_id"] =
-      loggedUser.productive_unit.id;
+      FormInputs["structure"] = generalExpense ? {
+        id: generalExpense.id,
+        concept: generalExpense.concept,
+        cost: generalExpense.cost,
+        category_id: generalExpense.category_id,
+        manual_created_at: generalExpense.manual_created_at
+      } : generalExpenseStructure;
 
-    setSaving(false);
-    setCheckRequired({ [FormInputs.form_name]: false });
-    setDataForm({ [FormInputs.form_name]: FormInputs });
-    setLoading(false);
+      FormInputs["fields"]["category_id"]["items"] = expensesCategories.payload;
+
+      setSaving(false);
+      setCheckRequired({ [FormInputs.form_name]: false });
+      setDataForm({ [FormInputs.form_name]: FormInputs });
+      setLoading(false);
+    }
+    catch (e) {
+      Utilities.showAlert({});
+    }
   };
 
   /**
@@ -87,7 +99,7 @@ export const AddExpense = (props) => {
       );
       let jsonResponse = await response.json();
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         onSuccessSave();
       } else {
         if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {

@@ -6,31 +6,31 @@ export default
         form_name: "GeneralExpense",
         structure: generalExpenseStructure,
         fields: {
-            name: {
-                icon: "ios-trending-down",
-                title: "Nombre",
-                placeholder: "Nombre",
+            category_id: {
+                title: "Categoría",
+                placeholder: "- Seleccionar",
+                type: "select",
+                item_label: "name",
+                item_id: "id",
+                items: [],
+                validate: {
+                    required: true,
+                }
+            },
+            concept: {
+                title: "Concepto del gasto",
+                placeholder: "Recibo de energia",
                 type: "input",
                 validate: {
                     required: true,
                 }
             },
-            value: {
-                icon: "ios-cash",
+            cost: {
                 title: "Precio",
                 placeholder: "$0",
                 keyboard_type: "numeric",
                 type: "input",
                 only_numbers: true,
-                validate: {
-                    required: true,
-                }
-            },
-            note: {
-                title: "Descripción",
-                placeholder: "Ingrese una descripción para el gasto realizado",
-                type: "input",
-                is_large: true,
                 validate: {
                     required: true,
                 }
@@ -41,10 +41,19 @@ export default
                 placeholder: "Fecha",
                 type: "date",
                 format: Constants.DATETIME_FORMATS.DATETIME,
-                bottom: 0,
                 validate: {
                     required: true,
                 }
             },
+            notes: {
+                title: "Descripción",
+                placeholder: "Ingrese una descripción para el gasto realizado",
+                type: "input",
+                is_large: true,
+                bottom: 0,
+                validate: {
+                    required: false,
+                }
+            }
         }
     }

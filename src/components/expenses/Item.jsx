@@ -51,7 +51,7 @@ export const GeneralExpenseItem = ({
       </View>
       <CustomModal
         height={height - 350}
-        title={generalExpense.name}
+        title={generalExpense.concept}
         showModal={showModal}
         onClose={() => {
           setShowModal(false);

@@ -23,6 +23,7 @@ import * as MedicationServices from './Medicine';
 import * as SaleServices from './Sale';
 import * as EquipmentServices from './Equipment';
 import * as AssociationsServices from './Associations';
+import * as ActuatorsServices from './Actuators';
 
 export {
   PondsServices,
@@ -49,5 +50,6 @@ export {
   MedicationServices,
   SaleServices,
   EquipmentServices,
-  AssociationsServices
+  AssociationsServices,
+  ActuatorsServices
 };

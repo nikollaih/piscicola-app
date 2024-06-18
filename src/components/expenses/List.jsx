@@ -24,7 +24,7 @@ export const GeneralExpensesList = ({
       checkChanges();
     });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
+    // Return the function to unsubscribe from the event, so it gets removed on unmount
     getGeneralExpenses();
     return unsubscribe;
   }, [navigation, filters]);
@@ -41,29 +41,34 @@ export const GeneralExpensesList = ({
               }),
               Constants.DATETIME_FORMATS.DATETIME
             )
-              .subtract(1, "month")
-              .format(Constants.DATETIME_FORMATS.DATE) + " 00:00:00",
+                .subtract(1, "month")
+                .format(Constants.DATETIME_FORMATS.DATE),
           manualCreatedAtEnd:
-            Utilities.changeDateFormatForAPI({
+            moment(Utilities.changeDateFormatForAPI({
               date: new Date(),
               format: Constants.DATETIME_FORMATS.DATE,
-            }) + " 23:59:59",
+            }))
+                .add(1, "day")
+                .format(Constants.DATETIME_FORMATS.DATE),
         };
   };
 
   // Get the fish listing
   const getGeneralExpenses = async () => {
     const loggedUser = await getAuth();
-    const productiveUnitID = loggedUser?.productive_unit?.id;
+
     try {
       setLoading(true);
       let response = await GeneralExpensesServices.get(
-        loggedUser.token
+        loggedUser.token,
+          -1,
+          getDefaultDateFilter().manualCreatedAtStart,
+          getDefaultDateFilter().manualCreatedAtEnd
       );
       let jsonResponse = await response.json();
 
       if (response.status === 200) {
-        setGeneralExpenses(jsonResponse.payload.latestExpenses);
+        setGeneralExpenses(jsonResponse.payload.data);
         setLoading(false);
       } else {
         if (jsonResponse?.message === Constants.CONFIG.CODES.INVALID_TOKEN) {

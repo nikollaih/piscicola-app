@@ -12,6 +12,7 @@ import { Constants } from "../../util";
 import { CustomModal } from "../customModal/customModal";
 import Theme from "../../theme/theme";
 import moment from "moment";
+import {act} from "react-test-renderer";
 const { height } = Dimensions.get("window");
 
 export const ActuatorItem = ({ navigation, actuator, onDelete = () => {}, onChangeState = (state) => {} }) => {
@@ -58,16 +59,20 @@ export const ActuatorItem = ({ navigation, actuator, onDelete = () => {}, onChan
             <View>
                 <View style={[Style.inside, Style.row_between]}>
                     <View>
-
-                        <Text style={Style.text_name}>{`Oxigenador 1`}</Text>
-                        <Text style={Style.text_actuator}>{(open) ? 'Encendido' : 'Apagado'}</Text>
+                        <Text style={Style.text_name}>{actuator.name}</Text>
+                        <Text style={Style.text_actuator}>{actuator.pond.name}</Text>
+                        <Text style={Style.text_actuator}>MQTT ID: {actuator.mqtt_id}</Text>
                     </View>
-                    <Switch value={open} onChange={() => { changeState() }} />
+                    <View style={{alignItems: "center"}}>
+                        <Text style={[Style.text_actuator, {marginBottom: 5}]}>{(open) ? 'Encendido' : 'Apagado'}</Text>
+                        <Switch value={open} onChange={() => { changeState() }} />
+                    </View>
+
                 </View>
             </View>
             <CustomModal
                 height={height - 500}
-                title={""}
+                title={actuator.name}
                 showModal={showModal}
                 onClose={() => {
                     setShowModal(false);

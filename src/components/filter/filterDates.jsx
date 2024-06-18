@@ -16,9 +16,24 @@ import { CustomModal } from "../customModal/customModal";
 const { height } = Dimensions.get("window");
 
 export const FilterDates = ({ onCancel = () => {}, onFilter = () => {} }) => {
+  // Fecha de inicio
+  let end_date = new Date();
+
+// Crear una nueva fecha basada en start_date
+  let start_date = new Date(end_date);
+
+// Restar un mes a la fecha
+  start_date.setDate(end_date.getDate() - 30);
+  end_date.setDate(end_date.getDate() + 1);
+
+// Si la nueva fecha es inválida, ajustar
+  if (start_date.getDate() !== end_date.getDate()) {
+    start_date.setDate(0); // Esto establecerá la fecha al último día del mes anterior
+  }
+
   const [filterData, setFilterData] = useState({
-    start_date: new Date(),
-    end_date: new Date(),
+    start_date: start_date,
+    end_date: end_date,
   });
   const [open, setOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("");

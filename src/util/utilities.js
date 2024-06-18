@@ -104,7 +104,6 @@ export const changeDateFormatForAPI = (params) => {
 export const dataToFormDataAPI = (data) => {
   for (let key in data) {
     if (moment(data[key], "YYYY-MM-DDTHH:mm:ss.SSSZ", true).isValid() === true){
-      console.log(data[key])
       data[key] = changeDateFormatForAPI({ date: data[key] });
     }
   }

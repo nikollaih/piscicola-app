@@ -1,6 +1,6 @@
 export default {
   API: {
-    URL: "http://192.168.0.9/api/",
+    URL: "http://192.168.0.14/api/",
   },
   COLORS: {
     DARK: "#31322d",

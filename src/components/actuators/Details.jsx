@@ -78,35 +78,23 @@ export const ActuatorDetails = ({
             <ScrollView style={Style.full_flex}>
                 <View style={Style.list_container}>
                     <Text style={Style.inside_subtitle}>Estanque</Text>
-                    <Text style={Style.text}>{actuator.sowing.pond.name}</Text>
+                    <Text style={Style.text}>{actuator.pond.name}</Text>
                 </View>
                 <View style={Style.list_container}>
-                    <Text style={Style.inside_subtitle}>Pez</Text>
-                    <Text style={Style.text}>{actuator.fish_step.fish.name}</Text>
+                    <Text style={Style.inside_subtitle}>Tipo de actuador</Text>
+                    <Text style={Style.text}>{actuator.actuator_type.name}</Text>
                 </View>
                 <View style={Style.list_container}>
-                    <Text style={Style.inside_subtitle}>Etapa</Text>
-                    <Text style={Style.text}>{actuator.fish_step.name}</Text>
+                    <Text style={Style.inside_subtitle}>Costo por minuto</Text>
+                    <Text style={Style.text}>${actuator.cost_by_minute.toLocaleString("es-CO")}</Text>
                 </View>
                 <View style={Style.list_container}>
-                    <Text style={Style.inside_subtitle}>Peso aproximado</Text>
-                    <Text style={Style.text}>{actuator.approximate_weight}</Text>
+                    <Text style={Style.inside_subtitle}>MQTT ID</Text>
+                    <Text style={Style.text}>{actuator.mqtt_id}</Text>
                 </View>
                 <View style={Style.list_container}>
-                    <Text style={Style.inside_subtitle}>Unidad de medida</Text>
-                    <Text style={Style.text}>{actuator.unit_type.name}</Text>
-                </View>
-                <View style={Style.list_container}>
-                    <Text style={Style.inside_subtitle}>Cantidad de muestra</Text>
-                    <Text style={Style.text}>{actuator.quantity_of_fish}</Text>
-                </View>
-                <View style={Style.list_container}>
-                    <Text style={Style.inside_subtitle}>Fecha de creación</Text>
-                    <Text style={Style.text}>
-                        {moment(actuator.manual_created_at).format(
-                            Constants.DATETIME_FORMATS.DATE
-                        )}
-                    </Text>
+                    <Text style={Style.inside_subtitle}>Descripción</Text>
+                    <Text style={Style.text}>{actuator.description}</Text>
                 </View>
             </ScrollView>
             <DetailsActions onDelete={confirmDelete} onEdit={onEdit} />

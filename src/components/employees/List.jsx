@@ -27,7 +27,7 @@ export const EmployeesList = ({ navigation, internalRoleId }) => {
       setLoading(true);
       let response = await EmployeesServices.get(loggedUser, internalRoleId);
       let jsonResponse = await response.json();
-      console.log(jsonResponse);
+
       if (response.status === 200) {
         setEmployees(jsonResponse.payload.data);
         setLoading(false);

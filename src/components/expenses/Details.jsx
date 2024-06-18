@@ -19,7 +19,7 @@ export const GeneralExpenseDetails = ({
   onClose = () => {},
   onDelete = () => {},
 }) => {
-  const { getAuth } = useAuth();
+  const { getAuth, refreshToken } = useAuth();
   const onEdit = () => {
     onClose();
     navigation.navigate("AddExpense", { generalExpense: generalExpense });
@@ -33,7 +33,7 @@ export const GeneralExpenseDetails = ({
         generalExpense.id
       );
       let jsonResponse = await response.json();
-      if (response.status == 200) {
+      if (response.status === 200) {
         Utilities.showAlert({
           title: Texts.success.title,
           text: Texts.success.task_log.delete,
@@ -78,7 +78,7 @@ export const GeneralExpenseDetails = ({
       <ScrollView style={Style.full_flex}>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Valor</Text>
-          <Text style={Style.text}>${generalExpense.value.toLocaleString("Es-es")}</Text>
+          <Text style={Style.text}>${generalExpense.cost.toLocaleString("Es-es")}</Text>
         </View>
         <View style={Style.list_container}>
           <Text style={Style.inside_subtitle}>Fecha</Text>

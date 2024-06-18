@@ -14,38 +14,53 @@ export default
                 required: true
             }
         },
-        type: {
-            icon: "ios-business",
+        cost_by_minute: {
+            title: "Costo por minuto",
+            placeholder: "",
+            type: "input",
+            keyboard_type: "numeric",
+            validate: {
+                required: true
+            }
+        },
+        actuator_type_id: {
             title: "Tipo de actuador",
             placeholder: "- Seleccionar",
             type: "select",
-            item_label: "nombre",
+            item_label: "name",
             item_id: "id",
-            items: [
-                {
-                    nombre: "Oxigeno",
-                    id: 1
-                },
-                {
-                    nombre: "Temperatura",
-                    id: 2
-                },
-                {
-                    nombre: "Turbidez",
-                    id: 3
-                }
-            ],
+            items: [],
             validate: {
                 required: true,
             }
         },
-        manual_created_at: {
-            title: "Fecha de registro",
+        pond_id: {
+            title: "Estanque",
+            placeholder: "- Seleccionar",
+            type: "select",
+            item_label: "name",
+            item_id: "id",
+            items: [],
+            validate: {
+                required: true,
+            }
+        },
+        mqtt_id: {
+            title: "MQTT ID",
             placeholder: "",
-            type: "date",
-            format: Constants.DATETIME_FORMATS.DATETIME,
+            type: "input",
             validate: {
                 required: true
+            }
+        },
+        description: {
+            title: "Descripción",
+            placeholder: "",
+            type: "input",
+            bottom: 0,
+            is_large: true,
+            validate: {
+                required: false
             }
         },
     }

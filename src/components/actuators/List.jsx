@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList } from "react-native";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { ActuatorItem } from "./Item";
-import { BiomassesServices } from "../../services";
+import { ActuatorsServices } from "../../services";
 import { LocalStorage, Constants, Utilities } from "../../util";
 
 export const ActuatorsList = ({ navigation, sowing }) => {
@@ -15,7 +15,7 @@ export const ActuatorsList = ({ navigation, sowing }) => {
             checkChanges();
         });
 
-        // Return the function to unsubscribe from the event so it gets removed on unmount
+        // Return the function to unsubscribe from the event, so it gets removed on unmount
         getActuators();
         return unsubscribe;
     }, [navigation]);
@@ -26,10 +26,11 @@ export const ActuatorsList = ({ navigation, sowing }) => {
         try {
             setLoading(true);
             let filters = { sowing };
-            let response = await BiomassesServices.get(loggedUser, filters);
+            let response = await ActuatorsServices.get(loggedUser.token);
             let jsonResponse = await response.json();
+
             if (response.status === 200) {
-                setActuators(jsonResponse.data);
+                setActuators(jsonResponse.payload.data);
                 setLoading(false);
             } else {
                 if (jsonResponse?.error_code === Constants.CONFIG.CODES.INVALID_TOKEN) {
@@ -43,7 +44,7 @@ export const ActuatorsList = ({ navigation, sowing }) => {
         }
     };
 
-    // Check if it's neccessary to get the listing again
+    // Check if it's necessary to get the listing again
     const checkChanges = async () => {
         const updatedScreen = await LocalStorage.get(
             Constants.LOCALSTORAGE.UPDATED

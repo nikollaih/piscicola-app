@@ -37,7 +37,7 @@ export const SuppliesStockList = ({
       );
 
       let jsonResponse = await response.json();
-      console.log(jsonResponse)
+
       if (response.status === 200) {
         setSupplies(jsonResponse.payload.supplyPurchases.data);
         setLoading(false);
