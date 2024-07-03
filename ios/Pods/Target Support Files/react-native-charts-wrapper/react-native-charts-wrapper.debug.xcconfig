@@ -6,6 +6,7 @@ OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/C
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/Charts/Charts.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SwiftAlgorithms/Algorithms.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/RCTTypeSafety/RCTTypeSafety.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/React/React-Core.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/ReactCommon/ReactCommon.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/React_Codegen/React-Codegen.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/folly/RCT-Folly.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap" -import-underlying-module -Xcc -fmodule-map-file="${SRCROOT}/${MODULEMAP_FILE}"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_DEVELOPMENT_LANGUAGE = ${DEVELOPMENT_LANGUAGE}
 PODS_ROOT = ${SRCROOT}
 PODS_TARGET_SRCROOT = ${PODS_ROOT}/../../node_modules/react-native-charts-wrapper
 PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 namespace facebook {
 namespace flipper {
